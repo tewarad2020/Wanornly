@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar_ctn {
+    position: fixed;
+    display: flex;
+    width: 100%;
+    height: 80px;
+    /* background-color: aquamarine; */
+    align-items: center;
+    z-index: 10;
+    opacity: 1;
+}
+
+.logo_ctn {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    left: 0;
+    top: 0;
+    margin-left: 2%;
+    /* background-color: red; */
+}
+
+.logo_ctn img {
+    position: relative;
+    width: 8.5%;
+    /* bottom: -4px; */
+    /* background-color: blue; */
+}
+
+#logo {
+    position: relative;
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+    font-size: 2vw;
+}
+
+#manuAll {
+    position: absolute;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 45%;
+    height: 100%;
+    /* background-color: blueviolet; */
+    right: 0;
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+    font-size: 1.2vw;
+    padding: 0 1.5% 0 1.5%;
+}
+
+#manuAll span {
+    position: relative;
+    margin-left: 10%;
+    /* background-color: red; */
+    cursor: pointer;
+}
+
+#manuAll span:hover {
+    color: rgb(0, 140, 255);
+}
+
+.active {
+    animation: nevshow .5s ease-in-out forwards;
+}
+
+@keyframes nevshow {
+    0%{
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.noactive {
+    animation: nevfade .5s ease-in-out forwards;
+}
+
+@keyframes nevfade {
+    0%{
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

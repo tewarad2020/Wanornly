@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+#bookPage {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.book_ctn  {
+    position: absolute;
+    display: flex;
+    top: 15vh;
+    left: 5%;
+    width: 90%;
+    height: 100vh;
+    background-color: rebeccapurple;
+}
+
+.book_img {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 45%;
+    height: 100%;
+    padding: 2%;
+    background-color: aquamarine;
+}
+
+.book_img img {
+    position: relative;
+    width: 100%;
+}
+
+.book_info_ctn {
+    position: relative;
+    right: 0;
+    width: 55%;
+    height: 100%;
+    padding: 2%;
+    /* margin: 2%; */
+    background-color: beige;
+}

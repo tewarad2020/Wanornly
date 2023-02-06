@@ -1,0 +1,24 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+#home_ctn {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+#cover_ctn {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
+
+#cover_img {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
