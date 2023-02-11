@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+.bgImg{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.page{
+    height:100vh;
+    width: 100vw;
+    background-color: blue;
+    background-image: url("../images/bg3.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
