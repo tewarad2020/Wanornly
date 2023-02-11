@@ -1,9 +1,11 @@
 <template>
+  <div>
   <span ref="nevbarRef"><Navbar :Vue3GoogleOauth='Vue3GoogleOauth'/></span>
   <router-view/>
 
-  <router-link to='/'>Home</router-link> | 
-  <div @click="goto('/book')">Book</div>
+  <router-link to='/'>Home</router-link> |
+  <div @click="goto('/book')">Book</div> |
+  <div @click="goto('/addBook')">addBook</div>
 
   <p>Is inittialized:{{ Vue3GoogleOauth.isInit }}</p>
   <p>is Authorized:{{ Vue3GoogleOauth.isAuthorized }}</p>
@@ -13,6 +15,8 @@
   @click="handleSignIn">Sign In</button>
   <button :disabled="!Vue3GoogleOauth.isAuthorized"
   @click="handleSignOut">Sign Out</button>
+  </div>
+  
 </template>
 
 <script>
