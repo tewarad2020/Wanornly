@@ -16,21 +16,53 @@
         <button class='addtocart'>
           Cart
         </button>
+        <p>If ISBN are shown below means Fetching is success!</p>
+        
+        <div v-for="item in state.books" :key="item.ISBN">
+          <h4>
+            {{item.ISBN}}
+          </h4>
+        </div>
+
       </div>
     </div>
+
+    
 
   </div>
 </template>
 
 <script>
+import { reactive } from 'vue'
+
 export default {
+
     name: 'bookPage',
     data() {
       return {
         path: {
           coverPath : require('../assets/images/bg1.jpg'),
         },
+        
       }
+    },
+
+    setup() {
+      const state = reactive({
+        books: {}
+      })
+
+      function GetAll() {
+        fetch('http://localhost:8080/books')
+          .then(res => res.json())
+          .then(data => {
+            state.books = data
+            console.log(`data: ${data[3].name}`)
+          })
+      }
+      GetAll()
+      return { state, GetAll }
+
     }
 }
 </script>
