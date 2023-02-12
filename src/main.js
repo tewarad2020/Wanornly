@@ -5,7 +5,6 @@ import App from './App.vue'
 
 const app = createApp(App)
 
-
 const gauthOption = {
   clientId: '248618213008-007kntenfn3venvalkrsa3gajlp5npqt.apps.googleusercontent.com',
   scope: 'email',
@@ -13,8 +12,13 @@ const gauthOption = {
   plugin_name:'LibraryLoginApp'
 }
 
-app.use(gAuthPlugin, gauthOption)
+// router.beforeEach((to, from) => {
+//     console.log(from) 
+//     console.log(to)
 
+// })
+
+app.use(gAuthPlugin, gauthOption)
 app.use(router).mount('#app')
 
 
