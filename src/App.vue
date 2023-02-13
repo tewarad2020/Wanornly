@@ -57,7 +57,7 @@ export default {
     setWindowScroll() {
       this.winScroll.X = window.pageXOffset
       this.winScroll.Y = window.pageYOffset
-      console.log(this.winScroll.Y)
+      // console.log(this.winScroll.Y)
       this.nevbarTokkle()
     },
     nevbarTokkle() {
@@ -106,17 +106,31 @@ export default {
     },
     goto(nextpath) {
       if (this.Vue3GoogleOauth.isAuthorized) {
+        console.log(`link from: ${this.$router.name} -> to: ${nextpath}`)
         this.$router.push(nextpath)
       }else {
-        // if (name === 'bookPage' && !this.Vue3GoogleOauth.isAuthorized)
-        // console.log('must login')
-        // this.handleSignIn()
+        if (nextpath === '/book' || nextpath === '/') {
+          console.log(`link from: ${this.$router.name} -> to: ${nextpath}`)
+          this.$router.push(nextpath)
+        }else {
+          console.log('must login')
+        }
       }
     },
     checkLogin() {
-      if (this.$route.name === 'bookPage' && !this.Vue3GoogleOauth.isAuthorized) {
-        console.log('must login')
-        this.$router.replace({ path: '/' })
+      if (!this.Vue3GoogleOauth.isAuthorized) {
+        if (this.$route.name !== 'bookPage' && this.$route.name !=='homePage') {
+          console.log('must login')
+          this.$router.replace({ path: '/' })
+        }else {
+          if (!this.$router.name) {
+            console.log(`link from: ${this.$router.name} -> to: homePage`)
+          } else {
+            console.log(`link from: ${this.$router.name} -> to: bookPage`)
+          }
+        }
+      }else {
+        console.log(`link from: ${this.$router.name} (add URL)`)
       }
     }
   },
@@ -131,8 +145,8 @@ export default {
 
     // Proces
     initial()
-    console.log('Y:', this.winScroll.X)
-    console.log('X:', this.winScroll.Y)
+    // console.log('Y:', this.winScroll.X)
+    // console.log('X:', this.winScroll.Y)
     setTimeout(() => {
       if (this.Vue3GoogleOauth.isAuthorized) {
         console.log('status login: ', localStorage.getItem('status_login'))
