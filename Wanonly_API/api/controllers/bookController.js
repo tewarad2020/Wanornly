@@ -12,9 +12,12 @@ exports.list_all_books = (req, res) => {
 exports.create_a_book = (req, res) => {
     const newBook = new book(req.body);
     newBook.save((err, book) => {
+        console.log(err);
         if (err) res.send(err);
+        
         res.json(book);
-    })
+    });
+    
 }
 
 exports.read_a_book = (req, res) => {
