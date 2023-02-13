@@ -53,7 +53,7 @@ export default {
       })
 
       function GetAll() {
-        fetch('http://localhost:8080/books')
+        fetch('http://localhost:3000/books')
           .then(res => res.json())
           .then(data => {
             state.books = data
