@@ -43,7 +43,7 @@
 #manuAll {
     position: absolute;
     display: flex;
-    justify-content: right;
+    justify-content: right ;
     align-items: center;
     width: 45%;
     height: 100%;
@@ -57,8 +57,8 @@
 
 #manuAll span {
     position: relative;
-    margin-left: 10%;
-    /* background-color: red; */
+    margin-left: 8%;
+    /* background-color: yellow; */
     cursor: pointer;
 }
 
@@ -90,4 +90,24 @@
     100% {
         opacity: 0;
     }
+}
+
+.ctn_user_image_nev {
+    position: relative;
+    display: flex;
+    /* left: 20px; */
+    /* height: 30%; */
+    width: 100%;
+    height: 40px;
+    /* border-radius: 50%; */
+    /* background-color: red; */
+    align-items: center;
+    justify-content: left;
+    /* margin-right: 4%; */
+}
+
+.ctn_user_image_nev img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
 }

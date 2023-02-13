@@ -1,10 +1,10 @@
 <template>
   <div>
-  <span ref="nevbarRef"><Navbar :Vue3GoogleOauth='Vue3GoogleOauth'/></span>
+  <span ref="nevbarRef"><Navbar :Vue3GoogleOauth='Vue3GoogleOauth' :functions='{handleSignOut: handleSignOut}'/></span>
   <router-view/>
 
   <router-link to='/'>Home</router-link> |
-  <div @click="goto('/book')">Book</div> |
+  <div @click="goto('/book');">Book</div> |
   <div @click="goto('/addBook')">addBook</div>
 
   <p>Is inittialized:{{ Vue3GoogleOauth.isInit }}</p>
@@ -57,7 +57,7 @@ export default {
     setWindowScroll() {
       this.winScroll.X = window.pageXOffset
       this.winScroll.Y = window.pageYOffset
-      // console.log(this.winScroll.Y)
+      console.log(this.winScroll.Y)
       this.nevbarTokkle()
     },
     nevbarTokkle() {
@@ -79,8 +79,16 @@ export default {
           return null
         }
 
-      this.variable.user = googleUser.getBasicProfile().getEmail()
-    
+        this.variable.user = googleUser.getBasicProfile().getEmail()
+        localStorage.setItem('status_login', true)
+        localStorage.setItem('user_info', JSON.stringify({
+          username: googleUser.getBasicProfile().getEmail(),
+          name: googleUser.getBasicProfile().getName(),
+          profileImage: googleUser.getBasicProfile().getImageUrl()
+        }))
+        // localStorage.setItem('user_info', JSON.stringify(googleUser))
+        console.log('login successful!')
+
       } catch(error) {
         console.log(error)
         return null
@@ -90,6 +98,8 @@ export default {
       try{
         await this.$gAuth.signOut()
         this.variable.user = ''
+        console.log('logout successful!')
+        localStorage.clear()
       }catch(error){
         console.log(error)
       }
@@ -110,44 +120,25 @@ export default {
       }
     }
   },
-
-  // watch: {
-  //   $route (to, from){
-  //       console.log(`from: ${from.name} go: ${to.name}`) 
-  //       if (to.name === 'bookPage' && !this.Vue3GoogleOauth.isAuthorized) {
-  //         console.log('must login')
-  //         // this.$router.replace({ path: '/' })
-  //         // this.$gAuth.signIn()
-  //         this.handleSignIn()
-  //         // try {
-  //         //   const googleUser = await this.$gAuth.signIn()
-  //         //   console.log(this.$gAuth.signIn);
-  //         //   if(!googleUser){
-  //         //     return null
-  //         //   }
-
-  //         // this.variable.user = googleUser.getBasicProfile().getEmail()
-        
-  //         // } catch(error) {
-  //         //   console.log(error)
-  //         //   return null
-  //         // }
-  //       }
-  //   }
-  // },
   
   mounted() {
     // Initial
-    // window.addEventListener('popstate', () => {console.log('asd')})
     let initial = () => {
       window.addEventListener("scroll", () => {this.setWindowScroll()})
       this.reference.navRef = this.$refs.nevbarRef.childNodes[0]
-      window.addEventListener('enter', () => {this.checkLogin()})
+      window.addEventListener('load', () => {this.checkLogin()})
     }
-
 
     // Proces
     initial()
+    console.log('Y:', this.winScroll.X)
+    console.log('X:', this.winScroll.Y)
+    setTimeout(() => {
+      if (this.Vue3GoogleOauth.isAuthorized) {
+        console.log('status login: ', localStorage.getItem('status_login'))
+        console.log('login user: ', JSON.parse(localStorage.getItem('user_info')).username)
+      }
+    },2000)
   },
 
 }
