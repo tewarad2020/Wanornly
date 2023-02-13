@@ -35,8 +35,11 @@ const bookSchema = new Schema(
             required: 'publisher cannot be blank'
         },
         file_book: {
-            type: String,
-            required: 'file_book cannot be blank'
+            type: String
+        },
+        amount: {
+            type: Number,
+            required: 'amount cannot be blank'
         }
     },
     { collection: 'book' }
