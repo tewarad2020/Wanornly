@@ -6,6 +6,7 @@
 
     <div class="book_ctn">
       <div class="book_img">
+        <!-- <img src="../assets/images/bg2.jpg" alt=""> -->
         <img src="../assets/images/bg2.jpg" alt="">
       </div>
       <div class="book_info_ctn">
@@ -17,56 +18,43 @@
           Cart
         </button>
         <p>If ISBN are shown below means Fetching is success!</p>
-        
-        <div v-for="item in state.books" :key="item.ISBN">
+
+        <!-- <div v-for="item in data" :key="item.ISBN">
           <h4>
-            {{item.ISBN}}
+            {{ item.ISBN }}
           </h4>
-        </div>
+        </div> -->
+        <button @click="console.log(data)"> clip me</button>
 
       </div>
     </div>
 
-    
+
 
   </div>
 </template>
 
 <script>
-import { reactive } from 'vue'
+// import { reactive } from 'vue'
 
 export default {
 
-    name: 'bookPage',
-    data() {
-      return {
-        path: {
-          coverPath : require('../assets/images/bg1.jpg'),
-        },
-        
-      }
-    },
+  name: 'bookPage',
+  data() {
+    return {
+      path: {
+        coverPath: require('../assets/images/bg1.jpg'),
+      },    }
+  },
 
-    setup() {
-      const state = reactive({
-        books: {}
-      })
+  props:[
+    'data',
+  ]
 
-      function GetAll() {
-        fetch('http://localhost:3000/books')
-          .then(res => res.json())
-          .then(data => {
-            state.books = data
-            console.log(`data: ${data[3].name}`)
-          })
-      }
-      GetAll()
-      return { state, GetAll }
 
-    }
 }
 </script>
 
 <style>
-    @import '../assets/css/book.css';
+@import '../assets/css/book.css';
 </style>

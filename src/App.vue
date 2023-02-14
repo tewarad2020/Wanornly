@@ -1,36 +1,70 @@
 <template>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <div>
-  <span ref="nevbarRef"><Navbar :Vue3GoogleOauth='Vue3GoogleOauth' :functions='{handleSignOut: handleSignOut}'/></span>
-  <router-view/>
+    <span ref="nevbarRef">
+      <Navbar :Vue3GoogleOauth='Vue3GoogleOauth' :functions='{ handleSignOut: handleSignOut }' />
+    </span>
+    <router-view />
 
-  <router-link to='/'>Home</router-link> |
-  <div @click="goto('/book');">Book</div> |
-  <div @click="goto('/addBook')">addBook</div>
+    <router-link to='/'>Home</router-link> |
+    <Book v-show="false" :data='state' />
+    <div @click="goto('/book');">Book</div> |
+    <div @click="goto('/addBook')">addBook</div>
 
-  <p>Is inittialized:{{ Vue3GoogleOauth.isInit }}</p>
-  <p>is Authorized:{{ Vue3GoogleOauth.isAuthorized }}</p>
+    <p>Is inittialized:{{ Vue3GoogleOauth.isInit }}</p>
+    <p>is Authorized:{{ Vue3GoogleOauth.isAuthorized }}</p>
 
-  <p v-if="variable.user">Logged in user:{{ variable.user }}</p>
-  <button :disabled="!Vue3GoogleOauth.isInit || Vue3GoogleOauth.isAuthorized"
-  @click="handleSignIn">Sign In</button>
-  <button :disabled="!Vue3GoogleOauth.isAuthorized"
-  @click="handleSignOut">Sign Out</button>
+    <p v-if="variable.user">Logged in user:{{ variable.user }}</p>
+    <button :disabled="!Vue3GoogleOauth.isInit || Vue3GoogleOauth.isAuthorized" @click="handleSignIn">Sign In</button>
+    <button :disabled="!Vue3GoogleOauth.isAuthorized" @click="handleSignOut">Sign Out</button>
   </div>
-  
+
+  <div class="d-flex row justify-content-around container">
+  <div  class="w-50 p-3 m-3 col " style="background-color: #eee;" v-for="item in state.books" :key="item.ISBN">
+      <div class = "mx-auto" style = "width: 200px;">
+        <img class = ""   :src=item.image> 
+    </div>
+      <div>{{ item.product_name }}</div>
+  </div>
+</div>
+
+
 </template>
 
 <script>
-  import Navbar from './components/Navbar.vue'
-  import { inject } from 'vue'
+import Navbar from './components/Navbar.vue'
+import Book from './views/Book.vue'
+import { inject } from 'vue'
+import { reactive } from 'vue'
 
 export default {
   name: 'App',
   components: {
-      Navbar,
+    Navbar,
+    Book
   },
-  setup(){
+  setup() {
+
+    const state = reactive({
+      books: {}
+    })
+
+    function GetAll() {
+      fetch('http://localhost:3000/books')
+        .then(res => res.json())
+        .then(data => {
+          state.books = data
+          console.log(`data: ${data[3].name}`)
+        })
+    }
+    GetAll()
+
+
+
     const Vue3GoogleOauth = inject('Vue3GoogleOauth');
-    return{
+    return {
+      state,
+      GetAll,
       Vue3GoogleOauth
     }
   },
@@ -38,17 +72,17 @@ export default {
   data() {
     return {
       winScroll: {
-        X : 0,
-        Y : 0
-      }, 
+        X: 0,
+        Y: 0
+      },
       path: {
-        coverPath : require('./assets/images/1187343.png'),
+        coverPath: require('./assets/images/1187343.png'),
       },
       reference: {
-        navRef : null
+        navRef: null
       },
       variable: {
-        user:'',
+        user: '',
       }
     }
   },
@@ -64,7 +98,7 @@ export default {
       if (this.winScroll.Y >= 350) {
         this.reference.navRef.classList.remove("active")
         this.reference.navRef.classList.add("noactive")
-      }else {
+      } else {
         if (this.reference.navRef.className !== '') {
           this.reference.navRef.classList.remove("noactive")
           this.reference.navRef.classList.add("active")
@@ -75,7 +109,7 @@ export default {
       try {
         const googleUser = await this.$gAuth.signIn()
         // console.log(this.$gAuth.signIn);
-        if(!googleUser){
+        if (!googleUser) {
           return null
         }
 
@@ -89,18 +123,18 @@ export default {
         // localStorage.setItem('user_info', JSON.stringify(googleUser))
         console.log('login successful!')
 
-      } catch(error) {
+      } catch (error) {
         console.log(error)
         return null
       }
     },
-    async handleSignOut(){
-      try{
+    async handleSignOut() {
+      try {
         await this.$gAuth.signOut()
         this.variable.user = ''
         console.log('logout successful!')
         localStorage.clear()
-      }catch(error){
+      } catch (error) {
         console.log(error)
       }
     },
@@ -108,39 +142,39 @@ export default {
       if (this.Vue3GoogleOauth.isAuthorized) {
         console.log(`link from: ${this.$router.name} -> to: ${nextpath}`)
         this.$router.push(nextpath)
-      }else {
+      } else {
         if (nextpath === '/book' || nextpath === '/') {
           console.log(`link from: ${this.$router.name} -> to: ${nextpath}`)
           this.$router.push(nextpath)
-        }else {
+        } else {
           console.log('must login')
         }
       }
     },
     checkLogin() {
       if (!this.Vue3GoogleOauth.isAuthorized) {
-        if (this.$route.name !== 'bookPage' && this.$route.name !=='homePage') {
+        if (this.$route.name !== 'bookPage' && this.$route.name !== 'homePage') {
           console.log('must login')
           this.$router.replace({ path: '/' })
-        }else {
+        } else {
           if (!this.$router.name) {
             console.log(`link from: ${this.$router.name} -> to: homePage`)
           } else {
             console.log(`link from: ${this.$router.name} -> to: bookPage`)
           }
         }
-      }else {
+      } else {
         console.log(`link from: ${this.$router.name} (add URL)`)
       }
     }
   },
-  
+
   mounted() {
     // Initial
     let initial = () => {
-      window.addEventListener("scroll", () => {this.setWindowScroll()})
+      window.addEventListener("scroll", () => { this.setWindowScroll() })
       this.reference.navRef = this.$refs.nevbarRef.childNodes[0]
-      window.addEventListener('load', () => {this.checkLogin()})
+      window.addEventListener('load', () => { this.checkLogin() })
     }
 
     // Proces
@@ -152,12 +186,12 @@ export default {
         console.log('status login: ', localStorage.getItem('status_login'))
         console.log('login user: ', JSON.parse(localStorage.getItem('user_info')).username)
       }
-    },2000)
+    }, 2000)
   },
 
 }
 </script>
 
 <style>
-  @import './assets/css/app.css';
+@import './assets/css/app.css';
 </style>
