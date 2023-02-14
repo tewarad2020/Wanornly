@@ -62,7 +62,7 @@
     cursor: pointer;
 }
 
-#manuAll span:hover {
+#manuAll > span:hover {
     color: rgb(0, 140, 255);
 }
 
@@ -104,10 +104,64 @@
     align-items: center;
     justify-content: left;
     /* margin-right: 4%; */
+    /* background-color: blue; */
 }
 
 .ctn_user_image_nev img {
     height: 100%;
     width: 100%;
     border-radius: 50%;
+}
+
+.optionbar {
+    margin-top: 6px;
+    position: absolute;
+    right: 0;
+    /* top: 100%; */
+    width: 250px;
+    height: 300px;
+    background-color: rgba(127, 255, 212, 0.6);
+    z-index: 2;
+}
+
+.optionbar_active {
+    animation: showOptionActive .25s forwards ease-in-out;
+}
+
+@keyframes showOptionActive {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.optionbar_passive {
+    animation: showOptionPassive .25s forwards ease-in-out;
+}
+
+@keyframes showOptionPassive {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+.optionbar div{
+    position: relative;
+    margin-top: 0px;
+    width: 100%;
+    height: 10%;
+    background-color: rgba(255, 127, 219, 0.6);
+}
+
+.optionbar div:hover{
+    background-color: rgba(127, 150, 255, 0.6);
 }
