@@ -3,7 +3,7 @@
     <!-- <div class="labelBar"> -->
         <input type="text" placeholder="Search..">
     <!-- </div> -->
-        <button @click="() => {console.log('click')}">Search</button>
+        <button v-on:click="goto('/searchbook')">Search</button>
   </div>
 </template>
 
@@ -14,7 +14,12 @@ export default {
         return {
             
         }
+    },
+    methods: {
+    goto(nextpath) {
+        this.$router.push(nextpath)
     }
+  }
 }
 </script>
 

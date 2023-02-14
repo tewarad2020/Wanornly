@@ -31,9 +31,9 @@ const routes = [
         component: () => import('../views/History.vue')
     },
     {
-        path:'/addBook',
-        name: 'addBookPage',
-        component: ()=>import('../views/AddBook.vue')
+        path: '/searchbook',
+        name: 'SearchBookPage',
+        component: () => import('../views/SearchBook.vue')
     }
 ]
 
