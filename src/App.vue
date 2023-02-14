@@ -1,5 +1,6 @@
 <template>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <div>
     <span ref="nevbarRef">
       <Navbar :Vue3GoogleOauth='Vue3GoogleOauth' :functions='{ handleSignOut: handleSignOut }' />
@@ -20,18 +21,32 @@
   </div>
 
   <div class="d-flex row justify-content-around container">
-  <div  class="w-50 p-3 m-3 col " style="background-color: #eee;" v-for="item in state.books" :key="item.ISBN">
-      <div class = "mx-auto" style = "width: 200px;">
-        <img class = ""   :src=item.image> 
+    <div id="App" @click="showModal = true" class="w-50 p-3 m-3 col " style="background-color: #eee;"
+      v-for="item in state.books" :key="item.ISBN">
+      <div class="mx-auto" style="width:min-content;">
+        <figure class="figure"> <img class="py-2" :src=item.image> </figure>
+      </div>
+      <p class="text-center">{{ item.product_name }}</p>
+      <div class="text-center " ><button  @click="showModel = item">info book.</button>
+        <!-- อันนี้คือกดคลิกแล้ว popup นะ -->
+        <div class="model" v-if="showModel === item">
+          <div class="model-overlay" @click="showModel = null"></div>
+          <div class="model-content" position: relative>
+            <h2>{{ item.product_name }}</h2>
+            <p>{{ item.product_name }}</p>
+            <button @click="showModel = null">Close</button>
+          </div>
+        </div>
+      </div>
+      <!-- ประมาณอันนี้ -->
     </div>
-      <div>{{ item.product_name }}</div>
   </div>
-</div>
 
 
 </template>
 
 <script>
+// import PopupBook from './components/PopupBook.vue'
 import Navbar from './components/Navbar.vue'
 import Book from './views/Book.vue'
 import { inject } from 'vue'
@@ -63,6 +78,7 @@ export default {
 
     const Vue3GoogleOauth = inject('Vue3GoogleOauth');
     return {
+      // PopupBook,
       state,
       GetAll,
       Vue3GoogleOauth
@@ -71,6 +87,9 @@ export default {
 
   data() {
     return {
+      showModal: true,
+      // showModel คืออันนี้โชว์ popup หนังสือนะ
+      showModel: null,
       winScroll: {
         X: 0,
         Y: 0
@@ -134,6 +153,7 @@ export default {
         this.variable.user = ''
         console.log('logout successful!')
         localStorage.clear()
+        window.location.reload()
       } catch (error) {
         console.log(error)
       }
@@ -193,5 +213,8 @@ export default {
 </script>
 
 <style>
+@import './assets/css/img.css';
 @import './assets/css/app.css';
+/* อันนี้ไฟล์ที่เพิ่มมา */
+@import './assets/css/model.css'
 </style>
