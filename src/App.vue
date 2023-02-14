@@ -7,17 +7,12 @@
     </span>
     <router-view />
 
-    <router-link to='/'>Home</router-link> |
+    <router-link to='/'>Home</router-link>
     <Book v-show="false" :data='state' />
-    <div @click="goto('/book');">Book</div> |
+    <div @click="goto('/book');">Book</div>
+    <a href="./Book/1" target="_blank">Book (target_blank)</a>
+   
     <div @click="goto('/addBook')">addBook</div>
-
-    <p>Is inittialized:{{ Vue3GoogleOauth.isInit }}</p>
-    <p>is Authorized:{{ Vue3GoogleOauth.isAuthorized }}</p>
-
-    <p v-if="variable.user">Logged in user:{{ variable.user }}</p>
-    <button :disabled="!Vue3GoogleOauth.isInit || Vue3GoogleOauth.isAuthorized" @click="handleSignIn">Sign In</button>
-    <button :disabled="!Vue3GoogleOauth.isAuthorized" @click="handleSignOut">Sign Out</button>
   </div>
 
   <div class="d-flex row justify-content-around container">
@@ -102,6 +97,7 @@ export default {
       },
       variable: {
         user: '',
+        shownevbar: true,
       }
     }
   },
@@ -117,6 +113,7 @@ export default {
       if (this.winScroll.Y >= 350) {
         this.reference.navRef.classList.remove("active")
         this.reference.navRef.classList.add("noactive")
+
       } else {
         if (this.reference.navRef.className !== '') {
           this.reference.navRef.classList.remove("noactive")
@@ -159,6 +156,7 @@ export default {
       }
     },
     goto(nextpath) {
+      // this.$router.push(nextpath)
       if (this.Vue3GoogleOauth.isAuthorized) {
         console.log(`link from: ${this.$router.name} -> to: ${nextpath}`)
         this.$router.push(nextpath)

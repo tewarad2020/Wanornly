@@ -16,7 +16,7 @@ const routes = [
         component: () => import('../views/Home.vue')
     },
     {
-        path: '/book',
+        path: '/book/:id',
         name: 'bookPage',
         component: () => import('../views/Book.vue'),
     },

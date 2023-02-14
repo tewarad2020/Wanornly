@@ -18,6 +18,7 @@
           Cart
         </button>
         <p>If ISBN are shown below means Fetching is success!</p>
+        <h1>{{ $route.params.id }}</h1>
 
         <!-- <div v-for="item in data" :key="item.ISBN">
           <h4>

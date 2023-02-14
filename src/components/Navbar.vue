@@ -14,9 +14,17 @@
           <img :src="(isLogin() && variable.user_info != null)? variable.user_info.profileImage : ''" alt="">
         </div>
         <div v-show="variable.isShowOptions" class="optionbar">
-            <div @click="goto('/profile');">Profile</div>
-            <div @click="goto('/book');">History</div>
-            <div @click="functions.handleSignOut()">Logout</div>         
+            <div class="op_img">
+              <img :src="(isLogin() && variable.user_info != null)? variable.user_info.profileImage : ''" alt="">
+              <div class="op_footer">
+                <div class="op_name">{{ (isLogin() && variable.user_info != null)? variable.user_info.name : '' }}</div>
+                <div class="op_username">{{ (isLogin() && variable.user_info != null)? variable.user_info.username : ''}}</div>
+                <hr>
+              </div>
+            </div>
+            <div @click="goto('/profile')" class="op_profile">Profile</div>
+            <div @click="goto('/book')" class="op_history">History</div>
+            <div @click="functions.handleSignOut()" class="op_logout">Logout</div>         
         </div>
       </span>
       <!-- <span v-show="isLogin()" @click="functions.handleSignOut(); console.log('Logout Click!')" >Log out</span> -->
@@ -49,6 +57,8 @@ export default {
           mouseOut1: true,
           mouseOut2: true,
           statusOptionbar: false,
+          optionbar: null,
+          ctn_optionbar: null,
         },
       }
     },
@@ -86,28 +96,22 @@ export default {
         return this.Vue3GoogleOauth.isAuthorized
       },
       showOptions() {
-        const optionbar = document.getElementsByClassName('optionbar')
-        const ctn_optionbar = document.getElementsByClassName('ctn_user_image_nev')
         if (!this.variable.isShowOptions) {
-          optionbar[0].classList.remove('optionbar_passive')
-          optionbar[0].classList.add('optionbar_active')
-          this.variable.isShowOptions = !this.variable.isShowOptions
-          window.addEventListener("mousedown", () => {if (this.variable.statusOptionbar && this.variable.mouseOut2) {this.showOptions()}})
-          optionbar[0].addEventListener("mouseout", () => {if (this.variable.statusOptionbar) {this.variable.mouseOut1 = true}});
-          optionbar[0].addEventListener("mouseover", () => {if (this.variable.statusOptionbar) {this.variable.mouseOut1 = false}});
-          ctn_optionbar[0].addEventListener("mouseout", () => {if (this.variable.statusOptionbar) {this.variable.mouseOut2 = true}});
-          ctn_optionbar[0].addEventListener("mouseover", () => {if (this.variable.statusOptionbar) {this.variable.mouseOut2 = false}});
+          this.variable.optionbar[0].classList.remove('optionbar_passive')
+          this.variable.optionbar[0].classList.add('optionbar_active')
+          this.variable.isShowOptions = true
           this.variable.statusOptionbar = true
         }else if (this.variable.mouseOut1 || (this.variable.isShowOptions && this.variable.mouseOut1)) {
           this.variable.statusOptionbar = false
-          optionbar[0].classList.remove('optionbar_active')
-          optionbar[0].classList.add('optionbar_passive')
+          this.variable.optionbar[0].classList.remove('optionbar_active')
+          this.variable.optionbar[0].classList.add('optionbar_passive')
           setTimeout(() => {
-            this.variable.isShowOptions = !this.variable.isShowOptions
-          }, 250)
+            this.variable.isShowOptions = false
+          }, 100)
         }
       },
       goto(nextpath) {
+        // this.$router.push(nextpath)
         if (this.Vue3GoogleOauth.isAuthorized) {
           console.log(`link from: ${this.$router.name} -> to: ${nextpath}`)
           this.$router.push(nextpath)
@@ -126,6 +130,15 @@ export default {
     // Initial
     let initial = () => {
       this.variable.user_info = JSON.parse(localStorage.getItem('user_info'))
+      const optionbar = document.getElementsByClassName('optionbar')
+      const ctn_optionbar = document.getElementsByClassName('ctn_user_image_nev')
+      window.addEventListener("mousedown", () => {if (this.variable.statusOptionbar && this.variable.mouseOut2) {this.showOptions()}})
+      optionbar[0].addEventListener("mouseout", () => {if (this.variable.statusOptionbar) {this.variable.mouseOut1 = true}});
+      optionbar[0].addEventListener("mouseover", () => {if (this.variable.statusOptionbar) {this.variable.mouseOut1 = false}});
+      ctn_optionbar[0].addEventListener("mouseout", () => {if (this.variable.statusOptionbar) {this.variable.mouseOut2 = true}});
+      ctn_optionbar[0].addEventListener("mouseover", () => {if (this.variable.statusOptionbar) {this.variable.mouseOut2 = false}});
+      this.variable.optionbar = optionbar
+      this.variable.ctn_optionbar = ctn_optionbar
     }
 
     initial()

@@ -62,7 +62,7 @@
     cursor: pointer;
 }
 
-#manuAll > span:hover {
+#manuAll span:hover {
     color: rgb(0, 140, 255);
 }
 
@@ -73,9 +73,11 @@
 @keyframes nevshow {
     0%{
         opacity: 0;
+        z-index: -1;
     }
     100% {
         opacity: 1;
+        z-index: 2;
     }
 }
 
@@ -86,25 +88,22 @@
 @keyframes nevfade {
     0%{
         opacity: 1;
+        z-index: 2;
     }
     100% {
         opacity: 0;
+        z-index: -1;
     }
 }
 
 .ctn_user_image_nev {
     position: relative;
     display: flex;
-    /* left: 20px; */
-    /* height: 30%; */
     width: 100%;
     height: 40px;
-    /* border-radius: 50%; */
     /* background-color: red; */
     align-items: center;
     justify-content: left;
-    /* margin-right: 4%; */
-    /* background-color: blue; */
 }
 
 .ctn_user_image_nev img {
@@ -120,8 +119,10 @@
     /* top: 100%; */
     width: 250px;
     height: 300px;
-    background-color: rgba(127, 255, 212, 0.6);
+    background-color: rgba(44, 44, 44, 0.9);
     z-index: 2;
+    border-radius: 2%;
+    color: #faf4f4;
 }
 
 .optionbar_active {
@@ -140,7 +141,7 @@
 }
 
 .optionbar_passive {
-    animation: showOptionPassive .25s forwards ease-in-out;
+    animation: showOptionPassive .15s forwards ease-in-out;
 }
 
 @keyframes showOptionPassive {
@@ -154,14 +155,99 @@
     }
 }
 
-.optionbar div{
+.op_profile{
     position: relative;
+    padding: 0 8% 0 8%;
     margin-top: 0px;
     width: 100%;
     height: 10%;
-    background-color: rgba(255, 127, 219, 0.6);
+    font-size: 0.9vw;
+    display: flex;
+    align-items: center;
+}
+.op_profile:hover{
+    background-color: rgba(127, 150, 255, 0.6);
 }
 
-.optionbar div:hover{
+.op_history{
+    position: relative;
+    padding: 0 8% 0 8%;
+    margin-top: 0px;
+    width: 100%;
+    height: 10%;
+    font-size: 0.9vw;
+    display: flex;
+    align-items: center;
+}
+
+.op_history:hover{
     background-color: rgba(127, 150, 255, 0.6);
+}
+
+.op_logout{
+    position: relative;
+    padding: 0 8% 0 8%;
+    margin-top: 0px;
+    width: 100%;
+    height: 10%;
+    font-size: 0.9vw;
+    display: flex;
+    align-items: center;
+    border-radius: 2%;
+}
+
+.op_logout:hover{
+    background-color: rgba(127, 150, 255, 0.6);
+}
+
+.op_img {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: 15%;
+    width: 100%;
+    height: 67%;
+    /* background-color: aqua; */
+}
+
+.op_img img {
+    position: absolute;
+    width: 30%;
+    height: auto;
+    border-radius: 50%;
+}
+
+.op_footer {
+    position: absolute;
+    width: 100%;
+    top: 60%;
+    /* background-color: blue; */
+}
+
+.op_footer hr {
+    position: relative;
+    top: 10px;
+    border-bottom: 1px solid #747474;
+}
+
+.op_name {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    /* padding-top: 15%; */
+    width: 100%;
+    height: 20%;
+}
+
+.op_username {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    /* padding-top: 15%; */
+    width: 100%;
+    height: 20%;
+    font-size: 0.9vw;
+    color: rgb(197, 196, 196);
 }
