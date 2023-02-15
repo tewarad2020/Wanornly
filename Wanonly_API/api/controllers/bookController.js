@@ -40,7 +40,7 @@ exports.update_a_book = (req, res) => {
 }
 
 exports.delete_a_book = (req, res) => {
-    book.deleteOne({ _id: req.params.bookID }, err => {
+    book.deleteOne({ _id: req.params.bookID } , err => {
         if (err) res.send(err);
         res.json({
             message: 'book successfully deleted', 
