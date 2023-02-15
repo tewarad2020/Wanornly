@@ -123,6 +123,8 @@
     z-index: 2;
     border-radius: 2%;
     color: #faf4f4;
+    cursor: default;
+    box-shadow: 3px 3px 8px #333333;
 }
 
 .optionbar_active {
@@ -157,36 +159,53 @@
 
 .op_profile{
     position: relative;
-    padding: 0 8% 0 8%;
+    padding: 0 6% 0 6%;
     margin-top: 0px;
     width: 100%;
     height: 10%;
     font-size: 0.9vw;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
+
 .op_profile:hover{
     background-color: rgba(110, 110, 110, 0.6);
 }
 
+.op_profile img{
+    position: relative;
+    margin-right: 5%;
+    width: 8%;
+    height: auto;
+}
+
 .op_history{
     position: relative;
-    padding: 0 8% 0 8%;
+    padding: 0 6% 0 6%;
     margin-top: 0px;
     width: 100%;
     height: 10%;
     font-size: 0.9vw;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .op_history:hover{
     background-color: rgba(110, 110, 110, 0.6);
 }
 
+.op_history img{
+    position: relative;
+    margin-right: 5%;
+    width: 8%;
+    height: auto;
+}
+
 .op_logout{
     position: relative;
-    padding: 0 8% 0 8%;
+    padding: 0 6% 0 6%;
     margin-top: 0px;
     width: 100%;
     height: 10%;
@@ -194,17 +213,25 @@
     display: flex;
     align-items: center;
     border-radius: 2%;
+    cursor: pointer;
 }
 
 .op_logout:hover{
     background-color: rgba(110, 110, 110, 0.6);
 }
 
+.op_logout img{
+    position: relative;
+    margin-right: 5%;
+    width: 8%;
+    height: auto;
+}
+
 .op_img {
     position: relative;
     display: flex;
     justify-content: center;
-    padding-top: 15%;
+    padding-top: 13%;
     width: 100%;
     height: 67%;
     /* background-color: aqua; */
@@ -220,13 +247,13 @@
 .op_footer {
     position: absolute;
     width: 100%;
-    top: 60%;
+    top: 54%;
     /* background-color: blue; */
 }
 
 .op_footer hr {
     position: relative;
-    top: 10px;
+    top: 32px;
     border-bottom: 1px solid #747474;
 }
 
@@ -251,3 +278,5 @@
     font-size: 0.9vw;
     color: rgb(197, 196, 196);
 }
+
+

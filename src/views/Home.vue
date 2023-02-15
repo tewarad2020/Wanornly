@@ -3,17 +3,17 @@
     <div id="cover_ctn">
       <img id="cover_img" :src="path.coverPath" alt="">
     </div>
-    <Searchbar/>
+    <!-- <span class="searchbar"><Searchbar/></span> -->
   </div>
 </template>
 
 <script>
-import Searchbar from '../components/Searchbar.vue'
+// import Searchbar from '../components/Searchbar.vue'
 
 export default {
-    name: 'homePage',
-    components: {
-      Searchbar
+  name: 'homePage',
+  components: {
+    // Searchbar
   },
   data() {
     return {

@@ -1,66 +1,43 @@
 <template>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
   <div>
     <span ref="nevbarRef">
       <Navbar :Vue3GoogleOauth='Vue3GoogleOauth' :functions='{ handleSignOut: handleSignOut }' />
     </span>
+
+    <div id="ctn_list_books" class="model" v-if="$store.getters.Searching">
+      <div class="filter_listbook"></div>
+      <div class="exit_search" @click="$store.commit('setSearching', false)">X</div>
+      <div id="list_books"></div>
+    </div>
+
     <router-view />
 
-    <router-link to='/'>Home</router-link>
-    <Book v-show="false" :data='state' />
+    <!-- <router-link to='/'>Home</router-link> -->
+    <!-- <Book v-show="false" :data='state' />
     <div @click="goto('/book');">Book</div>
     <a href="./Book/1" target="_blank">Book (target_blank)</a>
    
-    <div @click="goto('/addBook')">addBook</div>
+    <div @click="goto('/addBook')">addBook</div> -->
   </div>
-
-  <div class="d-flex row justify-content-around container">
-    <div id="App" @click="showModal = true" class="w-50 p-3 m-3 col " style="background-color: #eee;"
-      v-for="item in state.books" :key="item.ISBN">
-      <div class="mx-auto" style="width:min-content;">
-        <figure class="figure"> <img class="py-2" :src=item.image> </figure>
-      </div>
-      <p class="text-center">{{ item.product_name }}</p>
-      <div class="text-center " ><button  @click="showModel = item">info book.</button>
-        <!-- อันนี้คือกดคลิกแล้ว popup นะ -->
-        <div class="model" v-if="showModel === item">
-          <!-- <div class="model-overlay" @click="showModel = null"></div> -->
-          <div class="model-overlay"></div>
-          <div class="model-content" position: relative>
-            <h2>{{ item.product_name }}</h2>
-            <p>{{ item.product_name }}</p>
-            <button  @click="showModel = null">Close</button>
-          </div>
-        </div>
-      </div>
-      <!-- ประมาณอันนี้ -->
-
-      <div id="list_books">
-      </div>
-    </div>
-  </div>
-
-
+    
 </template>
 
 <script>
-// import PopupBook from './components/PopupBook.vue'
 import Navbar from './components/Navbar.vue'
-import Book from './views/Book.vue'
+// import Book from './views/Book.vue'
 import { inject } from 'vue'
 import { reactive } from 'vue'
 import store from './store'
 
 export default {
   name: 'App', 
-  // store,
   components: {
     Navbar,
-    Book
+    // Book
   },
   setup() {
-    // store
     const state = reactive({
       books: {}
     })
@@ -88,9 +65,6 @@ export default {
 
   data() {
     return {
-      showModal: true,
-      // showModel คืออันนี้โชว์ popup หนังสือนะ
-      showModel: null,
       winScroll: {
         X: 0,
         Y: 0
@@ -102,7 +76,6 @@ export default {
         navRef: null
       },
       variable: {
-        user: '',
         shownevbar: true,
       }
     }
@@ -135,7 +108,6 @@ export default {
           return null
         }
 
-        this.variable.user = googleUser.getBasicProfile().getEmail()
         localStorage.setItem('status_login', true)
         localStorage.setItem('user_info', JSON.stringify({
           username: googleUser.getBasicProfile().getEmail(),
@@ -153,7 +125,6 @@ export default {
     async handleSignOut() {
       try {
         await this.$gAuth.signOut()
-        this.variable.user = ''
         console.log('logout successful!')
         localStorage.clear()
         window.location.reload()
@@ -190,7 +161,11 @@ export default {
       } else {
         console.log(`link from: ${this.$router.name} (add URL)`)
       }
-    }
+    },
+    // searching() {
+    //   let ref = document.getElementById('list_books')
+    //   console.log('ref: ', ref)
+    // }
   },
 
   mounted() {
@@ -217,8 +192,7 @@ export default {
 </script>
 
 <style>
-@import './assets/css/img.css';
 @import './assets/css/app.css';
 /* อันนี้ไฟล์ที่เพิ่มมา */
-@import './assets/css/model.css'
+@import './assets/css/model.css';
 </style>

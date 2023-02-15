@@ -22,21 +22,34 @@
                 <hr>
               </div>
             </div>
-            <div @click="goto('/profile')" class="op_profile">Profile</div>
-            <div @click="goto('/book')" class="op_history">History</div>
-            <div @click="functions.handleSignOut()" class="op_logout">Logout</div>         
+            <div @click="goto('/profile')" class="op_profile">
+              <img :src="path.userIcon" alt="">
+              Profile
+            </div>
+            <div @click="goto('/book')" class="op_history">
+              <img :src="path.historyIcon" alt="">
+              History
+            </div>
+            <div @click="functions.handleSignOut()" class="op_logout">
+              <img :src="path.logoutIcon" alt="">
+              Logout
+            </div>         
         </div>
       </span>
       <!-- <span v-show="isLogin()" @click="functions.handleSignOut(); console.log('Logout Click!')" >Log out</span> -->
     </div>
+    <span class="searchbar"><Searchbar/></span>
   </div>
 </template>
 
 <script>
-// import { inject } from 'vue'
+import Searchbar from '../components/Searchbar.vue'
 
 export default {
     name: 'NavBarComplement',
+    components: {
+      Searchbar
+    },
     props: [
       'Vue3GoogleOauth',
       'functions'
@@ -46,6 +59,9 @@ export default {
       return {
         path: {
           logo : require('../assets/images/logo.png'),
+          userIcon: require('../assets/images/userIcon.png'),
+          historyIcon: require('../assets/images/historyIcon.png'),
+          logoutIcon: require('../assets/images/logoutIcon.png'),
         },
         variable: {
           user_info : {

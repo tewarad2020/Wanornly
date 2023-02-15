@@ -1,26 +1,57 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 .model {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-  
-  .model-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.model .exit_search {
+  position: absolute;
+  top: calc(10vh + 30px);
+  right: 10%;
+  margin: 10px 18px 0 0;
+  z-index: 1;
+  cursor: pointer;
+  font-size: 1.5vw;
+  transition: .15s ease-in-out;
+}
+
+.exit_search:hover {
+  color: rgb(0, 140, 255);
+}
+
+.filter_listbook {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(62, 63, 63, .8);
+  padding: 20px;
+  border-radius: 0px;
+  /* filter: blur(10px); */
+}
+
+#list_books {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: calc(10vh + 30px);
+    left: 10%;
+    width: 80%;
+    height: 80vh;
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center; */
+    z-index: 0;
+    background-color: rgb(255, 255, 255);
+    border-radius: 12px;
+    box-shadow: 3px 3px 8px #333333;
   }
+
   
-  .model-content {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
