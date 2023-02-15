@@ -141,20 +141,20 @@ export default {
       }
     },
     checkLogin() {
-      if (!this.Vue3GoogleOauth.isAuthorized) {
-        if (this.$route.name !== 'bookPage' && this.$route.name !== 'homePage') {
-          console.log('must login')
-          this.$router.replace({ path: '/' })
-        } else {
-          if (!this.$router.name) {
-            console.log(`link from: ${this.$router.name} -> to: homePage`)
-          } else {
-            console.log(`link from: ${this.$router.name} -> to: bookPage`)
-          }
-        }
-      } else {
-        console.log(`link from: ${this.$router.name} (add URL)`)
-      }
+      // if (!this.Vue3GoogleOauth.isAuthorized) {
+      //   if (this.$route.name !== 'bookPage' && this.$route.name !== 'homePage') {
+      //     console.log('must login')
+      //     this.$router.replace({ path: '/' })
+      //   } else {
+      //     if (!this.$router.name) {
+      //       console.log(`link from: ${this.$router.name} -> to: homePage`)
+      //     } else {
+      //       console.log(`link from: ${this.$router.name} -> to: bookPage`)
+      //     }
+      //   }
+      // } else {
+      //   console.log(`link from: ${this.$router.name} (add URL)`)
+      // }
     },
     close_searchbar() {
       this.variable.searchbar.classList.remove('searchbar_active')
