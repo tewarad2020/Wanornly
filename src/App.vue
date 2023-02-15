@@ -46,15 +46,17 @@ import Navbar from './components/Navbar.vue'
 import Book from './views/Book.vue'
 import { inject } from 'vue'
 import { reactive } from 'vue'
+import store from './store'
 
 export default {
-  name: 'App',
+  name: 'App', 
+  // store,
   components: {
     Navbar,
     Book
   },
   setup() {
-
+    // store
     const state = reactive({
       books: {}
     })
@@ -64,12 +66,12 @@ export default {
         .then(res => res.json())
         .then(data => {
           state.books = data
-          console.log(`data: ${data[3].name}`)
+          console.log('data: ', data)
+          store.commit('setData', data)
+          console.log('add data to store successful!')
         })
     }
     GetAll()
-
-
 
     const Vue3GoogleOauth = inject('Vue3GoogleOauth');
     return {
