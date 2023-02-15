@@ -1,5 +1,6 @@
 const bookBuilder = require('../controllers/bookController');
 const cartBuilder = require('../controllers/cartController');
+const usersBuilder = require('../controllers/usersController');
 
 module.exports = app => {
     app
@@ -14,12 +15,24 @@ module.exports = app => {
         .delete(bookBuilder.delete_a_book);
 
     app
+        .route('/carts/:userID-:ISBN')
+        .delete(cartBuilder.delete_from_cart)
+    
+    app
         .route('/carts/:userID')
         .get(cartBuilder.list_all_books_in_cart)
-        .delete(cartBuilder.delete_from_cart)
-        
     app
         .route('/carts')
         .put(cartBuilder.add_to_cart)
+
+
+    app
+        .route('/user/:id')
+        .get(usersBuilder.get_user)
+
+    app
+        .route('/user')
+        .put(usersBuilder.add_new_user)
+
     
 }

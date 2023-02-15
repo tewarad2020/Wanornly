@@ -30,6 +30,7 @@ import Navbar from './components/Navbar.vue'
 import { inject } from 'vue'
 import store from './store'
 
+
 export default {
   name: 'App', 
   components: {
@@ -110,6 +111,9 @@ export default {
         }))
         // localStorage.setItem('user_info', JSON.stringify(googleUser))
         console.log('login successful!')
+        // console.log(localStorage.getItem('user_info'))
+       
+       
 
       } catch (error) {
         console.log(error)

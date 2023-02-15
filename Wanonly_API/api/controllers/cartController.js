@@ -19,8 +19,17 @@ exports.add_to_cart = (req, res) => {
     
 }
 
+// exports.delete_from_cart = (req, res) => {
+//     cart.remove( { user_id: req.params.userID, ISBN: req.body.ISBN } , err => {
+//         if (err) res.send(err);
+//         res.json({
+//             message: 'cart successfully deleted', 
+//             _id: req.params.bookID
+//         })
+//     })
 exports.delete_from_cart = (req, res) => {
-    cart.remove( { user_id: req.params.userID, ISBN: req.body.ISBN } , err => {
+    console.log(req.params)
+    cart.remove( { user_id: req.params.userID, ISBN: req.params.ISBN } , err => {
         if (err) res.send(err);
         res.json({
             message: 'cart successfully deleted', 

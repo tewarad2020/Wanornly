@@ -1,82 +1,80 @@
 <template>
   <div class="cartPage">
-    <p>{{cartData}}</p>
     <div>
-      <div  class="itemCtn" v-for="(item,index) in testData" :key="index">
+      <div  class="itemCtn" v-for="(item,index) in cartData" :key="index">
        <p>{{ item.ISBN }}</p> 
        <p>{{ item.product_name }}</p>
-       <button @click="RemoveHandle(index)">remove</button>
+       <button @click="RemoveHandle(item.ISBN)">remove</button>
       </div>
       <button>check out</button>
+     
     </div>
     
   </div>
 </template>
 
 <script>
-import { Timestamp } from 'bson';
+
 import store from '@/store';
+import axios from 'axios';
+
 
 export default {
     name:'cartPage',
-    setup(){
-
-        const fetchCart = async () =>{
+    created() {
+    // watch the params of the route to fetch the data again
+    this.$watch(
+      () => this.$route.params,
+      () => {
+        this.fetchCart()
+      },
+      // fetch the data when the view is created and the data is
+      // already being observed
+      { immediate: true }
+    )
+  },
+    data(){
+      return {
+        cartData:[{
+          user_id:"",
+          ISBN:0,
+          time_item:0,
+          request_book:0,
+          status_request:"inCart",
+          time_request:""
+        }]
+      }
+    },
+    methods:{
+      async  fetchCart (){
         try{
-         await fetch('http://localhost:3000/books') //get cart information
+          const username = JSON.parse(localStorage.getItem("user_info")).username
+          console.log(`username = ${username}` )
+         await fetch(`http://localhost:3000/carts/${username}`) //get cart information
         .then(res => res.json())
         .then(data => {
-          console.log('data: ', data)
-          store.commit('setData', data)
-          //assign fetch data to cartInfo
+          console.log('cart: ',data)
+          this.cartData = data
+          store.commit('setCartData', data)
           console.log('fetch and store cart information successfully!')
-          //test
-          this.testData = []
         })
         }
         catch(err){
           console.log(err)
         }
-      }
-
-      fetchCart()
-
-      //for test()
-    },
-    data(){
-      return {
-        updateflag:false,
-        cartData:[{
-          userID:0,
-          ISBN:"",
-          timeItem:Timestamp.MAX_VALUE,
-          requestBook:{},
-          statusRequest:"inCart",
-          timeRequested:Timestamp.MAX_VALUE
-        }],
-        testData:[{
-          ISBN:-1,
-          product_name:"",
-        }]
-      }
-    },
-    methods:{
-     updateData_test(){
-        this.testData = this.$store.getters.data
-     },
-     RemoveHandle(index){
-        console.log(`remove item :${index} form cart ISBN:${this.testData[index].product_name}`)
+      },
+     
+    async RemoveHandle(ISBN){
+      const username = JSON.parse(localStorage.getItem("user_info")).username
+        
+        await axios.delete(`http://localhost:3000/carts/${username}-${ISBN}`)
+                    .then(()=>{console.log(`remove item :${ISBN} form cart `)})
+        
+                    this.fetchCart()
      },
 
     },
-    watch:{
-      testData:{
-        handler(){
-          this.testData = this.$store.getters.data
-        },
-        immediate:true
-      }
-    },
+   
 }
 </script>
 
