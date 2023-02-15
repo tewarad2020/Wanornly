@@ -13,7 +13,7 @@
         <br>
         <br>
         <br>
-        <p> data : {{ $store.getters.data }} </p>
+        <p> data : {{ $store.getters.data[1].product_name }} </p>
         <button @click="test('asd')">  test store </button>
         <router-link to='/'>Home</router-link>
         <div class="d-flex row justify-content-around container">

@@ -166,7 +166,7 @@
     align-items: center;
 }
 .op_profile:hover{
-    background-color: rgba(127, 150, 255, 0.6);
+    background-color: rgba(110, 110, 110, 0.6);
 }
 
 .op_history{
@@ -181,7 +181,7 @@
 }
 
 .op_history:hover{
-    background-color: rgba(127, 150, 255, 0.6);
+    background-color: rgba(110, 110, 110, 0.6);
 }
 
 .op_logout{
@@ -197,7 +197,7 @@
 }
 
 .op_logout:hover{
-    background-color: rgba(127, 150, 255, 0.6);
+    background-color: rgba(110, 110, 110, 0.6);
 }
 
 .op_img {
