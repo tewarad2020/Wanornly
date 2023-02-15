@@ -15,7 +15,7 @@ export default createStore({
     },
     setSearching(state, Searching) {
       state.Searching = Searching
-    }
+    },
   },
   actions: {
   },

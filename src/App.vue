@@ -6,9 +6,9 @@
       <Navbar :Vue3GoogleOauth='Vue3GoogleOauth' :functions='{ handleSignOut: handleSignOut }' />
     </span>
 
-    <div id="ctn_list_books" class="model" v-if="$store.getters.Searching">
+    <div id="ctn_list_books" class="model" v-show="$store.getters.Searching">
       <div class="filter_listbook"></div>
-      <div class="exit_search" @click="$store.commit('setSearching', false)">X</div>
+      <div class="exit_search" @click="close_searchbar()">X</div>
       <div id="list_books"></div>
     </div>
 
@@ -28,7 +28,6 @@
 import Navbar from './components/Navbar.vue'
 // import Book from './views/Book.vue'
 import { inject } from 'vue'
-import { reactive } from 'vue'
 import store from './store'
 
 export default {
@@ -38,15 +37,11 @@ export default {
     // Book
   },
   setup() {
-    const state = reactive({
-      books: {}
-    })
 
     function GetAll() {
       fetch('http://localhost:3000/books')
         .then(res => res.json())
         .then(data => {
-          state.books = data
           console.log('data: ', data)
           store.commit('setData', data)
           console.log('add data to store successful!')
@@ -56,8 +51,6 @@ export default {
 
     const Vue3GoogleOauth = inject('Vue3GoogleOauth');
     return {
-      // PopupBook,
-      state,
       GetAll,
       Vue3GoogleOauth
     }
@@ -77,6 +70,7 @@ export default {
       },
       variable: {
         shownevbar: true,
+        searchbar: null,
       }
     }
   },
@@ -162,10 +156,13 @@ export default {
         console.log(`link from: ${this.$router.name} (add URL)`)
       }
     },
-    // searching() {
-    //   let ref = document.getElementById('list_books')
-    //   console.log('ref: ', ref)
-    // }
+    close_searchbar() {
+      this.variable.searchbar.classList.remove('searchbar_active')
+      this.variable.searchbar.classList.add('searchbar_passive')
+      setTimeout(() => {
+        this.$store.commit('setSearching', false) 
+      }, 100);
+    }
   },
 
   mounted() {
@@ -174,6 +171,8 @@ export default {
       window.addEventListener("scroll", () => { this.setWindowScroll() })
       this.reference.navRef = this.$refs.nevbarRef.childNodes[0]
       window.addEventListener('load', () => { this.checkLogin() })
+      const searchbar = document.getElementById('list_books')
+      this.variable.searchbar = searchbar
     }
 
     // Proces
