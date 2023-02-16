@@ -49,7 +49,12 @@ export default {
          
             if (name && author && (name.includes(newtext) || author.includes(newtext))) {
               let div_books = document.createElement('div')
-              div_books.addEventListener('click', () => {
+              // div_books.addEventListener('click', () => {
+              //   window.open(`/book/${id}`, '_blank');
+              // })
+              let cover_book = document.createElement('div')
+              cover_book.classList.add('cover_book')
+              cover_book.addEventListener('click', () => {
                 window.open(`/book/${id}`, '_blank');
               })
 
@@ -64,24 +69,34 @@ export default {
 
               let bookImg = document.createElement('img')
               bookImg.classList.add('bookImg')
-              let bookName = document.createElement('p')
+              let bookName = document.createElement('div')
               bookName.classList.add('bookName')
-              let bookAuthor = document.createElement('p')
+              let bookAuthor = document.createElement('div')
               bookAuthor.classList.add('bookAuthor')
+              let btn_addToCrat = document.createElement('div')
+              btn_addToCrat.addEventListener('click', () => {this.addToCrat()})
+              btn_addToCrat.innerHTML = 'add to Cart'
+              btn_addToCrat.classList.add('btn_addToCrat')
               let box_info = document.createElement('div')
               box_info.classList.add('box_info')
               bookImg.src = book.image
               bookName.innerHTML = book.product_name
               bookAuthor.innerHTML = 'Author | ' + book.author_name
-              div_books.appendChild(bookImg)
+              cover_book.appendChild(bookImg)
               box_info.appendChild(bookName)
               box_info.appendChild(bookAuthor)
-              div_books.appendChild(box_info)
+              cover_book.appendChild(box_info)
+              div_books.appendChild(cover_book)
+              div_books.appendChild(btn_addToCrat)
               ctn_books.appendChild(div_books)
               list_books.appendChild(ctn_books)
             }
           })
         }
+      },
+      addToCrat() {
+        // code here bike koung
+        console.log('addtocart')
       }
   },
   mounted() {

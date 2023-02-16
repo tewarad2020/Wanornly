@@ -166,7 +166,8 @@ export default {
       setTimeout(() => {
         this.$store.commit('setSearching', false) 
       }, 100);
-    }
+    },
+  
   },
 
   mounted() {
