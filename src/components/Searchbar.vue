@@ -40,10 +40,10 @@ export default {
           if (list_books.firstChild) list_books.firstChild.remove()
 
           datafilter.filter(book => {
-            let name = book.product_name
+            let name = book.name
             let ISBN = book.ISBN
             if (name) name = name.toLowerCase().replaceAll(' ', '');
-            let author = book.author_name
+            let author = book.author
             if (author) author = author.toLowerCase().replaceAll(' ', '');
             let newtext = this.text.toLowerCase().replaceAll(' ', '');
          
@@ -77,8 +77,8 @@ export default {
               let box_info = document.createElement('div')
               box_info.classList.add('box_info')
               bookImg.src = book.image
-              bookName.innerHTML = book.product_name
-              bookAuthor.innerHTML = 'Author | ' + book.author_name
+              bookName.innerHTML = book.name
+              bookAuthor.innerHTML = 'Author | ' + book.author
               cover_book.appendChild(bookImg)
               box_info.appendChild(bookName)
               box_info.appendChild(bookAuthor)

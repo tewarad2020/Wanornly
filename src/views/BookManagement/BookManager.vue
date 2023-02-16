@@ -4,7 +4,7 @@
     <br>
     <br>
     <button @click="ShowAddBook">Add book</button>
-    <button @click="ShowEditBook">Edit book</button>
+    <!-- <button @click="ShowEditBook">Edit book</button> -->
     
     <div v-if="isShowAdd">
         <AddBook></AddBook>

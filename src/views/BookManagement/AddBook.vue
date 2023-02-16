@@ -45,8 +45,8 @@ export default {
       }
   },
   methods: {
-    createBook() {
-      axios.post('http://localhost:3000/books', this.BookInfo)
+    async createBook() {
+     await axios.post('http://localhost:3000/books', this.BookInfo)
         .then(response => console.log(response))
         .catch(error => console.log(error))
     }

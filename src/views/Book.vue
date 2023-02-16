@@ -8,9 +8,11 @@
       <div class="book_img">
         <!-- <img src="../assets/images/bg2.jpg" alt=""> -->
         <img src="../assets/images/bg2.jpg" alt="">
+        <!-- <img v-if="bookInfo!=null" :src="bookInfo.img" alt=""> -->
       </div>
       <div class="book_info_ctn">
         <div class="book_info">
+         
           <h1>Info</h1>
           <p>name: </p>
         </div>
@@ -20,6 +22,10 @@
         <p>If ISBN are shown below means Fetching is success!</p>
         <h1>{{ $route.params.id }}</h1>
 
+        <button @click="EditHandle"> edit</button>
+        <div v-if="isEdit">
+          <EditBook :bookProp="bookInfo"></EditBook>
+        </div>
       </div>
     </div>
 
@@ -29,16 +35,20 @@
 </template>
 
 <script>
-
+import EditBook from './BookManagement/EditBook.vue'
 export default {
 
   name: 'bookPage',
+  components:{
+    EditBook,
+  },
   data() {
     return {
       path: {
         coverPath: require('../assets/images/bg1.jpg'),
       },
       bookInfo: null,    
+      isEdit:false,
     }
   },
   props:[
@@ -60,6 +70,11 @@ export default {
       initial()
       console.log('info of book: ', this.bookInfo)
     }, 200)
+  },
+  methods:{
+    EditHandle(){
+      this.isEdit = !this.isEdit
+    }
   }
 
 }
