@@ -1,5 +1,8 @@
 <template>
   <div class="cartPage">
+    <br>
+    <br>
+    <br>
     <div>
       <div  class="itemCtn" v-for="(item,index) in cartData" :key="index">
        <p>{{ item.ISBN }}</p> 

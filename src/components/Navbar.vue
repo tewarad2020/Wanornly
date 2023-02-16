@@ -22,7 +22,7 @@
                 <hr>
               </div>
             </div>
-            <div @click="goto('/profile')" class="op_profile">
+            <div @click="goto('/bookManager')" class="op_profile">
               <img :src="path.userIcon" alt="">
               Profile
             </div>

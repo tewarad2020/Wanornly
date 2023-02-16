@@ -49,6 +49,11 @@ export default {
      await axios.post('http://localhost:3000/books', this.BookInfo)
         .then(response => console.log(response))
         .catch(error => console.log(error))
+       
+        window.location.replace('/')
+        // this.$router.replace({ path: '/' })
+       
+
     }
   }
 
