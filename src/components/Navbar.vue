@@ -5,9 +5,9 @@
       <span id="logo">wanornly</span>
     </div>
     <div id="manuAll">
-      <span>Home</span>
+      <span @click="goto('/')">Home</span>
       <span>Contact</span>
-      <span v-show="isLogin()">Cart</span>
+      <span v-show="isLogin()" @click="goto('/cart')">Cart</span>
       <span v-show="!isLogin()" @click="handleSignIn()" >Log in</span>
       <span v-show="isLogin()">
         <div class="ctn_user_image_nev" @click="showOptions()">
@@ -26,7 +26,7 @@
               <img :src="path.userIcon" alt="">
               Profile
             </div>
-            <div @click="goto('/book')" class="op_history">
+            <div @click="goto('/history')" class="op_history">
               <img :src="path.historyIcon" alt="">
               History
             </div>
