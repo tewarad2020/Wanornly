@@ -13,6 +13,9 @@ export default {
     data() {
         return {
             text: '',
+            variable: {
+              searchbar: null,
+            }
         }
     },
     methods: {
@@ -23,6 +26,8 @@ export default {
       filter() {
         if (!this.$store.getters.Searching) {
           this.$store.commit('setSearching', true)
+          this.variable.searchbar.classList.remove('searchbar_passive')
+          this.variable.searchbar.classList.add('searchbar_active')
           setTimeout(() => {
             this.filter()
           }, 30)
@@ -30,35 +35,63 @@ export default {
         let datafilter = this.$store.getters.data
         let list_books = document.getElementById('list_books')
         let ctn_books = document.createElement('div')
+        ctn_books.classList.add('ctn_books')
         if (list_books) {
           if (list_books.firstChild) list_books.firstChild.remove()
 
           datafilter.filter(book => {
             let name = book.product_name
-            name = name.toLowerCase().replaceAll(' ', '');
+            let id = book._id
+            if (name) name = name.toLowerCase().replaceAll(' ', '');
             let author = book.author_name
-            author = author.toLowerCase().replaceAll(' ', '');
+            if (author) author = author.toLowerCase().replaceAll(' ', '');
             let newtext = this.text.toLowerCase().replaceAll(' ', '');
-            if (name.includes(newtext) || author.includes(newtext)) {
+         
+            if (name && author && (name.includes(newtext) || author.includes(newtext))) {
               let div_books = document.createElement('div')
-              div_books.classList.add('cnt_books')
+              div_books.addEventListener('click', () => {
+                window.open(`/book/${id}`, '_blank');
+              })
+
+              list_books.appendChild(ctn_books)
+              let book_with = ctn_books.clientWidth
+              div_books.style.overflow = `hidden`
+              div_books.style.margin = `0 1% 0 1%`
+              div_books.style.width = `${book_with / 4 * 0.92}px`
+              div_books.style.height = `${book_with / 2.5 * 0.92}px`
+              div_books.classList.add('div_books')
+              list_books.firstChild.remove()
+
               let bookImg = document.createElement('img')
-              let bookName = document.createElement('div')
-              let bookAuthor = document.createElement('div')
+              bookImg.classList.add('bookImg')
+              let bookName = document.createElement('p')
+              bookName.classList.add('bookName')
+              let bookAuthor = document.createElement('p')
+              bookAuthor.classList.add('bookAuthor')
+              let box_info = document.createElement('div')
+              box_info.classList.add('box_info')
               bookImg.src = book.image
               bookName.innerHTML = book.product_name
-              bookAuthor.innerHTML = book.author_name
+              bookAuthor.innerHTML = 'Author | ' + book.author_name
               div_books.appendChild(bookImg)
-              div_books.appendChild(bookName)
-              div_books.appendChild(bookAuthor)
+              box_info.appendChild(bookName)
+              box_info.appendChild(bookAuthor)
+              div_books.appendChild(box_info)
               ctn_books.appendChild(div_books)
               list_books.appendChild(ctn_books)
             }
           })
         }
       }
-    
   },
+  mounted() {
+    let initial = () => {
+      const searchbar = document.getElementById('list_books')
+      this.variable.searchbar = searchbar
+    }
+    
+    initial()
+  }
 
 }
 </script>

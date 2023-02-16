@@ -14,9 +14,9 @@
           <h1>Info</h1>
           <p>name: </p>
         </div>
-        <button class='addtocart'>
+        <div class='addtocart' @click="{() => {console.log(567);}}">
           Cart
-        </button>
+        </div>
         <p>If ISBN are shown below means Fetching is success!</p>
         <h1>{{ $route.params.id }}</h1>
 
@@ -25,7 +25,7 @@
             {{ item.ISBN }}
           </h4>
         </div> -->
-        <button @click="console.log(data)"> clip me</button>
+        <!-- <button @click="console.log(data)"> clip me</button> -->
 
       </div>
     </div>

@@ -5,9 +5,9 @@
       <span id="logo">wanornly</span>
     </div>
     <div id="manuAll">
-      <span>Home</span>
+      <span @click="goto('/')">Home</span>
       <span>Contact</span>
-      <span v-show="isLogin()">Cart</span>
+      <span v-show="isLogin()" @click="goto('/cart')">Cart</span>
       <span v-show="!isLogin()" @click="handleSignIn()" >Log in</span>
       <span v-show="isLogin()">
         <div class="ctn_user_image_nev" @click="showOptions()">
@@ -26,7 +26,7 @@
               <img :src="path.userIcon" alt="">
               Profile
             </div>
-            <div @click="goto('/book')" class="op_history">
+            <div @click="goto('/history')" class="op_history">
               <img :src="path.historyIcon" alt="">
               History
             </div>
@@ -44,6 +44,7 @@
 
 <script>
 import Searchbar from '../components/Searchbar.vue'
+import axios from 'axios'
 
 export default {
     name: 'NavBarComplement',
@@ -101,6 +102,7 @@ export default {
             profileImage: googleUser.getBasicProfile().getImageUrl()
           }))
           // localStorage.setItem('user_info', JSON.stringify(googleUser))
+          this.CheckUserDatabase(this.variable.user_info)
           console.log('login successful!')
 
         } catch(error) {
@@ -108,6 +110,29 @@ export default {
           return null
         }
       },
+    async CheckUserDatabase(userInfo){
+      await fetch(`http://localhost:3000/user/${userInfo.username}`)
+        .then(res => res.json())
+        .then(data => {
+          if(data.length===0){ //dont have this user in database
+            console.log('new user login')
+            this.BindUserDatabase(userInfo)
+          }
+          else{
+            console.log('user already in database')
+          }
+        })
+
+    },
+    async BindUserDatabase(userInfo){
+      await axios.put(`http://localhost:3000/user`,
+        {
+          id:userInfo.username,
+          username:userInfo.name
+        }
+      )
+      console.log(`add new user :${userInfo.username}`)
+    },
       isLogin() {
         return this.Vue3GoogleOauth.isAuthorized
       },
