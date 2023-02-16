@@ -7,8 +7,8 @@ const { Schema } = mongoose;
 const cartSchema = new Schema(
     {
         user_id: {
-            type: Number,
-            required: 'ISBN cannot be blank'
+            type: String,  //gmail is user_id
+            required: 'user_id cannot be blank'
         },
         ISBN: {
             type: Number,

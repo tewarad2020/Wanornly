@@ -5,6 +5,7 @@ export default createStore({
     data: null,
     Searching: false,
     cartData: null,
+   
   },
   getters: {
     data:state=>state.data,
@@ -20,7 +21,7 @@ export default createStore({
     },
     setCartData(state,data){
       state.cartData=data
-    }
+    },
   },
   actions: {
   },
