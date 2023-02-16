@@ -20,13 +20,6 @@
         <p>If ISBN are shown below means Fetching is success!</p>
         <h1>{{ $route.params.id }}</h1>
 
-        <!-- <div v-for="item in data" :key="item.ISBN">
-          <h4>
-            {{ item.ISBN }}
-          </h4>
-        </div> -->
-        <!-- <button @click="console.log(data)"> clip me</button> -->
-
       </div>
     </div>
 
@@ -36,7 +29,6 @@
 </template>
 
 <script>
-// import { reactive } from 'vue'
 
 export default {
 
@@ -45,13 +37,30 @@ export default {
     return {
       path: {
         coverPath: require('../assets/images/bg1.jpg'),
-      },    }
+      },
+      bookInfo: null,    
+    }
   },
-
   props:[
     'data',
-  ]
+  ],
 
+  mounted() {
+    let initial = () => {
+      let n = this.$store.getters.data.length
+      for (let i=0; i<n; i++) {
+        if (this.$store.getters.data[i].ISBN == this.$route.params.id) {
+          this.bookInfo = this.$store.getters.data[i]
+          break
+        }
+      }
+    }
+
+    setTimeout(() => {
+      initial()
+      console.log('info of book: ', this.bookInfo)
+    }, 200)
+  }
 
 }
 </script>

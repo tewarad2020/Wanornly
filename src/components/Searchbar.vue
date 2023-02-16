@@ -41,7 +41,7 @@ export default {
 
           datafilter.filter(book => {
             let name = book.product_name
-            let id = book._id
+            let ISBN = book.ISBN
             if (name) name = name.toLowerCase().replaceAll(' ', '');
             let author = book.author_name
             if (author) author = author.toLowerCase().replaceAll(' ', '');
@@ -49,13 +49,10 @@ export default {
          
             if (name && author && (name.includes(newtext) || author.includes(newtext))) {
               let div_books = document.createElement('div')
-              // div_books.addEventListener('click', () => {
-              //   window.open(`/book/${id}`, '_blank');
-              // })
               let cover_book = document.createElement('div')
               cover_book.classList.add('cover_book')
               cover_book.addEventListener('click', () => {
-                window.open(`/book/${id}`, '_blank');
+                window.open(`/book/${ISBN}`, '_blank');
               })
 
               list_books.appendChild(ctn_books)
