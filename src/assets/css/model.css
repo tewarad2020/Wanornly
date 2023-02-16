@@ -17,7 +17,7 @@
   top: calc(10vh + 30px);
   right: 10%;
   margin: 6px 15px 0 0;
-  z-index: 2;
+  z-index: 1;
   cursor: pointer;
   font-size: 1.5vw;
   transition: .15s ease-in-out;

@@ -8,8 +8,8 @@
 
     <div id="ctn_list_books" class="model" v-show="$store.getters.Searching">
       <div class="filter_listbook"></div>
-      <div class="exit_search" @click="close_searchbar()">X</div>
       <div id="list_books"></div>
+      <div class="exit_search" @click="close_searchbar()">X</div>
     </div>
 
     <router-view />
