@@ -39,7 +39,12 @@ const routes = [
         path: '/cart',
         name: 'cartPage',
         component: () => import('../views/CartPage.vue')
-    }
+    },
+    {
+        path: '/bookManager',
+        name: 'bookManager',
+        component: () => import('../views/BookManagement/BookManager.vue')
+    },
 ]
 
 const router = createRouter({

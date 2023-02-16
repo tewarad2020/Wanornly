@@ -29,7 +29,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: "addBookPage",
+  name: "addBook",
   data() {
     return {
       BookInfo:{
@@ -56,5 +56,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../assets/css/addBook.css";
+@import "../../assets/css/addBook.css";
 </style>

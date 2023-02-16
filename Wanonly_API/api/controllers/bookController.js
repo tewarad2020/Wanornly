@@ -21,7 +21,7 @@ exports.create_a_book = (req, res) => {
 }
 
 exports.read_a_book = (req, res) => {
-    book.findById(req.params.bookID, (err, book) => {
+    book.find({ISBN:req.params.bookISBN}, (err, book) => {
         if (err) res.send(err);
         res.json(book);
     })
@@ -29,7 +29,7 @@ exports.read_a_book = (req, res) => {
 
 exports.update_a_book = (req, res) => {
     book.findOneAndUpdate(
-        { _id: req.params.bookID },
+        {ISBN:req.params.bookISBN},
         req.body,
         { new : true },
         (err, book) => {
@@ -40,11 +40,11 @@ exports.update_a_book = (req, res) => {
 }
 
 exports.delete_a_book = (req, res) => {
-    book.deleteOne({ _id: req.params.bookID } , err => {
+    book.deleteOne({ISBN:req.params.bookISBN} , err => {
         if (err) res.send(err);
         res.json({
             message: 'book successfully deleted', 
-            _id: req.params.bookID
+            _id: req.params.bookISBN
         })
     })
 }
