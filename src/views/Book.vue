@@ -7,8 +7,8 @@
     <div class="book_ctn">
       <div class="book_img">
         <!-- <img src="../assets/images/bg2.jpg" alt=""> -->
-        <img src="../assets/images/bg2.jpg" alt="">
-        <!-- <img v-if="bookInfo!=null" :src="bookInfo.img" alt=""> -->
+        <!-- <img src="../assets/images/bg2.jpg" alt=""> -->
+        <img v-if="isFetched" :src="bookInfo.image" alt="">
       </div>
       <div class="book_info_ctn">
         <div class="book_info">
@@ -47,8 +47,18 @@ export default {
       path: {
         coverPath: require('../assets/images/bg1.jpg'),
       },
-      bookInfo: null,    
+      bookInfo: {
+        ISBN:"",
+        name:"",
+        author:"",
+        categoryID:0,
+        book_description:"",
+        image:"",
+        publisher:"",
+        amount:0
+        },    
       isEdit:false,
+      isFetched:false,
     }
   },
   props:[
@@ -64,6 +74,7 @@ export default {
           break
         }
       }
+      this.isFetched = true;
     }
 
     setTimeout(() => {
