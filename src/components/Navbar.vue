@@ -105,17 +105,21 @@ export default {
             return null
           }
 
+          const fetchrole = await this.fetchRole(googleUser.getBasicProfile().getEmail())
+          
           this.variable.user_info = {
             username: googleUser.getBasicProfile().getEmail(),
             name: googleUser.getBasicProfile().getName(),
-            profileImage: googleUser.getBasicProfile().getImageUrl()
+            profileImage: googleUser.getBasicProfile().getImageUrl(),
+            role:fetchrole,
           }
-
+         console.log(this.variable.user_info)
           localStorage.setItem('status_login', true)
           localStorage.setItem('user_info', JSON.stringify({
             username: googleUser.getBasicProfile().getEmail(),
             name: googleUser.getBasicProfile().getName(),
-            profileImage: googleUser.getBasicProfile().getImageUrl()
+            profileImage: googleUser.getBasicProfile().getImageUrl(),
+            role: fetchrole,
           }))
           // localStorage.setItem('user_info', JSON.stringify(googleUser))
           this.CheckUserDatabase(this.variable.user_info)
@@ -126,6 +130,15 @@ export default {
           return null
         }
       },
+      async fetchRole(username){
+        let role = "temp"
+       await axios.get(`http://localhost:3000/user/${username}`)
+                .then(res=>res.data)
+                  .then(data=>{
+                    role =  data[0].role
+                  })
+      return role
+    },
     async CheckUserDatabase(userInfo){
       await fetch(`http://localhost:3000/user/${userInfo.username}`)
         .then(res => res.json())
