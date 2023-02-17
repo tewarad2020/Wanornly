@@ -24,18 +24,9 @@ import axios from 'axios';
 
 export default {
     name:'cartPage',
-    created() {
-    // watch the params of the route to fetch the data again
-    this.$watch(
-      () => this.$route.params,
-      () => {
-        this.fetchCart()
-      },
-      // fetch the data when the view is created and the data is
-      // already being observed
-      { immediate: true }
-    )
-  },
+    mounted(){
+      this.fetchCart()
+    },
     data(){
       return {
         cartData:[{
