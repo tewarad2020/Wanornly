@@ -27,6 +27,7 @@
           <EditBook :bookProp="bookInfo"></EditBook>
         </div>
         <button @click="CheckDuplicate">add to cart</button>
+        <button @click="DeleteHandle">delete</button>
       </div>
     </div>
 
@@ -127,7 +128,15 @@ export default {
     },
     DuplicateHandle(){
       alert("This book is already in cart")
-    }
+    },
+    
+  async DeleteHandle(){
+    console.log("deleting")
+    await axios.delete(`http://localhost:3000/books/${this.bookInfo.ISBN}`)
+    .then(response => console.log(response))
+        .catch(error => console.log(error))
+        window.location.replace('/')
+  },
 
   }
 

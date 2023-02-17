@@ -20,7 +20,7 @@
         <input type="number" v-model="BookInfo.categoryID"/>
         <button class="submit-btn" @click="updateBook">update</button>
       </form>
-      <!-- <button @click="DeleteHandle">delete</button> -->
+      
     </div>
       
   </div>
@@ -55,13 +55,9 @@ export default {
     await  axios.put(`http://localhost:3000/books/${this.BookInfo.ISBN}`, this.BookInfo)
         .then(response => console.log(response))
         .catch(error => console.log(error))
+        window.location.replace('/')
     }
   },
-  async DeleteHandle(){
-    await axios.delete(`http://localhost:3000/books/${this.BookInfo.ISBN}`)
-    .then(response => console.log(response))
-        .catch(error => console.log(error))
-  }
 };
 </script>
 
