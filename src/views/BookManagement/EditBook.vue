@@ -5,7 +5,7 @@
         <label >Name</label>
         <input type="text" v-model="BookInfo.name"/>
         <label >ISBN</label>
-        <input type="text" v-model="BookInfo.ISBN"/>
+        <input disabled type="text" v-model="BookInfo.ISBN"/>
         <label >Author</label>
         <input type="text" v-model="BookInfo.author"/>
         <label >Description</label>

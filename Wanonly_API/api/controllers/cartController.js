@@ -21,7 +21,7 @@ exports.add_to_cart = (req, res) => {
 
 
 exports.delete_from_cart = (req, res) => {
-    console.log(req.params)
+    // console.log(req.params)
     cart.remove( { user_id: req.params.userID, ISBN: req.params.ISBN } , err => {
         if (err) res.send(err);
         res.json({
