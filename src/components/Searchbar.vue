@@ -3,7 +3,10 @@
     <!-- <div class="labelBar"> -->
         <input type="text" placeholder="Search.." v-model="text" @keyup="filter()" @change="filter()" @click="filter()">
     <!-- </div> -->
-        <button @click="refresh()">refresh</button>
+        <button @click="refresh()">
+          <img :src="path.refeshIcon" alt="">
+          <p>refresh</p> 
+        </button>
   </div>
 </template>
 
@@ -12,6 +15,9 @@ export default {
     name: 'SearchbarComponent',
     data() {
         return {
+            path: {
+              refeshIcon : require('../assets/images/refeshIcon.png')
+            },
             text: '',
             variable: {
               searchbar: null,
@@ -59,7 +65,7 @@ export default {
               let book_with = ctn_books.clientWidth
               div_books.style.overflow = `hidden`
               div_books.style.margin = `0 1% 0 1%`
-              div_books.style.width = `${book_with / 4 * 0.92}px`
+              div_books.style.width = `${book_with / 4 * 0.91}px`
               div_books.style.height = `${book_with / 2.5 * 0.92}px`
               div_books.classList.add('div_books')
               list_books.firstChild.remove()

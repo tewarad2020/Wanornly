@@ -21,10 +21,12 @@
   cursor: pointer;
   font-size: 1.5vw;
   transition: .15s ease-in-out;
+  color: rgb(208, 141, 237);;
 }
 
 .exit_search:hover {
-  color: rgb(0, 140, 255);
+  /* color: rgb(0, 140, 255); */
+  color: rgb(183, 71, 231);
 }
 
 .filter_listbook {
@@ -33,7 +35,8 @@
   top: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(62, 63, 63, .8);
+  /* background-color: rgba(217, 171, 236, 0.8); */
+  background-image: linear-gradient(rgba(250, 236, 242, 0.8), rgba(213, 180, 228, 0.8), rgba(137, 79, 162, 0.8));
   padding: 20px;
   border-radius: 0px;
 }
@@ -48,9 +51,10 @@
   /* justify-content: center;
   align-items: center; */
   z-index: 1;
-  background-color: rgb(255, 255, 255);
+  /* background-color: rgb(255, 255, 255); */
+  background-color: rgb(247, 235, 251);
   border-radius: 12px;
-  box-shadow: 3px 3px 8px #333333;
+  /* box-shadow: 3px 3px 8px #333333; */
   padding: 1.5%;
   overflow: hidden;
 }
@@ -110,12 +114,11 @@
 
 .box_info {
   position: relative;
-  top: -2.5%;
+  top: 0%;
   width: 100%;
   height: 28%;
   /* background-color: aquamarine; */
 }
-
 
 .bookName {
   position: relative;
@@ -154,15 +157,17 @@
   width: 100%;
   height: 10%;
   color: rgb(255, 255, 255);
-  background-color: rgb(15, 185, 168);
+  /* background-color: rgb(15, 185, 168); */
+  background-color: #F26689;
   cursor: pointer;
   transition: .13s ease-in-out;
   /* opacity: 0; */
+  border-radius: 5px;
 }
 
 .btn_addToCrat:hover {
-  color: rgb(1, 62, 32);
-  background-color: rgb(13, 164, 149);
+  color: rgb(255, 255, 255);
+  background-color: rgb(245, 74, 117);
 }
 
 .cover_book {
@@ -183,11 +188,14 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(112, 186, 208, .6);
+  /* background-color: rgba(112, 186, 208, .6); */
+  background-color: rgba(224, 169, 248, 0.8);
   transform: translateY(-90%);
   opacity: 0;
-  transition: 0.15s ease-in-out;
+  transition: 0.1s ease-in-out;
   z-index: 3;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .cover_book:hover::before {
@@ -206,7 +214,7 @@
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: 0.15s ease-in-out;
+  transition: 0.2s ease-in-out 0.1s;
   z-index: 3;
   pointer-events: none;
 }

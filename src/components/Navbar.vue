@@ -5,10 +5,22 @@
       <span id="logo">wanornly</span>
     </div>
     <div id="manuAll">
-      <span @click="goto('/')">Home</span>
-      <span>Contact</span>
-      <span v-show="isLogin()" @click="goto('/cart')">Cart</span>
-      <span v-show="!isLogin()" @click="handleSignIn()" >Log in</span>
+      <span @click="goto('/')" class="menu">
+       <div class="home_menu_img"><img :src="path.homeIcon" alt=""></div>
+       <div class="home_menu_text">Home</div>
+      </span>
+      <span class="menu">
+        <div class="chat_menu_img"><img :src="path.chatIcon" alt=""></div>
+        <div class="chat_menu_text">Chat</div>
+      </span>
+      <span v-show="isLogin()" @click="goto('/cart')" class="menu">
+        <div class="cart_menu_img"><img :src="path.cartIcon" alt=""></div>
+        <div class="cart_menu_text">Cart</div>
+      </span>
+      <span v-show="!isLogin()" @click="handleSignIn()" class="menu">
+        <div class="login_menu_img"><img :src="path.loginIcon" alt=""></div>
+        <div class="login_menu_text">Log in</div>
+      </span>
       <span v-show="isLogin()">
         <div class="ctn_user_image_nev" @click="showOptions()">
           <img :src="(isLogin() && variable.user_info != null)? variable.user_info.profileImage : ''" alt="">
@@ -63,6 +75,10 @@ export default {
           userIcon: require('../assets/images/userIcon.png'),
           historyIcon: require('../assets/images/historyIcon.png'),
           logoutIcon: require('../assets/images/logoutIcon.png'),
+          homeIcon: require('../assets/images/homeIcon.png'),
+          chatIcon: require('../assets/images/chatIcon.png'),
+          cartIcon: require('../assets/images/cartIcon.png'),
+          loginIcon: require('../assets/images/loginIcon.png'),
         },
         variable: {
           user_info : {

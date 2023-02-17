@@ -35,7 +35,7 @@
 
 #logo {
     position: relative;
-    color: rgb(0, 0, 0);
+    color: rgb(154, 118, 178);
     font-weight: 500;
     font-size: 2vw;
 }
@@ -43,27 +43,29 @@
 #manuAll {
     position: absolute;
     display: flex;
-    justify-content: right ;
+    justify-content: right;
     align-items: center;
     width: 45%;
     height: 100%;
     /* background-color: blueviolet; */
     right: 0;
-    color: rgb(0, 0, 0);
+    /* color: #323232; */
+    color: #9A76B2;
     font-weight: 400;
     font-size: 1.2vw;
     padding: 0 1.5% 0 1.5%;
 }
 
-#manuAll span {
+/* #manuAll span {
     position: relative;
     margin-left: 8%;
-    /* background-color: yellow; */
+    background-color: yellow;
     cursor: pointer;
-}
+} */
 
 #manuAll span:hover {
-    color: rgb(0, 140, 255);
+    /* color: rgb(0, 140, 255); */
+    color: #a017db;
 }
 
 .active {
@@ -279,4 +281,122 @@
     color: rgb(197, 196, 196);
 }
 
+.menu {
+    position: relative;
+    display: flex;
+    justify-content: right;
+    width: 16%;
+    margin-left: 5%;
+    margin-right: 0%;
+    left: 0;
+    /* background-color: yellow; */
+    cursor: pointer;
+}
 
+.home_menu_img {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    top: 3px;
+    width: 20%;
+    /* left: 28%; */
+    height: auto;
+    /* background-color: aqua; */
+}
+
+.home_menu_img img {
+    position: absolute;
+    width: 85%;
+}
+
+.home_menu_text {
+    position: relative;
+    width: 80%;
+    left: 0;
+    height: auto;
+    /* background-color: red; */
+    /* text-align: right; */
+    padding: 0 0 0 5%;
+}
+
+.chat_menu_img {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    top: 3px;
+    width: 23%;
+    /* left: 28%; */
+    height: auto;
+    /* background-color: aqua; */
+}
+
+.chat_menu_img img {
+    position: absolute;
+    width: 85%;
+}
+
+.chat_menu_text {
+    position: relative;
+    width: 80%;
+    left: 0;
+    height: auto;
+    /* background-color: red; */
+    /* text-align: right; */
+    padding: 0 0 0 5%;
+}
+
+.cart_menu_img {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    top: 3px;
+    width: 23%;
+    /* left: 28%; */
+    height: auto;
+    /* background-color: aqua; */
+}
+
+.cart_menu_img img {
+    position: absolute;
+    width: 85%;
+}
+
+.cart_menu_text {
+    position: relative;
+    width: 80%;
+    left: 0;
+    height: auto;
+    /* background-color: red; */
+    /* text-align: right; */
+    padding: 0 0 0 5%;
+}
+
+.login_menu_img {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    top: 3px;
+    width: 23%;
+    /* left: 28%; */
+    height: auto;
+    /* background-color: aqua; */
+}
+
+.login_menu_img img {
+    position: absolute;
+    width: 85%;
+}
+
+.login_menu_text {
+    position: relative;
+    width: 80%;
+    left: 0;
+    height: auto;
+    /* background-color: red; */
+    /* text-align: right; */
+    padding: 0 0 0 5%;
+}
