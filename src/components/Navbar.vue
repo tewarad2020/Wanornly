@@ -113,7 +113,7 @@ export default {
             profileImage: googleUser.getBasicProfile().getImageUrl(),
             role:fetchrole,
           }
-         console.log(this.variable.user_info)
+          // console.log(this.variable.user_info)
           localStorage.setItem('status_login', true)
           localStorage.setItem('user_info', JSON.stringify({
             username: googleUser.getBasicProfile().getEmail(),

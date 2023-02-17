@@ -29,10 +29,10 @@
 
         <div class="ctn_envet">
           <div class="btn_envet_addToCart" @click="CheckDuplicate">
-            <img :src="path.cartIcon" alt="">
+            <!-- <img :src="path.cartIcon" alt=""> -->
           </div>
-          <div class="ctn_envet_edit" v-if="true" @click="EditHandle">edit</div>
-          <div class="ctn_envet_delete" v-if="true" @click="DeleteHandle">delete</div>
+          <div class="ctn_envet_edit" v-if="role === 'admin'? true : false" @click="EditHandle">edit</div>
+          <div class="ctn_envet_delete" v-if="role === 'admin'? true : false" @click="DeleteHandle">delete</div>
         </div>
       </div>
     </div>
@@ -80,6 +80,7 @@ export default {
       },    
       isEdit:false,
       isFetched:false,
+      role: null,
     }
   },
   props:[
@@ -102,6 +103,9 @@ export default {
 
       circleBase[0].style.height = `${circleBase[0].clientWidth}px`
       book_img[0].style.height = `${book_img[0].clientWidth * (1 + 1.5 / 3.5)}px`
+
+      this.role = JSON.parse(localStorage.getItem('user_info')).role
+      console.log(this.role)
     }
 
     setTimeout(() => {
