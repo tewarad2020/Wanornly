@@ -39,6 +39,7 @@
   background-image: linear-gradient(rgba(250, 236, 242, 0.8), rgba(213, 180, 228, 0.8), rgba(137, 79, 162, 0.8));
   padding: 20px;
   border-radius: 0px;
+  z-index: 1;
 }
 
 #list_books {

@@ -17,30 +17,102 @@
     left: 5%;
     width: 90%;
     height: 100vh;
-    background-color: rebeccapurple;
+    /* background-color: rebeccapurple; */
+}
+
+.circleBase {
+    position: absolute;
+    width: 72%;
+    /* height: 300px; */
+    background-color: #ECE3F0;
+    border-radius: 50%;
+}
+
+.ctn_book_img {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35%;
+    height: 100%;
+    padding: 2%;
+    /* background-color: aquamarine; */
 }
 
 .book_img {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 45%;
-    height: 100%;
-    padding: 2%;
-    background-color: aquamarine;
-}
+    position: absolute;
+    margin: 0px;
+    width: 50%;
+    /* height: 35%; */
+    box-shadow: 5px 5px 15px #565656;
+} 
 
 .book_img img {
-    position: relative;
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
+    height: 100%;
+    /* background-color: #fff; */
 }
 
 .book_info_ctn {
     position: relative;
     right: 0;
-    width: 55%;
+    width: 65%;
     height: 100%;
     padding: 2%;
     /* margin: 2%; */
-    background-color: beige;
+    /* background-color: beige; */
+}
+
+.book_info_name {
+    position: relative;
+    top: 0;
+    left: 0;
+    font-size: 1.8vw;
+    color: #9A76B2;
+    /* background-color: red; */
+}
+
+.book_info_author {
+    position: relative;
+    top: 0;
+    left: 0;
+    font-size: 1.2vw;
+    color: #dcb4ed;
+}
+
+.book_info_description  {
+    position: relative;
+    top: 0;
+    left: 0;
+    font-size: 1.2vw;
+    margin-top: 25px;
+    color: #231F20;
+}
+
+.ctn_envet {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background-color: #dcb4ed;
+}
+
+.btn_envet_addToCart {
+    position: relative;
+    display: inline-block;
+    background-color: antiquewhite;
+}
+
+.ctn_envet_edit {
+    position: relative;
+    display: inline-block;
+    background-color: antiquewhite;
+}
+
+.ctn_envet_delete {
+    position: relative;
+    display: inline-block;
+    background-color: antiquewhite;
 }
