@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import MixinFunction from '../mixins/MixinFunction.js'
 export default {
     name: 'SearchbarComponent',
     data() {
@@ -21,6 +22,7 @@ export default {
             text: '',
             variable: {
               searchbar: null,
+             
             }
         }
     },
@@ -77,7 +79,7 @@ export default {
               let bookAuthor = document.createElement('div')
               bookAuthor.classList.add('bookAuthor')
               let btn_addToCrat = document.createElement('div')
-              btn_addToCrat.addEventListener('click', () => {this.addToCart()})
+              btn_addToCrat.addEventListener('click', () => {this.addToCart(ISBN)})
               btn_addToCrat.innerHTML = 'add to Cart'
               btn_addToCrat.classList.add('btn_addToCrat')
               let box_info = document.createElement('div')
@@ -97,11 +99,15 @@ export default {
           })
         }
       },
-      addToCart() {
+      addToCart(ISBN) {
         // code here bike koung
+        console.log()
+        const username = JSON.parse(localStorage.getItem("user_info")).username
+        this.CheckAddToCart(ISBN,username)
         console.log('addToCart')
       }
   },
+  mixins:[MixinFunction],
   mounted() {
     let initial = () => {
       const searchbar = document.getElementById('list_books')
