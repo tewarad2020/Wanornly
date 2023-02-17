@@ -77,7 +77,7 @@ export default {
               let bookAuthor = document.createElement('div')
               bookAuthor.classList.add('bookAuthor')
               let btn_addToCrat = document.createElement('div')
-              btn_addToCrat.addEventListener('click', () => {this.addToCrat()})
+              btn_addToCrat.addEventListener('click', () => {this.addToCart()})
               btn_addToCrat.innerHTML = 'add to Cart'
               btn_addToCrat.classList.add('btn_addToCrat')
               let box_info = document.createElement('div')
@@ -97,9 +97,9 @@ export default {
           })
         }
       },
-      addToCrat() {
+      addToCart() {
         // code here bike koung
-        console.log('addtocart')
+        console.log('addToCart')
       }
   },
   mounted() {

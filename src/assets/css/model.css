@@ -167,7 +167,7 @@
 
 .btn_addToCrat:hover {
   color: rgb(255, 255, 255);
-  background-color: rgb(245, 74, 117);
+  background-color: rgb(245, 61, 107);
 }
 
 .cover_book {
@@ -214,7 +214,7 @@
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: 0.2s ease-in-out 0.1s;
+  transition: 0.1s ease-in-out 0.1s;
   z-index: 3;
   pointer-events: none;
 }

@@ -71,7 +71,7 @@ export default {
     data() {
       return {
         path: {
-          logo : require('../assets/images/logo.png'),
+          logo : require('../assets/images/logo2.png'),
           userIcon: require('../assets/images/userIcon.png'),
           historyIcon: require('../assets/images/historyIcon.png'),
           logoutIcon: require('../assets/images/logoutIcon.png'),
