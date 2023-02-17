@@ -124,6 +124,7 @@ export default {
           // localStorage.setItem('user_info', JSON.stringify(googleUser))
           this.CheckUserDatabase(this.variable.user_info)
           console.log('login successful!')
+          window.location.reload()
 
         } catch(error) {
           console.log(error)

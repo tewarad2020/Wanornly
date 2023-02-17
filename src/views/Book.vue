@@ -28,11 +28,22 @@
         </div>
 
         <div class="ctn_envet">
-          <div class="btn_envet_addToCart" @click="CheckDuplicate">
-            <!-- <img :src="path.cartIcon" alt=""> -->
+          <div class="btn_envet_heart" @click="likeIt">
+            <span><Icon id="heart_Icon" icon="mdi:cards-heart" /></span>
           </div>
-          <div class="ctn_envet_edit" v-if="role === 'admin'? true : false" @click="EditHandle">edit</div>
-          <div class="ctn_envet_delete" v-if="role === 'admin'? true : false" @click="DeleteHandle">delete</div>
+          <div class="btn_envet_addToCart" @click="CheckDuplicate">
+            <span><Icon id="shopping-cart_Icon" icon="material-symbols:shopping-cart-rounded" /></span>
+          </div>
+          <div class="ctn_envet_edit" v-if="role === 'admin'? true : false" @click="EditHandle">
+            <span><Icon id="edit_Icon" icon="material-symbols:edit" /></span>
+          </div>
+          <div class="ctn_envet_delete" v-if="role === 'admin'? true : false" @click="DeleteHandle">
+            <span><Icon id="delete-outline_Icon" icon="material-symbols:delete-outline" /></span>
+          </div>
+
+          <div class="ctn_status">
+            <span>{{ product_status() }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -46,18 +57,27 @@
 
 <script>
 import axios from 'axios'
+import { Icon } from '@iconify/vue';
 import EditBook from './BookManagement/EditBook.vue'
+
 export default {
 
   name: 'bookPage',
   components:{
     EditBook,
+    Icon
+  },
+  setup() {
+    let test = () => {
+      console.log('asd')
+    }
+
+    return {test}
   },
   data() {
     return {
       path: {
         coverPath: require('../assets/images/bg1.jpg'),
-        cartIcon: require('../assets/images/cartIcon.png')
       },
       userID:"",
       bookInfo: {
@@ -81,6 +101,7 @@ export default {
       isEdit:false,
       isFetched:false,
       role: null,
+      islike: false,
     }
   },
   props:[
@@ -104,8 +125,10 @@ export default {
       circleBase[0].style.height = `${circleBase[0].clientWidth}px`
       book_img[0].style.height = `${book_img[0].clientWidth * (1 + 1.5 / 3.5)}px`
 
-      this.role = JSON.parse(localStorage.getItem('user_info')).role
-      console.log(this.role)
+      let ctn_envet = document.getElementsByClassName('ctn_envet')
+      let btn_envet_addToCart = document.getElementsByClassName('btn_envet_addToCart')
+
+      ctn_envet[0].style.height = `${btn_envet_addToCart[0].clientWidth}px`
     }
 
     setTimeout(() => {
@@ -113,26 +136,34 @@ export default {
       console.log('info of book: ', this.bookInfo)
     }, 200)
 
-     this.userID = JSON.parse(localStorage.getItem("user_info")).username
+    if(localStorage.getItem("user_info")) {
+      this.userID = JSON.parse(localStorage.getItem("user_info")).username
+      this.role = JSON.parse(localStorage.getItem('user_info')).role
+      // console.log('this.role:', this.role )
+    }
   },
   methods:{
     EditHandle(){
       this.isEdit = !this.isEdit
     },
     async CheckDuplicate(){
-      await axios.get(`http://localhost:3000/carts/${this.userID}`)
-                  .then(res=>res.data)
-                    .then(data=>{
-                      const filtered = data.filter(ele=>ele.ISBN===this.bookInfo.ISBN)
-                      console.log(filtered)
-                      if(filtered.length!==0){  //already have same book in cart
-                          this.DuplicateHandle()
-                          console.log("book is already in cart")
-                      }
-                      else{
-                        this.AddToCart()
-                      }
-                    })
+      if (localStorage.getItem('status_login')) {
+        await axios.get(`http://localhost:3000/carts/${this.userID}`)
+                    .then(res=>res.data)
+                      .then(data=>{
+                        const filtered = data.filter(ele=>ele.ISBN===this.bookInfo.ISBN)
+                        console.log(filtered)
+                        if(filtered.length!==0){  //already have same book in cart
+                            this.DuplicateHandle()
+                            console.log("book is already in cart")
+                        }
+                        else{
+                          this.AddToCart()
+                        }
+                      })
+      }else {
+        alert('You have not login!')
+      }
     },
     async AddToCart(){
       this.reqCart ={
@@ -149,14 +180,31 @@ export default {
       alert("This book is already in cart")
     },
     
-  async DeleteHandle(){
-    console.log("deleting")
-    await axios.delete(`http://localhost:3000/books/${this.bookInfo.ISBN}`)
-    .then(response => console.log(response))
-        .catch(error => console.log(error))
-        window.location.replace('/')
-  },
-
+    async DeleteHandle(){
+      console.log("deleting")
+      await axios.delete(`http://localhost:3000/books/${this.bookInfo.ISBN}`)
+      .then(response => console.log(response))
+          .catch(error => console.log(error))
+          window.location.replace('/')
+    },
+    likeIt() {
+      if (localStorage.getItem('status_login')) {
+        let heart_Icon = document.getElementById('heart_Icon')
+        if(!this.islike) {
+          heart_Icon.style.color = '#f74343'
+          this.islike = true
+        }else {
+          heart_Icon.style.color = '#666666'
+          this.islike = false
+        }
+      }else {
+        alert('You have not login!')
+      }
+    },
+    product_status() {
+      if (this.bookInfo.amount !== 0) return 'Available'
+      else return 'Out of stock'
+    }
   }
 
 }

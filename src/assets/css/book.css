@@ -16,16 +16,17 @@
     top: 15vh;
     left: 5%;
     width: 90%;
-    height: 100vh;
+    height: 77vh;
     /* background-color: rebeccapurple; */
 }
 
 .circleBase {
     position: absolute;
-    width: 72%;
+    width: 87%;
     /* height: 300px; */
     background-color: #ECE3F0;
     border-radius: 50%;
+    /* top: 18%; */
 }
 
 .ctn_book_img {
@@ -42,9 +43,10 @@
 .book_img {
     position: absolute;
     margin: 0px;
-    width: 50%;
+    width: 65%;
     /* height: 35%; */
-    box-shadow: 5px 5px 15px #565656;
+    box-shadow: 3px 3px 12px 0.2px #919191;
+    /* top: 18%; */
 } 
 
 .book_img img {
@@ -93,26 +95,194 @@
 }
 
 .ctn_envet {
-    position: relative;
+    position: absolute;
     width: 100%;
-    height: 40px;
-    background-color: #dcb4ed;
+    height: 6.5%;
+    /* background-color: #dcb4ed; */
+    bottom: 12%;
+}
+
+.btn_envet_heart {
+    position: relative;
+    display: inline-block;
+    width: 4.4%;
+    margin-right: 2%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 24%;
+    background-color: #D1D3D7;
+}
+
+.btn_envet_heart span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .1s;
+}
+
+#heart_Icon {
+    position: absolute;
+    width: auto;
+    /* left: 5px; */
+    height: 80%;
+    /* color: #dcb4ed; */
+    color: #666666;
+    transition: .1s;
+}
+
+.btn_envet_heart:hover #heart_Icon{
+    color: #dcb4ed;
+}
+
+.btn_envet_heart:hover span{
+    background-color: #e5e8ef;
+    border-radius: 24%;
 }
 
 .btn_envet_addToCart {
     position: relative;
     display: inline-block;
-    background-color: antiquewhite;
+    width: 4.4%;
+    margin-right: 2%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 24%;
+    background-color: #D1D3D7;
+}
+
+.btn_envet_addToCart span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .1s;
+}
+
+#shopping-cart_Icon {
+    position: absolute;
+    width: auto;
+    /* left: 5px; */
+    height: 80%;
+    /* color: #dcb4ed; */
+    color: #666666;
+    transition: .1s;
+}
+
+.btn_envet_addToCart:hover #shopping-cart_Icon{
+    color: #dcb4ed;
+}
+
+.btn_envet_addToCart:hover span{
+    background-color: #e5e8ef;
+    border-radius: 24%;
 }
 
 .ctn_envet_edit {
     position: relative;
     display: inline-block;
-    background-color: antiquewhite;
+    width: 4.4%;
+    margin-right: 2%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 24%;
+    background-color: #D1D3D7;
+}
+
+.ctn_envet_edit span{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .1s;
+}
+
+#edit_Icon {
+    position: absolute;
+    width: auto;
+    height: 80%;
+    /* color: #dcb4ed; */
+    color: #666666;
+    transition: .1s;
+}
+
+.ctn_envet_edit:hover #edit_Icon{
+    color: #dcb4ed;
+}
+
+.ctn_envet_edit:hover span{
+    background-color: #e5e8ef;
+    border-radius: 24%;
 }
 
 .ctn_envet_delete {
     position: relative;
     display: inline-block;
-    background-color: antiquewhite;
+    width: 4.4%;
+    margin-right: 2%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 24%;
+    background-color: #D1D3D7;
+}
+
+.ctn_envet_delete span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .1s;
+}
+
+#delete-outline_Icon {
+    position: absolute;
+    width: auto;
+    height: 80%;
+    /* color: #dcb4ed; */
+    color: #666666;
+    transition: .1s;
+}
+
+.ctn_envet_delete:hover #delete-outline_Icon{
+    color: #dcb4ed;
+}
+
+.ctn_envet_delete:hover span{
+    background-color: #e5e8ef;
+    border-radius: 24%;
+}
+
+.ctn_status {
+    position: absolute;
+    display: inline-block;
+    right: 10%;
+    width: 12%;
+    margin-right: 2%;
+    height: 100%;
+    border-radius: 17px;
+    background-color: #03de91;
+    font-size: 1.1vw;
+}
+
+.ctn_status span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .1s;
 }
