@@ -107,7 +107,8 @@ export default {
         localStorage.setItem('user_info', JSON.stringify({
           username: googleUser.getBasicProfile().getEmail(),
           name: googleUser.getBasicProfile().getName(),
-          profileImage: googleUser.getBasicProfile().getImageUrl()
+          profileImage: googleUser.getBasicProfile().getImageUrl(),
+          // role: getRole()
         }))
         // localStorage.setItem('user_info', JSON.stringify(googleUser))
         console.log('login successful!')

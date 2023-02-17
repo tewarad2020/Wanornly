@@ -1,9 +1,8 @@
 <template>
   <div id="home_ctn">
     <div id="cover_ctn">
-      <img id="cover_img" :src="path.coverPath" alt="">
+      <!-- <img id="cover_img" :src="path.coverPath" alt=""> -->
     </div>
-    <!-- <span class="searchbar"><Searchbar/></span> -->
   </div>
 </template>
 

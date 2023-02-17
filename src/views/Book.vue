@@ -1,37 +1,45 @@
 <template>
   <div id="bookPage">
     <div id="cover_ctn">
-      <img id="cover_img" :src="path.coverPath" alt="">
+      <!-- <img id="cover_img" :src="path.coverPath" alt=""> -->
     </div>
 
     <div class="book_ctn">
-      <div class="book_img">
-        <!-- <img src="../assets/images/bg2.jpg" alt=""> -->
-        <!-- <img src="../assets/images/bg2.jpg" alt=""> -->
-        <img v-if="isFetched" :src="bookInfo.image" alt="">
+      <div class="ctn_book_img">
+        <div class="circleBase"></div>
+        <div class="book_img">
+          <img v-if="isFetched" :src="bookInfo.image" alt="">
+        </div>
       </div>
       <div class="book_info_ctn">
         <div class="book_info">
-         
-          <h1>Info</h1>
-          <p>name: </p>
+          <div class="book_info_name"> {{ bookInfo.name }}</div>
+          <div class="book_info_author">Author | {{ bookInfo.author }}</div>
+          <div class="book_info_description">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ bookInfo.book_description }} Lorem ipsum dolor sit amet 
+            consectetur adipisicing elit. Voluptatum, voluptates 
+            delectus! Est temporibus ad voluptatibus vero iusto? 
+            Aperiam at ut repellendus. Reiciendis quidem recusandae 
+            autem! Sequi fuga at molestiae veniam Lorem ipsum dolor 
+            sit amet consectetur adipisicing elit. Ipsam molestias 
+            nihil deserunt vitae, cum vel, est culpa sit nobis 
+            libero soluta maxime iste repellendus unde eligendi 
+            voluptatem animi amet sequi?</div>
         </div>
-        <div class='addtocart' @click="{() => {console.log(567);}}">
-          Cart
-        </div>
-        <p>If ISBN are shown below means Fetching is success!</p>
-        <h1>{{ $route.params.id }}</h1>
 
-        <button @click="EditHandle"> edit</button>
-        <div v-if="isEdit">
-          <EditBook :bookProp="bookInfo"></EditBook>
+        <div class="ctn_envet">
+          <div class="btn_envet_addToCart" @click="CheckDuplicate">
+            <img :src="path.cartIcon" alt="">
+          </div>
+          <div class="ctn_envet_edit" v-if="true" @click="EditHandle">edit</div>
+          <div class="ctn_envet_delete" v-if="true" @click="DeleteHandle">delete</div>
         </div>
-        <button @click="CheckDuplicate">add to cart</button>
-        <button @click="DeleteHandle">delete</button>
       </div>
     </div>
 
-
+    <div v-if="isEdit">
+      <EditBook :bookProp="bookInfo"></EditBook>
+    </div>
 
   </div>
 </template>
@@ -49,6 +57,7 @@ export default {
     return {
       path: {
         coverPath: require('../assets/images/bg1.jpg'),
+        cartIcon: require('../assets/images/cartIcon.png')
       },
       userID:"",
       bookInfo: {
@@ -87,6 +96,12 @@ export default {
         }
       }
       this.isFetched = true;
+
+      let circleBase = document.getElementsByClassName('circleBase')
+      let book_img = document.getElementsByClassName('book_img')
+
+      circleBase[0].style.height = `${circleBase[0].clientWidth}px`
+      book_img[0].style.height = `${book_img[0].clientWidth * (1 + 1.5 / 3.5)}px`
     }
 
     setTimeout(() => {
