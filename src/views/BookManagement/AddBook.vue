@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="form-ctn">
-      <form @submit.prevent="createBook" class="bookInfo-form">
+      <form @submit.prevent="CheckValidBook" class="bookInfo-form">
         <label >Name</label>
         <input type="text" v-model="BookInfo.name"/>
         <label >ISBN</label>
@@ -52,8 +52,17 @@ export default {
        
         window.location.replace('/')
         // this.$router.replace({ path: '/' })
-       
-
+    },
+    CheckValidBook(){
+      const allBooks = this.$store.getters.data
+      const filteredBook =  allBooks.map(b=>b.ISBN)
+                .filter(id=>id==this.BookInfo.ISBN)
+      if(filteredBook.length!=0){ //already has this book ISBN in database
+          alert("A book with this ISBN is already in database")
+      }
+      else{
+        this.createBook()
+      }
     }
   }
 
