@@ -31,7 +31,7 @@
           <div class="btn_envet_heart" @click="likeIt">
             <span><Icon id="heart_Icon" icon="mdi:cards-heart" /></span>
           </div>
-          <div class="btn_envet_addToCart" @click="CheckDuplicate">
+          <div class="btn_envet_addToCart" @click="this.CheckAddToCart(this.bookInfo.ISBN,this.userID)">
             <span><Icon id="shopping-cart_Icon" icon="material-symbols:shopping-cart-rounded" /></span>
           </div>
           <div class="ctn_envet_edit" v-if="role === 'admin'? true : false" @click="EditHandle">
@@ -59,6 +59,7 @@
 import axios from 'axios'
 import { Icon } from '@iconify/vue';
 import EditBook from './BookManagement/EditBook.vue'
+import { AddToCartHandler } from '@/mixins/MixinFunction';
 
 export default {
 
@@ -67,6 +68,7 @@ export default {
     EditBook,
     Icon
   },
+  mixins:[AddToCartHandler],
   setup() {
     let test = () => {
       console.log('asd')
@@ -90,14 +92,6 @@ export default {
         publisher:"",
         amount:0
         },
-      reqCart:{
-        user_id:"",
-        ISBN:0,
-        time_item:new Date(),
-        request_book:1,
-        status_request:"inCart",
-        time_request:"0/0/0"
-      },    
       isEdit:false,
       isFetched:false,
       role: null,
@@ -109,6 +103,8 @@ export default {
   ],
 
   mounted() {
+    this.userID = JSON.parse(localStorage.getItem("user_info")).username
+
     let initial = () => {
       let n = this.$store.getters.data.length
       for (let i=0; i<n; i++) {
@@ -145,39 +141,6 @@ export default {
   methods:{
     EditHandle(){
       this.isEdit = !this.isEdit
-    },
-    async CheckDuplicate(){
-      if (localStorage.getItem('status_login')) {
-        await axios.get(`http://localhost:3000/carts/${this.userID}`)
-                    .then(res=>res.data)
-                      .then(data=>{
-                        const filtered = data.filter(ele=>ele.ISBN===this.bookInfo.ISBN)
-                        console.log(filtered)
-                        if(filtered.length!==0){  //already have same book in cart
-                            this.DuplicateHandle()
-                            console.log("book is already in cart")
-                        }
-                        else{
-                          this.AddToCart()
-                        }
-                      })
-      }else {
-        alert('You have not login!')
-      }
-    },
-    async AddToCart(){
-      this.reqCart ={
-        ...this.reqCart,
-        user_id:this.userID,
-        ISBN:this.bookInfo.ISBN,
-      }
-      console.log(this.reqCart)
-       await axios.put(`http://localhost:3000/carts`,this.reqCart)  
-       .then(response => console.log(response))
-        .catch(error => console.log(error))          
-    },
-    DuplicateHandle(){
-      alert("This book is already in cart")
     },
     
     async DeleteHandle(){

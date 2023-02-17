@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import MixinFunction from '../mixins/MixinFunction.js'
+import {AddToCartHandler} from '../mixins/MixinFunction.js'
 export default {
     name: 'SearchbarComponent',
     data() {
@@ -101,13 +101,12 @@ export default {
       },
       addToCart(ISBN) {
         // code here bike koung
-        console.log()
         const username = JSON.parse(localStorage.getItem("user_info")).username
         this.CheckAddToCart(ISBN,username)
         console.log('addToCart')
       }
   },
-  mixins:[MixinFunction],
+  mixins:[AddToCartHandler],
   mounted() {
     let initial = () => {
       const searchbar = document.getElementById('list_books')
