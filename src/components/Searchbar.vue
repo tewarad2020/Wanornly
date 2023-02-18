@@ -83,7 +83,7 @@ export default {
               list_books.appendChild(ctn_books)
               let book_with = ctn_books.clientWidth
               div_books.style.overflow = `hidden`
-              div_books.style.margin = `0 1% 0 1%`
+              div_books.style.margin = `0 1% 2% 1%`
               div_books.style.width = `${book_with / 4 * 0.91}px`
               div_books.style.height = `${book_with / 2.5 * 0.92}px`
               div_books.classList.add('div_books')

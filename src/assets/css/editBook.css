@@ -4,12 +4,212 @@
     padding: 0;
 }
 
+.form_edit input[type=text] {
+    position: relative;
+    width: 100%;
+    height: 32px;
+    background-color: rgba(59, 59, 59, .5);
+    /* background-color: rgba(218, 218, 218, 0.5); */
+    /* color: rgb(0, 0, 0); */
+    color: #fff;
+    border: 0;
+    /* border-bottom: 1px solid rgb(0, 0, 0); */
+    border-radius: 4px;
+    padding-left: 1%;
+    font-weight: 300;
+    font-size: 1.1vw;
+}
+
+.form_edit input[type=number] {
+    position: relative;
+    width: 100%;
+    height: 32px;
+    background-color: rgba(59, 59, 59, .5);
+    /* background-color: rgba(218, 218, 218, 0.5); */
+    /* color: rgb(0, 0, 0); */
+    color: #fff;
+    border: 0;
+    /* border-bottom: 1px solid rgb(0, 0, 0); */
+    border-radius: 4px;
+    padding-left: 1%;
+    font-weight: 300;
+    font-size: 1.1vw;
+}
+
+.form_edit input[type=text]:focus {
+    background-color: rgba(59, 59, 59, 1);
+    outline: none;
+    /* color: #fff; */
+}
+
+.form_edit input[type=number]:focus {
+    background-color: rgba(59, 59, 59, 1);
+    outline: none;
+    /* color: #fff; */
+}
+
+.form_edit input::placeholder {
+    font-size: 1vw;
+    color: rgba(0, 0, 0, .5);
+}
+
+.form_edit input:focus::placeholder {
+    color: rgba(0, 0, 0, .8);
+}
+
 .ctn_edit_book {
     position: absolute;
-    width: 90%;
-    height: 80vh;
-    left: 5%;
-    top: calc(10vh + 32px);
+    width: 65%;
+    height: 85vh;
+    left: 17.5%;
+    top: calc(7.5vh + 32px);
     border-radius: 14px;
-    background-color: aquamarine;
+    /* background-color: rgba(154, 118, 178, .8); */
+    /* background-image: linear-gradient(rgba(213, 180, 228, 0.8), rgba(213, 180, 228, 0.8), rgba(137, 79, 162, 0.8)); */
+    background-image: linear-gradient(180deg, rgba(161, 143, 170, 0.8), rgba(154,118,178, 0.4), rgba(242,102,137, 0.4));
+
+    /* filter: blur(1px); */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(111, 111, 111, .0);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(111, 111, 111, .0);
+}
+
+.ctn_form_edit {
+    position: absolute;
+    width: 90%;
+    height: 85%;
+    top: 5%;
+    /* background-color: rgba(30, 207, 98, 1); */
+    /* display: flex;
+    justify-content: center; */
+    border-radius: 14px;
+    overflow-y: scroll;
+}
+
+.form_edit {
+    position: relative;
+    width: 96%;
+    height: 96%;
+    /* background-color: rgb(14, 200, 200); */
+    border-radius: 14px;
+    margin: 3% 2% 0 2%;
+}
+
+.form_edit label{
+    position: relative;
+    display: block;
+    width: 20%;
+    margin-bottom: 0.6%;
+    font-size: 1.2vw;
+    margin-left: 0.8%;
+    /* text-decoration: underline; */
+    /* background-color: aqua; */
+}
+
+.form_edit input{
+    position: relative;
+    width: 100%;
+    left: 0%;
+    margin-bottom: 2%;
+    /* left: 0; */
+    /* background-color: rgb(13, 13, 13); */
+}
+
+.Name_label {
+    position: relative;
+    /* background-color: rebeccapurple; */
+    /* display: flex;
+    justify-content: center; */
+    margin-top: 2%;
+}
+
+/* .Name_label label{
+    position: relative;
+    margin-right: 20px;
+} */
+
+.ISBN_label {
+    position: relative;
+    /* background-color: rebeccapurple; */
+    /* display: flex;
+    justify-content: center; */
+    margin-top: 2%;
+}
+
+.Author_label  {
+    position: relative;
+    /* background-color: rebeccapurple; */
+    /* display: flex;
+    justify-content: center; */
+    margin-top: 2%;
+}
+
+.Description_label  {
+    position: relative;
+    /* background-color: rebeccapurple; */
+    /* display: flex;
+    justify-content: center; */
+    margin-top: 2%;
+}
+
+.Image_label  {
+    position: relative;
+    /* background-color: rebeccapurple; */
+    /* display: flex;
+    justify-content: center; */
+    margin-top: 2%;
+}
+
+.Publisher_label  {
+    position: relative;
+    /* background-color: rebeccapurple; */
+    /* display: flex;
+    justify-content: center; */
+    margin-top: 2%;
+}
+
+.Amount_label  {
+    position: relative;
+    /* background-color: rebeccapurple; */
+    /* display: flex;
+    justify-content: center; */
+    margin-top: 2%;
+}
+
+.Category_label  {
+    position: relative;
+    /* background-color: rebeccapurple; */
+    /* display: flex;
+    justify-content: center; */
+    margin-top: 2%;
+}
+
+.btn_submit_edit {
+    position: absolute;
+    bottom: 2.4%;
+    width: 13%;
+    height: 6%;
+    background-color: #F26689 ;
+    border-radius: 10px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2vw;
+    text-transform: uppercase;
+    transition: 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.btn_submit_edit:hover {
+    background-color: #f13e6a ;
 }
