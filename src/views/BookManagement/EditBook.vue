@@ -37,12 +37,12 @@
         </div>
       </form>
     </div>
-    <div class="btn_submit_edit" @click="updateBook">update</div>
+    <div class="btn_submit_edit" @click="updateBook(this.BookInfo.ISBN,this.BookInfo)">update</div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   name: "editBook",
   props:[
@@ -66,13 +66,13 @@ export default {
     this.BookInfo = this.bookProp
   },
   methods: {
-   async updateBook() {
-    await  axios.put(`http://localhost:3000/books/${this.BookInfo.ISBN}`, this.BookInfo)
-        .then(response => console.log(response))
-        .catch(error => console.log(error))
-        window.location.replace('/')
-    }
-  },
+  //  async updateBook() {
+  //   await  axios.put(`http://localhost:3000/books/${this.BookInfo.ISBN}`, this.BookInfo)
+  //       .then(response => console.log(response))
+  //       .catch(error => console.log(error))
+  //       window.location.replace('/')
+  //   }
+   },
 };
 </script>
 

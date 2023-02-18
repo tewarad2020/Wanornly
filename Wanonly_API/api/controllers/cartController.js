@@ -9,6 +9,13 @@ exports.list_all_books_in_cart = (req, res) => {
     }) 
 }
 
+exports.all_cart_every_user = (req, res) => {
+    cart.find({}, (err, carts)=> {
+        if (err) res.send(err);
+        res.json(carts);
+    }) 
+}
+
 exports.add_to_cart = (req, res) => {
     const newCart = new cart(req.body);
     newCart.save((err, cart) => {

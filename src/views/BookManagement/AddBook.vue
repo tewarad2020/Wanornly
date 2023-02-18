@@ -28,20 +28,22 @@
 
 <script>
 import axios from 'axios'
+import { bookHandler } from '../../mixins/MixinFunction';
 export default {
   name: "addBook",
+  mixins:[bookHandler],
   data() {
     return {
-      BookInfo:{
-        ISBN:"",
-        name:"",
-        author:"",
-        category:"",
-        book_description:"",
-        image:"",
-        publisher:"",
-        amount:0
-        }
+      // BookInfo:{
+      //   ISBN:"",
+      //   name:"",
+      //   author:"",
+      //   category:"",
+      //   book_description:"",
+      //   image:"",
+      //   publisher:"",
+      //   amount:0
+      //   }
       }
   },
   methods: {

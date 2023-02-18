@@ -25,6 +25,7 @@ module.exports = app => {
     app
         .route('/carts')
         .put(cartBuilder.add_to_cart)
+        .get(cartBuilder.all_cart_every_user)
 
 
     app

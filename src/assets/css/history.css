@@ -5,15 +5,18 @@
 }
 
 #historyPage{
-    height: 500px;
-    width: 500px;
-    background-color: bisque;
+
+    
+        height: 100%;
+        width: 100%;
+        background-color: rgb(216, 121, 216);
+
 }
 
 
 .itemCtn{
     margin-top: 100px;
-    height: 100px;
+    height: 200px;
     width: 400px;
     background-color: rgb(157, 255, 0);
     margin: 20px;

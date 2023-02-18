@@ -45,6 +45,11 @@ const routes = [
         name: 'bookManager',
         component: () => import('../views/BookManagement/BookManager.vue')
     },
+    {
+        path: '/requestManager',
+        name: 'requestManager',
+        component: () => import('../views/BookManagement/RequestManager.vue')
+    },
 ]
 
 const router = createRouter({
