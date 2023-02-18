@@ -53,9 +53,26 @@ export default {
             if (name) name = name.toLowerCase().replaceAll(' ', '');
             let author = book.author
             if (author) author = author.toLowerCase().replaceAll(' ', '');
-            let newtext = this.text.toLowerCase().replaceAll(' ', '');
-         
-            if (name && author && (name.includes(newtext) || author.includes(newtext))) {
+            // let newtext = this.text.toLowerCase().replaceAll(' ', '');
+            let newtext = this.text.toLowerCase().split(' ');
+
+            let includeName = true
+            for (let i=0;i<newtext.length;i++) {
+              if (!name.includes(newtext[i])) {
+                includeName = false
+                break
+              }
+            }
+            let includeAuther = true
+            for (let i=0;i<newtext.length;i++) {
+              if (!author.includes(newtext[i])) {
+                includeAuther = false
+                break
+              }
+            }
+
+            // if (name && author && (name.includes(newtext) || author.includes(newtext))) {
+            if (name && author && (includeName || includeAuther)) {
               let div_books = document.createElement('div')
               let cover_book = document.createElement('div')
               cover_book.classList.add('cover_book')

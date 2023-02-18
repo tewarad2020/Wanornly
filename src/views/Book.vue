@@ -125,6 +125,18 @@ export default {
       let btn_envet_addToCart = document.getElementsByClassName('btn_envet_addToCart')
 
       ctn_envet[0].style.height = `${btn_envet_addToCart[0].clientWidth}px`
+
+      let heart_Icon = document.getElementById('heart_Icon')
+      heart_Icon.addEventListener('mouseenter', () => {
+        if (!this.islike) {
+          heart_Icon.style.color = '#dcb4ed'
+        }
+      })
+      heart_Icon.addEventListener('mouseleave', () => {
+        if (!this.islike) {
+          heart_Icon.style.color = '#666666'
+        }
+      })
     }
 
     setTimeout(() => {
