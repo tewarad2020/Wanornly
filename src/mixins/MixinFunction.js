@@ -1,6 +1,8 @@
 import axios from "axios";
 import store from "@/store";
 
+
+
 const cartHandler ={
     data(){
       return{
@@ -11,9 +13,9 @@ const cartHandler ={
           status_request:"inCart",
           time_request:null
         }],
-        allBookHistory:null,
-        bookInCart:null,
-        bookPending:null,
+        currentUserAllBook:null,
+        currentUserInCart:null,
+        currentUserPending:null,
       }
     },
     mounted(){
@@ -21,19 +23,19 @@ const cartHandler ={
 
     },
     computed:{
-      InCartFiltered:function(){
+      currentInCartFiltered:function(){
         const InCartISBN = this.cartData.filter(ele=>ele.status_request=="inCart")
                                             .map(b=>b.ISBN)
-        if(this.allBookHistory!=null)
-        this.bookInCart = this.allBookHistory.filter(b=>InCartISBN.includes(b.ISBN))
-        return this.bookInCart
+        if(this.currentUserAllBook!=null)
+        this.currentUserInCart = this.currentUserAllBook.filter(b=>InCartISBN.includes(b.ISBN))
+        return this.currentUserInCart
       } ,
-      PendingFiltered:function(){
+      currentPendingFiltered:function(){
         const PendingISBN = this.cartData.filter(ele=>ele.status_request=="pending")
                                             .map(b=>b.ISBN)
-        if(this.allBookHistory!=null)
-        this.bookPending = this.allBookHistory.filter(b=>PendingISBN.includes(b.ISBN))
-        return this.bookPending
+        if(this.currentUserAllBook!=null)
+        this.currentUserPending = this.currentUserAllBook.filter(b=>PendingISBN.includes(b.ISBN))
+        return this.currentUserPending
       } ,
     },
     methods:{
@@ -50,14 +52,14 @@ const cartHandler ={
         
           const allBookData = this.$store.getters.data
 
-          this.allBookHistory = this.cartData.map(c=>{
+          this.currentUserAllBook = this.cartData.map(c=>{
               const [cBookData] = allBookData.filter(bd=>bd.ISBN==c.ISBN)
               return  {
                   ...c,
                   ...cBookData
               }
           })
-          //this.allBookHistory = this.$store.getters.data.filter(b=>allCartISBN.includes(b.ISBN))
+          //this.currentUserAllBook = this.$store.getters.data.filter(b=>allCartISBN.includes(b.ISBN))
           
           store.commit('setCartData', data)
           console.log('fetch and store cart information successfully!')
@@ -66,7 +68,7 @@ const cartHandler ={
         catch(err){
           console.log(err)
         }
-      }
+      },
     }
 }
 

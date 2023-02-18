@@ -5,9 +5,12 @@
 }
 
 #historyPage{
-    height: 500px;
-    width: 500px;
-    background-color: bisque;
+
+    
+        height: 100%;
+        width: 100%;
+        background-color: rgb(216, 121, 216);
+
 }
 
 
