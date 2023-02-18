@@ -106,24 +106,31 @@ export default {
             return null
           }
 
-          this.CheckUserDatabase(this.variable.user_info)
-
-          const fetchrole = await this.fetchRole(googleUser.getBasicProfile().getEmail())
-          
+        
           this.variable.user_info = {
             username: googleUser.getBasicProfile().getEmail(),
             name: googleUser.getBasicProfile().getName(),
             profileImage: googleUser.getBasicProfile().getImageUrl(),
-            role:fetchrole,
+            role:"customer",
           }
+
+           await this.CheckUserDatabase(this.variable.user_info)
           // console.log(this.variable.user_info)
+
+           await this.fetchRole(this.variable.user_info.username)
+          
           localStorage.setItem('status_login', true)
           localStorage.setItem('user_info', JSON.stringify({
             username: googleUser.getBasicProfile().getEmail(),
             name: googleUser.getBasicProfile().getName(),
             profileImage: googleUser.getBasicProfile().getImageUrl(),
-            role: fetchrole,
+            role: this.variable.user_info.role,
           }))
+       
+          
+
+          //add data to local storage
+         
           // localStorage.setItem('user_info', JSON.stringify(googleUser))
           
           console.log('login successful!')
@@ -135,13 +142,25 @@ export default {
         }
       },
       async fetchRole(username){
-        let role = "temp"
        await axios.get(`http://localhost:3000/user/${username}`)
                 .then(res=>res.data)
                   .then(data=>{
-                    role =  data[0].role
+                    console.log("fetch role:",data)
+                    if(data.length!=0)
+                    {
+                     this.variable.user_info ={
+                        ...this.variable.user_info,
+                        role:data[0].role,
+                     } 
+                    }
+                    else{
+                      this.variable.user_info ={
+                        ...this.variable.user_info,
+                        role:"customer",
+                     }
+                    }
                   })
-      return role
+      
     },
     async CheckUserDatabase(userInfo){
       await fetch(`http://localhost:3000/user/${userInfo.username}`)
@@ -150,9 +169,11 @@ export default {
           if(data.length===0){ //dont have this user in database
             console.log('new user login')
             this.BindUserDatabase(userInfo)
+            return false
           }
           else{
             console.log('user already in database')
+            return true
           }
         })
 
