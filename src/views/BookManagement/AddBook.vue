@@ -16,8 +16,8 @@
         <input type="text" v-model="BookInfo.publisher"/>
         <label >Amount</label>
         <input type="number" v-model="BookInfo.amount"/>
-        <label >CategoryID</label>
-        <input type="number" v-model="BookInfo.categoryID"/>
+        <label >Category</label>
+        <input type="number" v-model="BookInfo.category"/>
         <button class="submit-btn">submit</button>
       </form>
    
@@ -36,7 +36,7 @@ export default {
         ISBN:"",
         name:"",
         author:"",
-        categoryID:0,
+        category:"",
         book_description:"",
         image:"",
         publisher:"",

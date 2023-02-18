@@ -86,7 +86,7 @@ export default {
         ISBN:"",
         name:"",
         author:"",
-        categoryID:0,
+        category:"",
         book_description:"",
         image:"",
         publisher:"",

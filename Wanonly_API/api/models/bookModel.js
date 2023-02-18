@@ -18,9 +18,9 @@ const bookSchema = new Schema(
             type: String,
             required: 'author cannot be blank'
         },
-        categoryID: {
-            type: Number,
-            required: 'categoryID cannot be blank'
+        category: {
+            type: String,
+            required: 'category cannot be blank'
         },
         book_description: {
             type: String,
