@@ -1,59 +1,207 @@
 * {
     box-sizing: border-box;
-    padding: 0;
     margin: 0;
-  
+    padding: 0;
 }
 
-.page{
-    height:100vh;
-    width: 100vw;
-   
-    background-image: url("../images/bg3.jpg");
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+.form_add input[type=text] {
+    position: relative;
+    width: 100%;
+    height: 32px;
+    background-color: rgba(59, 59, 59, .5);
+    /* background-color: rgba(218, 218, 218, 0.5); */
+    /* color: rgb(0, 0, 0); */
+    color: #fff;
+    border: 0;
+    /* border-bottom: 1px solid rgb(0, 0, 0); */
+    border-radius: 4px;
+    padding-left: 1%;
+    font-weight: 300;
+    font-size: 1.1vw;
+}
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: center;
+.form_add input[type=number] {
+    position: relative;
+    width: 100%;
+    height: 32px;
+    background-color: rgba(59, 59, 59, .5);
+    /* background-color: rgba(218, 218, 218, 0.5); */
+    /* color: rgb(0, 0, 0); */
+    color: #fff;
+    border: 0;
+    /* border-bottom: 1px solid rgb(0, 0, 0); */
+    border-radius: 4px;
+    padding-left: 1%;
+    font-weight: 300;
+    font-size: 1.1vw;
+}
 
+.form_add input[type=text]:focus {
+    background-color: rgba(59, 59, 59, 1);
+    outline: none;
+    /* color: #fff; */
+}
+
+.form_add input[type=number]:focus {
+    background-color: rgba(59, 59, 59, 1);
+    outline: none;
+    /* color: #fff; */
+}
+
+.form_add input::placeholder {
+    font-size: 1vw;
+    color: rgba(0, 0, 0, .5);
+}
+
+.form_add input:focus::placeholder {
+    color: rgba(0, 0, 0, .8);
+}
+
+.ctn_add_book {
     position: absolute;
-    
-}
-.form-ctn{
-    background-color: blueviolet;
+    width: 65%;
+    height: 85vh;
+    left: 17.5%;
+    top: calc(7.5vh + 32px);
+    border-radius: 14px;
+    /* background-color: rgba(154, 118, 178, .8); */
+    /* background-image: linear-gradient(rgba(213, 180, 228, 0.8), rgba(213, 180, 228, 0.8), rgba(137, 79, 162, 0.8)); */
+    background-image: linear-gradient(180deg, rgba(193, 171, 205, 0.8), rgba(154,118,178, 0.4), rgba(242,102,137, 0.4));
 
+    /* filter: blur(1px); */
+    color: #fff;
     display: flex;
-    flex-direction: row;
-    align-items: center;
     justify-content: center;
-
-    height: 70%;
-    width: 70%;
-    
-    top: 100px;
-    position: relative;
-    
-   
+    align-items: center;
 }
 
-.bookInfo-form{
-    background-color: brown;
-    position: relative;
+.filter_add {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background-color: rgba(135, 126, 126, 0.6); */
+    background-image: linear-gradient(180deg, rgba(211, 207, 207, 0.4), rgba(181, 144, 206, 0.4), rgba(179, 102, 242, 0.6));
+}
 
+::-webkit-scrollbar-thumb {
+    background: rgba(111, 111, 111, .0);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(111, 111, 111, .0);
+}
+
+.ctn_form_add {
+    position: absolute;
+    width: 90%;
+    height: 80%;
+    top: 10%;
+    /* background-color: rgba(30, 207, 98, 1); */
+    /* display: flex;
+    justify-content: center; */
+    /* border-radius: 14px; */
+    overflow-y: scroll;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+}
+
+.form_add {
+    position: relative;
+    width: 96%;
+    height: 96%;
+    /* background-color: rgb(14, 200, 200); */
+    border-radius: 14px;
+    margin: 3% 2% 0 2%;
+}
+
+.form_add label{
+    position: relative;
+    display: block;
+    width: 20%;
+    margin-bottom: 0.6%;
+    font-size: 1.4vw;
+    margin-left: 0.8%;
+    /* color: #668bf2; */
+    /* text-decoration: underline; */
+    /* background-color: aqua; */
+}
+
+.form_add input{
+    position: relative;
+    width: 100%;
+    left: 0%;
+    margin-bottom: 1.5%;
+    /* left: 0; */
+    /* background-color: rgb(13, 13, 13); */
+}
+
+.Name_label {
+    position: relative;
+    margin-top: 2%;
+}
+
+.ISBN_label {
+    position: relative;
+    margin-top: 2%;
+}
+
+.Author_label  {
+    position: relative;
+    margin-top: 2%;
+}
+
+.Description_label  {
+    position: relative;
+    margin-top: 2%;
+}
+
+.Image_label  {
+    position: relative;
+    margin-top: 2%;
+}
+
+.Publisher_label  {
+    position: relative;
+    margin-top: 2%;
+}
+
+.Amount_label  {
+    position: relative;
+    margin-top: 2%;
+}
+
+.Category_label  {
+    position: relative;
+    margin-top: 2%;
+}
+
+.submit_btn_add {
+    position: absolute;
+    bottom: 2.4%;
+    width: 13%;
+    height: 6%;
+    background-color: #F26689 ;
+    border-radius: 10px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    text-align: center;
     justify-content: center;
-
-    padding: 10% 5%;
+    align-items: center;
+    font-size: 1.2vw;
+    text-transform: uppercase;
+    transition: 0.1s ease-in-out;
+    cursor: pointer;
 }
 
-.submit-btn{
-    position: relative;
-    padding: 10px 20px;
-    top: 75px;
+.submit_btn_add:hover {
+    background-color: #f13e6a ;
+}
+
+.title_add {
+    position: absolute;
+    width: 30%;
+    top: 2.3%;
+    left: 35%;
+    text-align: center;
+    font-size: 2vw;
+    /* background-color: #F26689; */
 }

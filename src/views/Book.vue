@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <div v-if="isEdit">
+    <div v-if="isEdit" class="Edit_comp_active">
       <EditBook :bookProp="bookInfo"></EditBook>
       <span class="btn_exit_edit" @click="EditHandle()">X</span>
     </div>
@@ -89,6 +89,7 @@ export default {
       isFetched:false,
       role: null,
       islike: false,
+      Edit_comp: null,
     }
   },
   props:[
@@ -130,6 +131,7 @@ export default {
           heart_Icon.style.color = '#666666'
         }
       })
+  
     }
 
     setTimeout(() => {
@@ -145,7 +147,21 @@ export default {
   },
   methods:{
     EditHandle(){
-      this.isEdit = !this.isEdit
+      if (!this.isEdit) {
+         setTimeout(() => {
+          this.Edit_comp = document.getElementsByClassName('Edit_comp_active')[0]
+          // console.log('ok: ', this.Edit_comp)
+        }, 20);
+        this.isEdit = true
+      }else {
+          this.Edit_comp.classList.add('Edit_comp_passive')
+          this.Edit_comp.classList.remove('Edit_comp_active')
+          setTimeout(() => {
+            this.Edit_comp.classList.remove('Edit_comp_passive')
+            this.Edit_comp.classList.add('Edit_comp_active')
+            this.isEdit = false
+          }, 250)
+      }
     },
     
     async DeleteHandle(){

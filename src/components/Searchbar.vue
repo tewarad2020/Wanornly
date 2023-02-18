@@ -1,6 +1,7 @@
 <template>
   <div class="search_ctn">
     <!-- <div class="labelBar"> -->
+        <Icon id="search_Icon" icon="material-symbols:search-rounded"/>
         <input type="text" placeholder="Search.." v-model="text" @keyup="filter()" @change="filter()" @click="filter()">
     <!-- </div> -->
         <button @click="refresh()">
@@ -12,8 +13,13 @@
 
 <script>
 import {AddToCartHandler} from '../mixins/MixinFunction.js'
+import { Icon } from '@iconify/vue';
+
 export default {
     name: 'SearchbarComponent',
+    components: {
+      Icon
+    },
     data() {
         return {
             path: {

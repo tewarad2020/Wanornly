@@ -21,7 +21,7 @@
           <div class="request_text">Requirements</div>
         </div>
     </div>
-    <div v-if="isShowAdd" class="ctn_addbookpage">
+    <div v-if="isShowAdd" class="ctn_addbookpage add_comp_active">
       <AddBook></AddBook>
       <div class="btn_exit_addbook" @click="closeAddBook">X</div>
     </div>
@@ -55,15 +55,26 @@ export default {
         publisher:"dsfds",
         amount:0
         },
+        add_comp: null,
       }
     },
     methods: {
       showAddBook(){
         this.isShowAdd = true;
+        setTimeout(() => {
+          this.add_comp = document.getElementsByClassName('add_comp_active')[0]
+        }, 20);
       },
       closeAddBook() {
-        this.isShowAdd = false;
+          this.add_comp.classList.add('add_comp_passive')
+          this.add_comp.classList.remove('add_comp_active')
+          setTimeout(() => {
+            this.add_comp.classList.remove('add_comp_passive')
+            this.add_comp.classList.add('add_comp_active')
+            this.isShowAdd = false;
+          }, 250)
       }
+
     },
     mounted() {
       let initail = () => {

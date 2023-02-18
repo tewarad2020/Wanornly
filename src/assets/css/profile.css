@@ -120,26 +120,23 @@
     display: inline-block;
     /* background-color: blue; */
     color: rgb(154,118,178);
-    width: 15%;
+    width: 18%;
     height: 100%;
     left: 31%;
     transition: .15s ease-in-out;
     cursor: pointer;
-}
-
-.btn_exit_addbook {
-    position: absolute;
-    font-size: 1.4vw;
-    top: 20vh;
-    right: 20%;
+    display: flex;
+    align-items: center;
 }
 
 #add_book_Icon {
     position: absolute;
-    width: auto;
-    height: 80%;
+    width: 15%;
+    height: auto;
     left: 12%;
-    top: 10%;
+    display: flex;
+    align-items: center;
+    /* top: 10%; */
     /* border-color: aquamarine; */
 }
 
@@ -154,7 +151,7 @@
     /* background-color: red; */
     display: flex;
     align-items: center;
-    justify-content: left;
+    /* justify-content: left; */
     padding-left: 2%;
     color: rgb(154,118,178);
     transition: .15s ease-in-out;
@@ -178,14 +175,16 @@
     left: 31%;
     transition: .15s ease-in-out;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 #request_Icon {
     position: absolute;
-    width: auto;
-    height: 70%;
-    left: 12%;
-    top: 15%;
+    width: 15%;
+    height: auto;
+    left: 10%;
+    /* top: 15%; */
     /* border-color: aquamarine; */
 }
 
@@ -212,4 +211,55 @@
 
 .btn_request:hover .request_text{
     color: rgb(146, 63, 201);
+}
+
+.ctn_addbookpage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.btn_exit_addbook {
+    position: absolute;
+    font-size: 1.4vw;
+    top: 13vh;
+    right: 19%;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn_exit_addbook:hover {
+    color: rgb(183, 71, 231);
+}
+
+.add_comp_active {
+    animation: showaddActive .25s forwards ease-in-out;
+}
+
+@keyframes showaddActive {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+  
+.add_comp_passive {
+    animation: showaddPassive .15s forwards ease-in-out;
+}
+
+@keyframes showaddPassive {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
 }
