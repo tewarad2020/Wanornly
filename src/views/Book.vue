@@ -103,7 +103,7 @@ export default {
   ],
 
   mounted() {
-    this.userID = JSON.parse(localStorage.getItem("user_info")).username
+    if (localStorage.getItem("user_info")) this.userID = JSON.parse(localStorage.getItem("user_info")).username
 
     let initial = () => {
       let n = this.$store.getters.data.length
