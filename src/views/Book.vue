@@ -50,6 +50,7 @@
 
     <div v-if="isEdit">
       <EditBook :bookProp="bookInfo"></EditBook>
+      <span class="btn_exit_edit" @click="EditHandle()">X</span>
     </div>
 
   </div>

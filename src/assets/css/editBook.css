@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.ctn_edit_book {
+    position: absolute;
+    width: 90%;
+    height: 80vh;
+    left: 5%;
+    top: calc(10vh + 32px);
+    border-radius: 14px;
+    background-color: aquamarine;
+}

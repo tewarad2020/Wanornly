@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="ctn_edit_book">
     <div class="form-ctn">
       <form @submit.prevent="createBook" class="bookInfo-form">
         <label >Name</label>
@@ -62,5 +62,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/addBook.css";
+  @import "../../assets/css/editBook.css";
 </style>

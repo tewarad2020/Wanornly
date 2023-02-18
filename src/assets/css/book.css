@@ -286,3 +286,15 @@
     align-items: center;
     transition: .1s;
 }
+
+.btn_exit_edit {
+    position: absolute;
+    right: 6%;
+    top: calc(10vh + 40px);
+}
+
+.btn_exit_edit:hover {
+    position: absolute;
+    right: 6%;
+    top: calc(10vh + 40px);
+}

@@ -189,11 +189,12 @@
   top: 0;
   width: 100%;
   height: 100%;
-  /* background-color: rgba(112, 186, 208, .6); */
-  background-color: rgba(224, 169, 248, 0.8);
+  /* background-color: rgba(243, 207, 207, 0.6); */
+  background-image: linear-gradient(180deg,rgba(243, 207, 207, 0.6) 60%, rgba(224, 169, 248, 0.8));
+  /* background-color: rgba(224, 169, 248, 0.8); */
   transform: translateY(-90%);
   opacity: 0;
-  transition: 0.1s ease-in-out;
+  transition: 0.3s ease-in-out;
   z-index: 3;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -215,7 +216,7 @@
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: 0.1s ease-in-out 0.1s;
+  transition: 0.2s ease-in-out 0.2s;
   z-index: 3;
   pointer-events: none;
 }
