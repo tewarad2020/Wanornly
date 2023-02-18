@@ -16,22 +16,14 @@
           <div class="book_info_name"> {{ bookInfo.name }}</div>
           <div class="book_info_author">Author | {{ bookInfo.author }}</div>
           <div class="book_info_description">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ bookInfo.book_description }} Lorem ipsum dolor sit amet 
-            consectetur adipisicing elit. Voluptatum, voluptates 
-            delectus! Est temporibus ad voluptatibus vero iusto? 
-            Aperiam at ut repellendus. Reiciendis quidem recusandae 
-            autem! Sequi fuga at molestiae veniam Lorem ipsum dolor 
-            sit amet consectetur adipisicing elit. Ipsam molestias 
-            nihil deserunt vitae, cum vel, est culpa sit nobis 
-            libero soluta maxime iste repellendus unde eligendi 
-            voluptatem animi amet sequi?</div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ bookInfo.book_description }}</div>
         </div>
 
         <div class="ctn_envet">
           <div class="btn_envet_heart" @click="likeIt">
             <span><Icon id="heart_Icon" icon="mdi:cards-heart" /></span>
           </div>
-          <div class="btn_envet_addToCart" @click="this.CheckAddToCart(this.bookInfo.ISBN,this.userID)">
+          <div class="btn_envet_addToCart" @click="islogin()">
             <span><Icon id="shopping-cart_Icon" icon="material-symbols:shopping-cart-rounded" /></span>
           </div>
           <div class="ctn_envet_edit" v-if="role === 'admin'? true : false" @click="EditHandle">
@@ -50,6 +42,7 @@
 
     <div v-if="isEdit">
       <EditBook :bookProp="bookInfo"></EditBook>
+      <span class="btn_exit_edit" @click="EditHandle()">X</span>
     </div>
 
   </div>
@@ -179,6 +172,13 @@ export default {
     product_status() {
       if (this.bookInfo.amount !== 0) return 'Available'
       else return 'Out of stock'
+    },
+    islogin() {
+      if (localStorage.getItem('status_login')) {
+        this.CheckAddToCart(this.bookInfo.ISBN,this.userID)
+      }else {
+        alert('You have not login!')
+      }
     }
   }
 

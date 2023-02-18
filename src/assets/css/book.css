@@ -286,3 +286,17 @@
     align-items: center;
     transition: .1s;
 }
+
+.btn_exit_edit {
+    position: absolute;
+    right: 19%;
+    top: calc(7.5vh + 45px);
+    cursor: pointer;
+    font-size: 1.5vw;
+    transition: .15s ease-in-out;
+    color: rgb(255, 255, 255);
+}
+
+.btn_exit_edit:hover {
+    color: rgb(183, 71, 231);
+}
