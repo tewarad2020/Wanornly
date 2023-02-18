@@ -84,7 +84,8 @@ export default {
           user_info : {
             username: '',
             name: '',
-            profileImage: ''
+            profileImage: '',
+            role:'customer'
           },
           isShowOptions: false,
           mouseOut1: true,
@@ -105,6 +106,8 @@ export default {
             return null
           }
 
+          this.CheckUserDatabase(this.variable.user_info)
+
           const fetchrole = await this.fetchRole(googleUser.getBasicProfile().getEmail())
           
           this.variable.user_info = {
@@ -122,7 +125,7 @@ export default {
             role: fetchrole,
           }))
           // localStorage.setItem('user_info', JSON.stringify(googleUser))
-          this.CheckUserDatabase(this.variable.user_info)
+          
           console.log('login successful!')
           window.location.reload()
 
@@ -158,7 +161,8 @@ export default {
       await axios.put(`http://localhost:3000/user`,
         {
           id:userInfo.username,
-          username:userInfo.name
+          username:userInfo.name,
+          role:userInfo.role,
         }
       )
       console.log(`add new user :${userInfo.username}`)
