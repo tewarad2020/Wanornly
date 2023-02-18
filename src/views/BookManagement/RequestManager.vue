@@ -15,8 +15,11 @@
 
 <script>
 import axios from 'axios';
+import { bookHandler } from '@/mixins/MixinFunction';
+
 export default {
     name:"requestManager",
+    mixins:[bookHandler],
     data(){
         return{
             allRequest:[{
@@ -75,7 +78,7 @@ export default {
      let [newReq] = this.allRequest.filter(r=>r.ISBN==ISBN&&r.user_id==user_id)
         newReq = {
             ...newReq,
-            time_item:new Date(),
+            time_item:new Date(), //time approve, deny
             status_request:newStatus
         }
       console.log(newReq)
@@ -86,6 +89,21 @@ export default {
      this.fetchAllRequest()
     },
         async ApproveCheck(user_id,ISBN){
+            this.getBookInfo(ISBN)
+            if(this.BookInfo.amount<=0){ // book amount is 0
+                alert("this book amount is not sufficient")
+            }
+            else{ //book amount is sufficient
+                this.BookInfo ={
+                    ...this.BookInfo,
+                    amount:this.BookInfo.amount-1
+                } //decrease amount 
+                this.updateBook(ISBN,this.BookInfo)
+                this.ApprovePerform(user_id,ISBN)
+            }
+        },
+        async ApprovePerform(user_id,ISBN){
+            await this.updateRequestStatus(user_id,ISBN,"approve")
             alert(`approve this book from ${user_id} book ISBN:${ISBN}`)
         },
         async DenyPerform(user_id,ISBN){

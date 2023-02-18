@@ -1,6 +1,41 @@
 import axios from "axios";
 import store from "@/store";
 
+const bookHandler ={
+    data(){
+      return{
+        BookInfo:{
+          ISBN:"",
+          name:"",
+          author:"",
+          category:"",
+          book_description:"",
+          image:"",
+          publisher:"",
+          amount:0
+          }
+      }
+    },
+    methods:{
+      async updateBook(ISBN,newInfo) {
+        await  axios.put(`http://localhost:3000/books/${ISBN}`, newInfo)
+            .then(response => console.log(response))
+            .catch(error => console.log(error))
+            window.location.replace('/')
+        },
+        getBookInfo(ISBN){
+          let allBooks = this.$store.getters.data
+          do{
+            setTimeout(() => {
+                allBooks = this.$store.getters.data
+            }, 200);
+         }while(allBooks==null)  
+
+          const [filteredBook] =  allBooks.filter(b=>b.ISBN==ISBN)
+            this.BookInfo = filteredBook
+        },
+      },
+    }
 
 
 const cartHandler ={
@@ -17,6 +52,7 @@ const cartHandler ={
         currentUserInCart:null,
         currentUserPending:null,
         currentUserDeny:null,
+        currentUserApprove:null,
       }
     },
     mounted(){
@@ -44,6 +80,13 @@ const cartHandler ={
         if(this.currentUserAllBook!=null)
         this.currentUserDeny = this.currentUserAllBook.filter(b=>DenyISBN.includes(b.ISBN))
         return this.currentUserDeny
+      } ,
+      currentApproveFiltered:function(){
+        const ApproveISBN = this.cartData.filter(ele=>ele.status_request=="approve")
+                                            .map(b=>b.ISBN)
+        if(this.currentUserAllBook!=null)
+        this.currentUserApprove = this.currentUserAllBook.filter(b=>ApproveISBN.includes(b.ISBN))
+        return this.currentUserApprove
       } ,
     },
     methods:{
@@ -136,4 +179,4 @@ const AddToCartHandler = {
   },
 };
 
-export { AddToCartHandler,cartHandler};
+export { AddToCartHandler,cartHandler ,bookHandler};

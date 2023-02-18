@@ -9,6 +9,7 @@
        <p>{{ item.ISBN }}</p> 
        <p>{{ item.name }}</p>
        <p>{{ item.status_request }}</p>
+       <p v-if="item.status_request=='approve'">approved time :{{ new Date(item.time_item).toLocaleTimeString() }}</p>
        <button v-if="item.status_request=='deny'" @click="removeCart(item.user_id,item.ISBN)">delete</button>
       </div>
     </div>
@@ -29,7 +30,7 @@ export default {
       currentHistoryFiltered:function(){
         let combined = []
         if(this.currentPendingFiltered!=null && this.currentInCartFiltered!=null)
-          combined = [].concat(this.currentDenyFiltered,this.currentPendingFiltered)   //just for test, actually is pending and borrowing not inCart
+          combined = [].concat(this.currentApproveFiltered,this.currentDenyFiltered,this.currentPendingFiltered)   //just for test, actually is pending and borrowing not inCart
 
         return combined
       } ,
