@@ -32,5 +32,16 @@ exports.delete_from_cart = (req, res) => {
     
 }
 
+exports.update_a_request = (req, res) => {
+    cart.findOneAndUpdate(
+        { user_id: req.params.userID, ISBN: req.params.ISBN },
+        req.body,
+        { new : true },
+        (err, book) => {
+            if (err) res.send(err);
+            res.json(book);
+        }
+    )
+}
 
 

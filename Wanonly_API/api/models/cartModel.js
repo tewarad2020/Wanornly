@@ -17,16 +17,12 @@ const cartSchema = new Schema(
         time_item: {
             type: Date
         },
-        request_book: {
-            type: Number    
-        },
         status_request: {
             type: String,
             required: 'status_request cannot be blank'
         },
         time_request: {
-            type: String,
-            required: 'time_request cannot be blank'
+            type: Date,
         }
     },
     { collection: 'cart' }

@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+#historyPage{
+    height: 500px;
+    width: 500px;
+    background-color: bisque;
+}
+
+
+.itemCtn{
+    margin-top: 100px;
+    height: 100px;
+    width: 400px;
+    background-color: rgb(157, 255, 0);
+    margin: 20px;
+
+}

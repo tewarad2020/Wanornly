@@ -17,6 +17,7 @@ module.exports = app => {
     app
         .route('/carts/:userID-:ISBN')
         .delete(cartBuilder.delete_from_cart)
+        .put(cartBuilder.update_a_request)
     
     app
         .route('/carts/:userID')
