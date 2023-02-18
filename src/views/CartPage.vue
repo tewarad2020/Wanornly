@@ -10,7 +10,7 @@
        <p>{{ item.ISBN }}</p> 
        <p>{{  item.name}}</p>
        <p>{{ item.status_request }}</p>
-       <button @click="RemoveHandle(item.ISBN)">remove</button>
+       <button @click="removeCart(item.user_id,item.ISBN)">remove</button>
       </div>
       <button @click="SendRequest">check out</button>
     </div>
@@ -37,14 +37,14 @@ export default {
   
     methods:{
 
-    async RemoveHandle(ISBN){
-      const username = JSON.parse(localStorage.getItem("user_info")).username
+    // async RemoveHandle(ISBN){
+    //   const username = JSON.parse(localStorage.getItem("user_info")).username
         
-        await axios.delete(`http://localhost:3000/carts/${username}-${ISBN}`)
-                    .then(()=>{console.log(`remove item :${ISBN} form cart `)})
+    //     await axios.delete(`http://localhost:3000/carts/${username}-${ISBN}`)
+    //                 .then(()=>{console.log(`remove item :${ISBN} form cart `)})
         
-                   this.fetchCart()
-     },
+    //                this.fetchCart()
+    //  },
 
     async SendRequest(){
      console.log("send req")

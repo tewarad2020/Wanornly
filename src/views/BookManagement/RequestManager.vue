@@ -70,10 +70,26 @@ export default {
       } ,
     },
     methods:{
+    async updateRequestStatus(user_id,ISBN,newStatus){
+
+     let [newReq] = this.allRequest.filter(r=>r.ISBN==ISBN&&r.user_id==user_id)
+        newReq = {
+            ...newReq,
+            time_item:new Date(),
+            status_request:newStatus
+        }
+      console.log(newReq)
+      
+      await axios.put(`http://localhost:3000/carts/${user_id}-${ISBN}`,newReq)
+                     .then(()=>{console.log(`update status item :${ISBN} form cart of ${user_id}`)})
+    
+     this.fetchAllRequest()
+    },
         async ApproveCheck(user_id,ISBN){
             alert(`approve this book from ${user_id} book ISBN:${ISBN}`)
         },
         async DenyPerform(user_id,ISBN){
+            await this.updateRequestStatus(user_id,ISBN,"deny")
             alert(`deny this book from ${user_id} book ISBN:${ISBN}`)
         },
         async fetchAllRequest(){
@@ -83,7 +99,12 @@ export default {
                                     console.log(data)
                                     this.allRequest = data
                                    
-            const allBookData = this.$store.getters.data
+            let allBookData = this.$store.getters.data
+             do{
+                setTimeout(() => {
+                    allBookData = this.$store.getters.data
+                }, 200);
+             }while(allBookData==null)  
 
             this.allRequestBook = this.allRequest.map(c=>{
               const [cBookData] = allBookData.filter(bd=>bd.ISBN==c.ISBN)

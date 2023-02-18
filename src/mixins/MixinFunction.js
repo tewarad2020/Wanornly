@@ -16,6 +16,7 @@ const cartHandler ={
         currentUserAllBook:null,
         currentUserInCart:null,
         currentUserPending:null,
+        currentUserDeny:null,
       }
     },
     mounted(){
@@ -36,6 +37,13 @@ const cartHandler ={
         if(this.currentUserAllBook!=null)
         this.currentUserPending = this.currentUserAllBook.filter(b=>PendingISBN.includes(b.ISBN))
         return this.currentUserPending
+      } ,
+      currentDenyFiltered:function(){
+        const DenyISBN = this.cartData.filter(ele=>ele.status_request=="deny")
+                                            .map(b=>b.ISBN)
+        if(this.currentUserAllBook!=null)
+        this.currentUserDeny = this.currentUserAllBook.filter(b=>DenyISBN.includes(b.ISBN))
+        return this.currentUserDeny
       } ,
     },
     methods:{
@@ -69,6 +77,12 @@ const cartHandler ={
           console.log(err)
         }
       },
+       async removeCart(user_id,ISBN){
+        await axios.delete(`http://localhost:3000/carts/${user_id}-${ISBN}`)
+                    .then(()=>{console.log(`remove item :${ISBN} form cart `)})
+        
+                   this.fetchCart()
+     },
     }
 }
 
