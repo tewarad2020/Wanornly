@@ -66,7 +66,7 @@
     border-radius: 14px;
     /* background-color: rgba(154, 118, 178, .8); */
     /* background-image: linear-gradient(rgba(213, 180, 228, 0.8), rgba(213, 180, 228, 0.8), rgba(137, 79, 162, 0.8)); */
-    background-image: linear-gradient(180deg, rgba(161, 143, 170, 0.8), rgba(154,118,178, 0.4), rgba(242,102,137, 0.4));
+    background-image: linear-gradient(180deg, rgba(193, 171, 205, 0.8), rgba(154,118,178, 0.4), rgba(242,102,137, 0.4));
 
     /* filter: blur(1px); */
     color: #fff;
@@ -86,13 +86,15 @@
 .ctn_form_edit {
     position: absolute;
     width: 90%;
-    height: 85%;
-    top: 5%;
+    height: 80%;
+    top: 10%;
     /* background-color: rgba(30, 207, 98, 1); */
     /* display: flex;
     justify-content: center; */
-    border-radius: 14px;
+    /* border-radius: 14px; */
     overflow-y: scroll;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
 }
 
 .form_edit {
@@ -109,8 +111,9 @@
     display: block;
     width: 20%;
     margin-bottom: 0.6%;
-    font-size: 1.2vw;
+    font-size: 1.4vw;
     margin-left: 0.8%;
+    /* color: #668bf2; */
     /* text-decoration: underline; */
     /* background-color: aqua; */
 }
@@ -119,77 +122,48 @@
     position: relative;
     width: 100%;
     left: 0%;
-    margin-bottom: 2%;
+    margin-bottom: 1.5%;
     /* left: 0; */
     /* background-color: rgb(13, 13, 13); */
 }
 
 .Name_label {
     position: relative;
-    /* background-color: rebeccapurple; */
-    /* display: flex;
-    justify-content: center; */
     margin-top: 2%;
 }
 
-/* .Name_label label{
-    position: relative;
-    margin-right: 20px;
-} */
-
 .ISBN_label {
     position: relative;
-    /* background-color: rebeccapurple; */
-    /* display: flex;
-    justify-content: center; */
     margin-top: 2%;
 }
 
 .Author_label  {
     position: relative;
-    /* background-color: rebeccapurple; */
-    /* display: flex;
-    justify-content: center; */
     margin-top: 2%;
 }
 
 .Description_label  {
     position: relative;
-    /* background-color: rebeccapurple; */
-    /* display: flex;
-    justify-content: center; */
     margin-top: 2%;
 }
 
 .Image_label  {
     position: relative;
-    /* background-color: rebeccapurple; */
-    /* display: flex;
-    justify-content: center; */
     margin-top: 2%;
 }
 
 .Publisher_label  {
     position: relative;
-    /* background-color: rebeccapurple; */
-    /* display: flex;
-    justify-content: center; */
     margin-top: 2%;
 }
 
 .Amount_label  {
     position: relative;
-    /* background-color: rebeccapurple; */
-    /* display: flex;
-    justify-content: center; */
     margin-top: 2%;
 }
 
 .Category_label  {
     position: relative;
-    /* background-color: rebeccapurple; */
-    /* display: flex;
-    justify-content: center; */
     margin-top: 2%;
 }
 
@@ -212,4 +186,14 @@
 
 .btn_submit_edit:hover {
     background-color: #f13e6a ;
+}
+
+.title_edit {
+    position: absolute;
+    width: 30%;
+    top: 2.3%;
+    left: 35%;
+    text-align: center;
+    font-size: 2vw;
+    /* background-color: #F26689; */
 }

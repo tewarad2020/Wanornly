@@ -1,5 +1,6 @@
 <template>
   <div class="ctn_edit_book">
+    <div class="title_edit">Edit Book</div>
     <div class="ctn_form_edit">
       <form @submit.prevent="createBook" class="form_edit">
         <div class="Name_label">
