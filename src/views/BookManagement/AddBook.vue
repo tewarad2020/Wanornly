@@ -11,7 +11,7 @@
           </div>
           <div class="ISBN_label">
             <label >ISBN</label>
-            <input disabled type="text" v-model="BookInfo.ISBN"/>
+            <input type="text" v-model="BookInfo.ISBN"/>
           </div>
           <div class="Author_label">  
             <label >Author</label>
@@ -35,7 +35,7 @@
           </div>
           <div class="Category_label"> 
             <label >Category</label>
-            <input type="number" v-model="BookInfo.category"/>
+            <input type="text" v-model="BookInfo.category"/>
           </div>
         </form>
       </div>
