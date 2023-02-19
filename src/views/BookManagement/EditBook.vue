@@ -35,34 +35,26 @@
           </div>
           <div class="Category_label"> 
             <label >Category</label>
-            <input type="number" v-model="BookInfo.category"/>
+            <input type="text" v-model="BookInfo.category"/>
           </div>
         </form>
       </div>
-      <div class="btn_submit_edit" @click="updateBook(this.BookInfo.ISBN,this.BookInfo)">update</div>
+      <div class="btn_submit_edit" @click="updateBook()">update</div>
     </div>
   </div>
 </template>
 
 <script>
+import { bookHandler } from '../../mixins/MixinFunction';
 // import axios from 'axios'
 export default {
   name: "editBook",
   props:[
     'bookProp',
   ],
+  mixins:[bookHandler],
   data() {
     return {
-      BookInfo:{
-        ISBN:"",
-        name:"",
-        author:"",
-        category:"",
-        book_description:"",
-        image:"",
-        publisher:"",
-        amount:0
-        }
       }
   },
   mounted(){
