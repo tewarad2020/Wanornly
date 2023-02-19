@@ -20,6 +20,10 @@
           <Icon id="request_Icon" icon="pajamas:requirements" />
           <div class="request_text">Requirements</div>
         </div>
+        <div class="btn_donation" v-if="variable.user_info?.role === 'admin'? true : false" >
+          <Icon id="donation_Icon" icon="ic:outline-menu-book" />          
+          <div class="donation_text">Donation</div>
+        </div>
     </div>
     <div v-if="isShowAdd" class="ctn_addbookpage add_comp_active">
       <AddBook></AddBook>

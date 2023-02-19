@@ -120,7 +120,7 @@
     display: inline-block;
     /* background-color: blue; */
     color: rgb(154,118,178);
-    width: 18%;
+    width: 12%;
     height: 100%;
     left: 31%;
     transition: .15s ease-in-out;
@@ -131,9 +131,9 @@
 
 #add_book_Icon {
     position: absolute;
-    width: 15%;
+    width: 22%;
     height: auto;
-    left: 12%;
+    left: 5%;
     display: flex;
     align-items: center;
     /* top: 10%; */
@@ -177,6 +177,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    margin-right: 1%;
 }
 
 #request_Icon {
@@ -210,6 +211,54 @@
 }
 
 .btn_request:hover .request_text{
+    color: rgb(146, 63, 201);
+}
+
+.btn_donation {
+    position: relative;
+    display: inline-block;
+    /* background-color: blue; */
+    color: rgb(154,118,178);
+    width: 15%;
+    height: 100%;
+    left: 31%;
+    transition: .15s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+#donation_Icon {
+    position: absolute;
+    width: 16.5%;
+    height: auto;
+    left: 10%;
+    /* top: 15%; */
+    /* border-color: aquamarine; */
+}
+
+.donation_text {
+    font-size: 1.5vw;
+    font-weight: 700;
+    position: absolute;
+    height: 100%;
+    width: 70%;
+    left: 30%;
+    display: inline-block;
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 2%;
+    color: rgb(154,118,178);
+    transition: .15s ease-in-out;
+}
+
+.btn_donation:hover {
+    color: rgb(146, 63, 201);
+}
+
+.btn_donation:hover .donation_text{
     color: rgb(146, 63, 201);
 }
 

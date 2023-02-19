@@ -320,7 +320,7 @@
     padding: 0 0 0 5%;
 }
 
-.chat_menu_img {
+.favorite_menu_img {
     position: relative;
     display: flex;
     justify-content: center;
@@ -332,12 +332,12 @@
     /* background-color: aqua; */
 }
 
-.chat_menu_img img {
+.favorite_menu_img img {
     position: absolute;
     width: 85%;
 }
 
-.chat_menu_text {
+.favorite_menu_text {
     position: relative;
     width: 80%;
     left: 0;

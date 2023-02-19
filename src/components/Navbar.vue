@@ -10,8 +10,8 @@
        <div class="home_menu_text">Home</div>
       </span>
       <span class="menu">
-        <div class="chat_menu_img"><img :src="path.chatIcon" alt=""></div>
-        <div class="chat_menu_text">Chat</div>
+        <div class="favorite_menu_img"><img :src="path.favoriteIcon" alt=""></div>
+        <div class="favorite_menu_text">Favorite</div>
       </span>
       <span v-show="isLogin()" @click="goto('/cart')" class="menu">
         <div class="cart_menu_img"><img :src="path.cartIcon" alt=""></div>
@@ -75,7 +75,7 @@ export default {
           historyIcon: require('../assets/images/historyIcon.png'),
           logoutIcon: require('../assets/images/logoutIcon.png'),
           homeIcon: require('../assets/images/homeIcon.png'),
-          chatIcon: require('../assets/images/chatIcon.png'),
+          favoriteIcon: require('../assets/images/favoriteIcon.png'),
           cartIcon: require('../assets/images/cartIcon.png'),
           loginIcon: require('../assets/images/loginIcon.png'),
         },

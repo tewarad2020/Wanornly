@@ -29,7 +29,7 @@
           <div class="ctn_envet_edit" v-if="role === 'admin'? true : false" @click="EditHandle">
             <span><Icon id="edit_Icon" icon="material-symbols:edit" /></span>
           </div>
-          <div class="ctn_envet_delete" v-if="role === 'admin'? true : false" @click="DeleteHandle">
+          <div class="ctn_envet_delete" v-if="role === 'admin'? true : false" @click="showConfirmDelete">
             <span><Icon id="delete-outline_Icon" icon="material-symbols:delete-outline" /></span>
           </div>
 
@@ -43,6 +43,14 @@
     <div v-if="isEdit" class="Edit_comp_active">
       <EditBook :bookProp="bookInfo"></EditBook>
       <span class="btn_exit_edit" @click="EditHandle()">X</span>
+    </div>
+
+    <div v-show="confirmDelete" class="confirm_delete Delete_comp_active">
+      <div class="confirm_delete_img"><img :src="path.warning" alt=""></div>
+      <div class="confirm_delete_text">Are you sure, you really want to delete it?</div>
+      <div @click="DeleteHandle" class="confirm_delete_ok">yes</div>
+      <div @click="showConfirmDelete" class="confirm_delete_no">cancel</div>
+      <div @click="showConfirmDelete" class="btn_exit_confirm_delete">X</div>
     </div>
 
   </div>
@@ -72,7 +80,7 @@ export default {
   data() {
     return {
       path: {
-        coverPath: require('../assets/images/bg1.jpg'),
+        warning: require('../assets/images/warning.png'),
       },
       userID:"",
       bookInfo: {
@@ -90,6 +98,8 @@ export default {
       role: null,
       islike: false,
       Edit_comp: null,
+      confirmDelete: false,
+      ctn_status: null,
     }
   },
   props:[
@@ -131,7 +141,8 @@ export default {
           heart_Icon.style.color = '#666666'
         }
       })
-  
+      this.ctn_status = document.getElementsByClassName('ctn_status')[0]
+      console.log('ctn_status: ' , this.ctn_status)
     }
 
     setTimeout(() => {
@@ -163,7 +174,22 @@ export default {
           }, 250)
       }
     },
-    
+    showConfirmDelete() {
+      if (!this.confirmDelete) {
+        this.confirmDelete = true
+        setTimeout(() => {
+          let confirm_delete_div = document.getElementsByClassName('confirm_delete')[0]
+          confirm_delete_div.style.height = `${confirm_delete_div.clientWidth  / 2 * 1.1666}px`
+        }, 10);
+      }else {
+        let confirm_delete_div = document.getElementsByClassName('confirm_delete')[0]
+        confirm_delete_div.classList.add('Delete_comp_passive')
+        setTimeout(() => {
+          this.confirmDelete = false
+          confirm_delete_div.classList.remove('Delete_comp_passive')
+        }, 250)
+      }
+    },
     async DeleteHandle(){
       console.log("deleting")
       await axios.delete(`http://localhost:3000/books/${this.bookInfo.ISBN}`)
@@ -186,8 +212,14 @@ export default {
       }
     },
     product_status() {
-      if (this.bookInfo.amount !== 0) return 'Available'
-      else return 'Out of stock'
+      if (this.bookInfo.amount !== 0) {
+        if (this.ctn_status) this.ctn_status.style.background = '#03de91'
+        return 'Available'
+      }
+      else {
+        if (this.ctn_status) this.ctn_status.style.background = '#f25579'
+        return 'Out of stock'
+      }
     },
     islogin() {
       if (localStorage.getItem('status_login')) {
