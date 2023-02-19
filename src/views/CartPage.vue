@@ -6,11 +6,14 @@
     <br>
     
     <div>
-      <div  class="itemCtn" v-for="(item,index) in currentInCartFiltered" :key="index">
-       <p>{{ item.ISBN }}</p> 
-       <p>{{  item.name}}</p>
-       <p>{{ item.status_request }}</p>
-       <button @click="removeCart(item.user_id,item.ISBN)">remove</button>
+      <!-- <div  class="itemCtn" v-for="(item,index) in currentInCartFiltered" :key="index"> -->
+      <div v-if="isloaded">
+        <div  class="itemCtn" v-for="(item,index) in this.cartData" :key="index">
+        <p>{{ item.ISBN }}</p>
+        <p>{{ item.name }}</p>
+        <p>{{ item.status_request }}</p>
+        <button @click="removeCart(item.user_id,item.ISBN)">remove</button>
+        </div>
       </div>
       <button @click="SendRequest">check out</button>
     </div>
@@ -31,7 +34,7 @@ export default {
 
     data(){
       return {
-
+        isloaded: false,
       }
     },
   
@@ -63,6 +66,19 @@ export default {
     
      this.fetchCart()
     },
+    // ttt() {
+    //   return true
+    // }
+  },
+  
+  mounted() {
+    let initial = () => {
+      this.isloaded = true
+    }
+
+    setTimeout(() => {
+      initial()
+    }, 100)
   }
 }
 </script>
