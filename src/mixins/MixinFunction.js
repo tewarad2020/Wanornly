@@ -5,7 +5,7 @@ const bookHandler ={
     data(){
       return{
         BookInfo:{
-          ISBN:"",
+          ISBN:0,
           name:"",
           author:"",
           category:"",
@@ -17,8 +17,8 @@ const bookHandler ={
       }
     },
     methods:{
-      async updateBook(ISBN,newInfo) {
-        await  axios.put(`http://localhost:3000/books/${ISBN}`, newInfo)
+      async updateBook() {
+        await  axios.put(`http://localhost:3000/books/${this.BookInfo.ISBN}`, this.BookInfo)
             .then(response => console.log(response))
             .catch(error => console.log(error))
             window.location.replace('/')

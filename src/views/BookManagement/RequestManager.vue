@@ -98,7 +98,7 @@ export default {
                     ...this.BookInfo,
                     amount:this.BookInfo.amount-1
                 } //decrease amount 
-                this.updateBook(ISBN,this.BookInfo)
+                this.updateBook()
                 this.ApprovePerform(user_id,ISBN)
             }
         },

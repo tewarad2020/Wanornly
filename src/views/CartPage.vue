@@ -8,7 +8,7 @@
     <div>
       <!-- <div  class="itemCtn" v-for="(item,index) in currentInCartFiltered" :key="index"> -->
       <div v-if="isloaded">
-        <div  class="itemCtn" v-for="(item,index) in this.cartData" :key="index">
+        <div  class="itemCtn" v-for="(item,index) in currentInCartFiltered" :key="index">
         <p>{{ item.ISBN }}</p>
         <p>{{ item.name }}</p>
         <p>{{ item.status_request }}</p>
