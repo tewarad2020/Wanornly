@@ -7,19 +7,19 @@
         <form @submit.prevent="CheckValidBook" class="form_add">
           <div class="Name_label">
             <label>Name</label>
-            <input type="text" v-model="BookInfo.name"/>
+            <input :maxlength="56" type="text" v-model="BookInfo.name"/>
           </div>
           <div class="ISBN_label">
             <label >ISBN</label>
-            <input type="text" v-model="BookInfo.ISBN"/>
+            <input :maxlength="13" type="text" v-model="BookInfo.ISBN"/>
           </div>
           <div class="Author_label">  
             <label >Author</label>
-            <input type="text" v-model="BookInfo.author"/>
+            <input :maxlength="56" type="text" v-model="BookInfo.author"/>
           </div>
           <div class="Description_label">
             <label >Description</label>
-            <input type="text" v-model="BookInfo.book_description"/>
+            <input :maxlength="879" type="text" v-model="BookInfo.book_description"/>
           </div>  
           <div class="Image_label">
             <label >Image URL</label>

@@ -92,6 +92,7 @@
     font-size: 1.2vw;
     margin-top: 25px;
     color: #231F20;
+    word-wrap: break-word;
 }
 
 .ctn_envet {
