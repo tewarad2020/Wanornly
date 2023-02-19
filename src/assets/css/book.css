@@ -340,7 +340,7 @@
 }  
 
 .confirm_delete {
-    position: absolute;
+    position: fixed;
     width: 30%;
     height: auto;
     left: 35%;
@@ -350,6 +350,7 @@
     padding-top: 1%;
     display: flex;
     justify-content: center;
+    
 }
 
 .confirm_delete_img {
