@@ -41,11 +41,6 @@ const routes = [
         component: () => import('../views/CartPage.vue')
     },
     {
-        path: '/bookManager',
-        name: 'bookManager',
-        component: () => import('../views/BookManagement/BookManager.vue')
-    },
-    {
         path: '/requestManager',
         name: 'requestManager',
         component: () => import('../views/BookManagement/RequestManager.vue')
