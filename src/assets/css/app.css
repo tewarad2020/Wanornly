@@ -22,13 +22,13 @@ body {
 }
 
 /* Handle */
-::-webkit-scrollbar-thumb {
-    background: #888;
-    /* border-radius: 2; */
+body::-webkit-scrollbar-thumb {
+    background: rgba(139, 139, 139, .8);
+    border-radius: 8px 0px 0px 8px;
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+body::-webkit-scrollbar-thumb:hover {
     background: rgb(111, 111, 111);
 }
 

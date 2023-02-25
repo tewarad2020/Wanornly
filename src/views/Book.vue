@@ -40,6 +40,21 @@
       </div>
     </div>
 
+    <div class="ctn_arrow_Icon">
+      <Icon id="arrowLeft_Icon" @click="letMove('Left')" icon="material-symbols:arrow-back-ios-rounded" />
+      <Icon id="arrowRight_Icon" @click="letMove('Right')" icon="material-symbols:arrow-back-ios-rounded" />
+    </div>
+    <div class="ctn_sameAuthor">
+      <div class="ctn_sameAuthor_content" >
+        <div class="ctn_books_relate" v-for="(item,index) in sameAuthor" :key="index" @click="newbookinfo(item)">
+          <img :src="item.image" alt="">
+          <div class="books_relate_name" @click="seebookinfo(item)">{{ item.name }}</div>
+        </div>
+      </div>
+    </div>
+    
+    
+
     <div v-if="isEdit" class="Edit_comp_active">
       <EditBook :bookProp="bookInfo"></EditBook>
       <span class="btn_exit_edit" @click="EditHandle()">X</span>
@@ -100,6 +115,9 @@ export default {
       Edit_comp: null,
       confirmDelete: false,
       ctn_status: null,
+      sameAuthor: [],
+      step: 0,
+      count_bookRelate: 0,
     }
   },
   props:[
@@ -117,10 +135,37 @@ export default {
           break
         }
       }
+      let k = 0
+      for (let i=0; i<n; i++) {
+        if (this.$store.getters.data[i].author === this.bookInfo.author && this.bookInfo !== this.$store.getters.data[i]) {
+          this.sameAuthor[k++] = this.$store.getters.data[i]
+        }
+      }
+      console.log('Same autore books: ', this.sameAuthor)
       this.isFetched = true;
 
       let circleBase = document.getElementsByClassName('circleBase')
       let book_img = document.getElementsByClassName('book_img')
+      let ctn_sameAuthor = document.getElementsByClassName('ctn_sameAuthor')[0]
+      let ctn_sameAuthor_content = document.getElementsByClassName('ctn_sameAuthor_content')[0]
+      setTimeout(() => {
+        let ctn_books_relate = document.querySelectorAll('.ctn_books_relate')
+        this.count_bookRelate = ctn_books_relate.length
+        if (this.count_bookRelate > 8) this.letMove('Right')
+        ctn_sameAuthor_content.style.width = `${25 * this.count_bookRelate}%`
+        ctn_books_relate.forEach((e) => {
+          if (e) e.style.margin =  `0 ${ctn_sameAuthor.clientWidth * 0.015}px 0 ${ctn_sameAuthor.clientWidth * 0.015}px`
+          let bookWidth = ctn_sameAuthor.clientWidth / 4 - (2 * ctn_sameAuthor.clientWidth * 0.015)
+          if (e) e.style.width = `${bookWidth}px`
+          if (e) e.style.height = `${bookWidth * (1 + .25)}px`
+          if (e) e.addEventListener('mouseenter', () => {
+            e.childNodes[1].style.transform = `translateY(0)`
+          })
+          if (e) e.addEventListener('mouseleave', () => {
+            e.childNodes[1].style.transform = `translateY(105%)`
+          })
+        })
+      }, 100)
 
       circleBase[0].style.height = `${circleBase[0].clientWidth}px`
       book_img[0].style.height = `${book_img[0].clientWidth * (1 + 1.5 / 3.5)}px`
@@ -142,7 +187,7 @@ export default {
         }
       })
       this.ctn_status = document.getElementsByClassName('ctn_status')[0]
-      console.log('ctn_status: ' , this.ctn_status)
+      // console.log('ctn_status: ' , this.ctn_status)
     }
 
     setTimeout(() => {
@@ -227,6 +272,25 @@ export default {
       }else {
         alert('You have not login!')
       }
+    },
+    letMove(direct) {
+      let ctn_sameAuthor = document.getElementsByClassName('ctn_sameAuthor')[0]
+      let ctn_sameAuthor_content = document.getElementsByClassName('ctn_sameAuthor_content')[0]
+      if (direct === 'Left') this.step -= 4
+      if (direct === 'Right') this.step += 4
+      if (this.step === 0) document.getElementById('arrowLeft_Icon').style.display = 'none'
+      else document.getElementById('arrowLeft_Icon').style.display = 'inline-block'
+      if (this.step < 0) this.step = 0
+      if (this.count_bookRelate - this.step <= 4) document.getElementById('arrowRight_Icon').style.display = 'none'
+      else document.getElementById('arrowRight_Icon').style.display = 'inline-block'
+      if (this.step > this.count_bookRelate) this.step -= 4
+      ctn_sameAuthor_content.style.transform = `translateX(-${this.step * ctn_sameAuthor.clientWidth / 4}px)`
+    },
+    seebookinfo(item) {
+      window.location.replace(`/book/${item.ISBN}`)
+    },
+    newbookinfo(item) {
+      window.open(`/book/${item.ISBN}`)
     }
   }
 

@@ -140,6 +140,15 @@
     margin-top: 2%;
 }
 
+.Name_label input::placeholder {
+    font-size: 1.1vw;
+    color: #fff;
+}
+
+.Name_label input:focus::placeholder {
+    color: rgba(255, 255, 255, 0);
+}
+
 .ISBN_label {
     position: relative;
     margin-top: 2%;
@@ -150,9 +159,28 @@
     margin-top: 2%;
 }
 
+.Author_label input::placeholder {
+    font-size: 1.1vw;
+    color: #fff;
+}
+
+.Author_label input:focus::placeholder {
+    color: rgba(255, 255, 255, 0);
+}
+
+
 .Description_label  {
     position: relative;
     margin-top: 2%;
+}
+
+.Description_label input::placeholder {
+    font-size: 1.1vw;
+    color: #fff;
+}
+
+.Description_label input:focus::placeholder {
+    color: rgba(255, 255, 255, 0);
 }
 
 .Image_label  {
@@ -160,9 +188,27 @@
     margin-top: 2%;
 }
 
+.Image_label input::placeholder {
+    font-size: 1.1vw;
+    color: #fff;
+}
+
+.Image_label input:focus::placeholder {
+    color: rgba(255, 255, 255, 0);
+}
+
 .Publisher_label  {
     position: relative;
     margin-top: 2%;
+}
+
+.Publisher_label input::placeholder {
+    font-size: 1.1vw;
+    color: #fff;
+}
+
+.Publisher_label input:focus::placeholder {
+    color: rgba(255, 255, 255, 0);
 }
 
 .Amount_label  {
@@ -173,6 +219,15 @@
 .Category_label  {
     position: relative;
     margin-top: 2%;
+}
+
+.Category_label input::placeholder {
+    font-size: 1.1vw;
+    color: #fff;
+}
+
+.Category_label input:focus::placeholder {
+    color: rgba(255, 255, 255, 0);
 }
 
 .submit_btn_add {

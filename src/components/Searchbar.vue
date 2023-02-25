@@ -109,7 +109,7 @@ export default {
               box_info.classList.add('box_info')
               box_info.addEventListener('click', () => {
                 console.log('info')
-                window.location.replace(`/book/${ISBN}`);
+                window.location.replace(`/book/${ISBN}`)
               })
               
               bookImg.src = book.image

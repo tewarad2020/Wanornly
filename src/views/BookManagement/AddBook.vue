@@ -7,7 +7,7 @@
         <form @submit.prevent="CheckValidBook" class="form_add">
           <div class="Name_label">
             <label>Name</label>
-            <input :maxlength="56" type="text" v-model="BookInfo.name"/>
+            <input :maxlength="56" type="text" v-model="BookInfo.name" placeholder="no information"/>
           </div>
           <div class="ISBN_label">
             <label >ISBN</label>
@@ -15,19 +15,19 @@
           </div>
           <div class="Author_label">  
             <label >Author</label>
-            <input :maxlength="56" type="text" v-model="BookInfo.author"/>
+            <input :maxlength="56" type="text" v-model="BookInfo.author" placeholder="no information"/>
           </div>
           <div class="Description_label">
             <label >Description</label>
-            <input :maxlength="879" type="text" v-model="BookInfo.book_description"/>
+            <input :maxlength="879" type="text" v-model="BookInfo.book_description" placeholder="no information"/>
           </div>  
           <div class="Image_label">
             <label >Image URL</label>
-            <input type="text" v-model="BookInfo.image"/>
+            <input type="text" v-model="BookInfo.image" placeholder="no information"/>
           </div>
           <div class="Publisher_label">  
             <label >Publisher</label>
-            <input type="text" v-model="BookInfo.publisher"/>
+            <input type="text" v-model="BookInfo.publisher" placeholder="no information"/>
           </div>
           <div class="Amount_label">    
             <label >Amount</label>
@@ -35,7 +35,7 @@
           </div>
           <div class="Category_label"> 
             <label >Category</label>
-            <input type="text" v-model="BookInfo.category"/>
+            <input type="text" v-model="BookInfo.category" placeholder="no information"/>
           </div>
         </form>
       </div>
@@ -66,10 +66,17 @@ export default {
   },
   methods: {
     async createBook() {
-     await axios.post('http://localhost:3000/books', this.BookInfo)
+      if (this.BookInfo.name === '') this.BookInfo.name = 'no information'
+      if (this.BookInfo.author === '') this.BookInfo.author = 'no information'
+      if (this.BookInfo.book_description === '') this.BookInfo.book_description = 'no information'
+      if (this.BookInfo.image === '') this.BookInfo.image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGOBo2HfwSuyZ-cLJFIGnz3-HqAuhopFwjEA&usqp=CAU'
+      if (this.BookInfo.publisher === '') this.BookInfo.publisher = 'no information'
+      if (this.BookInfo.category === '') this.BookInfo.category = 'no information'
+      await axios.post('http://localhost:3000/books', this.BookInfo)
         .then(response => console.log(response))
         .catch(error => console.log(error))
        
+        console.log('add book completed')
         window.location.replace('/')
         // this.$router.replace({ path: '/' })
     },
@@ -81,7 +88,7 @@ export default {
           alert("A book with this ISBN is already in database")
       }
       else{
-        this.createBook()
+        this.createBook() 
       }
     }
   }
