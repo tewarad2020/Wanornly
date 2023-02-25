@@ -19,22 +19,30 @@
             <!-- <div>Status : {{ item.status_request }}</div> -->
             <div class="base_cart"></div>
           </div>
-          <div class="btn_cart_remove" @click="showConfirmDelete(index + 1)">
+          <div class="btn_cart_remove" @click="showConfirmDelete(index + 1, item)">
             <Icon id="delete_Icon" icon="material-symbols:delete-outline" />
           </div>
         </div>
       </div>
     </div>
 
-    <div class="btn_checkout" @click="SendRequest">
+    <div class="btn_checkout" @click="showConfirmCheckOut()">
       <Icon id="check_out_Icon" icon="ic:round-check-circle-outline" />
       <div class="btn_checkout_text">Check Out</div> 
+    </div>
+
+    <div v-show="confirmCheckOut" class="confirm_checkout Delete_comp_active">
+      <div class="confirm_delete_img"><img :src="path.subwarning" alt=""></div>
+      <div class="confirm_delete_text">Are you sure, you really want to check out?</div>
+      <div @click="SendRequest(); showConfirmCheckOut();" class="confirm_delete_ok">yes</div>
+      <div @click="showConfirmCheckOut" class="confirm_delete_no">cancel</div>
+      <div @click="showConfirmCheckOut" class="btn_exit_confirm_delete">X</div>
     </div>
 
     <div v-show="confirmDelete" class="confirm_delete Delete_comp_active">
       <div class="confirm_delete_img"><img :src="path.warning" alt=""></div>
       <div class="confirm_delete_text">Are you sure, you really want to remove order {{ index_book }}?</div>
-      <div @click="removeCart(item.user_id,item.ISBN)" class="confirm_delete_ok">yes</div>
+      <div @click="removeCart(selected_item.user_id,selected_item.ISBN); showConfirmDelete();" class="confirm_delete_ok">yes</div>
       <div @click="showConfirmDelete" class="confirm_delete_no">cancel</div>
       <div @click="showConfirmDelete" class="btn_exit_confirm_delete">X</div>
     </div>
@@ -60,11 +68,14 @@ export default {
     data(){
       return {
         path: {
-          warning: require('../assets/images/warning.png')
+          warning: require('../assets/images/warning.png'),
+          subwarning: require('../assets/images/subwarning.png')
         },
         isloaded: false,
         confirmDelete: false,
+        confirmCheckOut: false,
         index_book: 0,
+        selected_item: null,
       }
     },
   
@@ -84,9 +95,11 @@ export default {
                       .then(()=>{console.log(`update status item :${req.ISBN} form cart `)})
         })
       
-      this.fetchCart()
+      await this.fetchCart()
+      window.location.reload()
       },
-      showConfirmDelete(index) {
+      showConfirmDelete(index, item) {
+        this.selected_item = item
         this.index_book = index
         if (!this.confirmDelete) {
           this.confirmDelete = true
@@ -103,6 +116,22 @@ export default {
           }, 250)
         }
       },
+      showConfirmCheckOut() {
+        if (!this.confirmCheckOut) {
+          this.confirmCheckOut = true
+          setTimeout(() => {
+            let confirm_checkout_div = document.getElementsByClassName('confirm_checkout')[0]
+            confirm_checkout_div.style.height = `${confirm_checkout_div.clientWidth  / 2 * 1.1666}px`
+          }, 10);
+        }else {
+          let confirm_checkout_div = document.getElementsByClassName('confirm_checkout')[0]
+          confirm_checkout_div.classList.add('Delete_comp_passive')
+          setTimeout(() => {
+            this.confirmCheckOut = false
+            confirm_checkout_div.classList.remove('Delete_comp_passive')
+          }, 250)
+        }
+      }
   },
   
   mounted() {

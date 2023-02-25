@@ -63,7 +63,7 @@
     <div v-show="confirmDelete" class="confirm_delete Delete_comp_active">
       <div class="confirm_delete_img"><img :src="path.warning" alt=""></div>
       <div class="confirm_delete_text">Are you sure, you really want to delete it?</div>
-      <div @click="DeleteHandle" class="confirm_delete_ok">yes</div>
+      <div @click="DeleteHandle()" class="confirm_delete_ok">yes</div>
       <div @click="showConfirmDelete" class="confirm_delete_no">cancel</div>
       <div @click="showConfirmDelete" class="btn_exit_confirm_delete">X</div>
     </div>
@@ -152,6 +152,7 @@ export default {
         let ctn_books_relate = document.querySelectorAll('.ctn_books_relate')
         this.count_bookRelate = ctn_books_relate.length
         if (this.count_bookRelate > 8) this.letMove('Right')
+        if (this.count_bookRelate < 8) document.getElementById('arrowRight_Icon').style.display = 'none'
         ctn_sameAuthor_content.style.width = `${25 * this.count_bookRelate}%`
         ctn_books_relate.forEach((e) => {
           if (e) e.style.margin =  `0 ${ctn_sameAuthor.clientWidth * 0.015}px 0 ${ctn_sameAuthor.clientWidth * 0.015}px`
