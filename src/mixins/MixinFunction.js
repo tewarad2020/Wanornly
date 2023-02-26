@@ -140,6 +140,7 @@ const AddToCartHandler = {
         status_request: "inCart",
         time_request: null,
       },
+      status_send: false,
     };
   },
  
@@ -154,6 +155,7 @@ const AddToCartHandler = {
             //already have same book in cart
             this.DuplicateHandle();
             console.log("book is already in cart");
+            this.status_send = false
           } else {
             this.AddToCart(ISBN, userID);
           }
@@ -166,12 +168,13 @@ const AddToCartHandler = {
         ISBN: ISBN,
         time_item: new Date(),
       };
-      console.log(this.reqCart);
+      alert("Add this book to cart complete");
+      this.status_send = true
+      console.log('add To cart:', this.reqCart);
       await axios
         .put(`http://localhost:3000/carts`, this.reqCart)
         .then((response) => console.log(response))
         .catch((error) => console.log(error));
-      alert("Add this book to cart complete");
     },
     DuplicateHandle() {
       alert("This book is already in cart");

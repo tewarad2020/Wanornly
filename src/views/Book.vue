@@ -33,6 +33,8 @@
             <span><Icon id="delete-outline_Icon" icon="material-symbols:delete-outline" /></span>
           </div>
 
+          <!-- <Icon icon="clarity:shopping-bag-solid" /> -->
+
           <div class="ctn_status">
             <span>{{ product_status() }}</span>
           </div>
@@ -85,13 +87,6 @@ export default {
     Icon
   },
   mixins:[AddToCartHandler],
-  setup() {
-    let test = () => {
-      console.log('asd')
-    }
-
-    return {test}
-  },
   data() {
     return {
       path: {
@@ -267,9 +262,78 @@ export default {
         return 'Out of stock'
       }
     },
-    islogin() {
+    async islogin() {
       if (localStorage.getItem('status_login')) {
-        this.CheckAddToCart(this.bookInfo.ISBN,this.userID)
+        await this.CheckAddToCart(this.bookInfo.ISBN,this.userID)
+        // this.status_send = true
+        if (this.status_send) {
+          let btn_envet_addToCart = document.getElementsByClassName('btn_envet_addToCart')[0]
+
+          let box_product = document.createElement('div')
+          box_product.classList.add('box_product')
+
+          const product_svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+          const product_path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+          const product_path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+          const product_path3 = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+          
+          product_svg.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+          product_svg.setAttribute('aria-hidden', 'true')
+          product_svg.setAttribute('role', 'img')
+          product_svg.setAttribute('width', '1em')
+          product_svg.setAttribute('height', '1em')
+          product_svg.setAttribute('viewBox', '0 0 36 36')
+          product_svg.setAttribute('class', 'iconify iconify--clarity')
+
+          product_path1.setAttribute('fill', 'currentColor')
+          product_path1.setAttribute(
+            'd',
+            'M13 9.22a5 5 0 1 1 10 0V12h2V9.22a7 7 0 1 0-14 0V12h2Z'
+          )
+          product_path1.setAttribute('class', 'clr-i-solid clr-i-solid-path-1')
+
+          product_path2.setAttribute('fill', 'currentColor')
+          product_path2.setAttribute(
+            'd',
+            'M25 12v3.1a1 1 0 1 1-2 0V12H13v3.1a1 1 0 0 1-2 0V12H4v20a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V12Z'
+          )
+          product_path2.setAttribute('class', 'clr-i-solid clr-i-solid-path-2')
+
+          product_path3.setAttribute('fill', 'none')
+          product_path3.setAttribute(
+            'd',
+            'M0 0h36v36H0z'
+          )
+
+          product_svg.appendChild(product_path1);
+          product_svg.appendChild(product_path2);
+          product_svg.appendChild(product_path3);
+          
+          box_product.replaceChildren(product_svg)
+          btn_envet_addToCart.appendChild(box_product)
+
+          let cart_locate = document.getElementsByClassName('cart_menu_img')[0]
+          const cart_locateX = cart_locate.getBoundingClientRect().x + cart_locate.clientWidth*0.6
+          const cart_locateY = cart_locate.getBoundingClientRect().y - cart_locate.clientHeight*0.4
+          const box_productX = box_product.getBoundingClientRect().x + box_product.clientWidth/2
+          const box_productY = box_product.getBoundingClientRect().y + box_product.clientHeight/2
+          box_product.style.transition = `2s ease`
+          box_product.style.transform = `translate(${cart_locateX - box_productX}px, ${cart_locateY - box_productY}px) scale(.6)`
+
+          setTimeout(() => {
+            box_product.style.transition = `1s ease`
+            box_product.style.transform = `translate(${cart_locateX - box_productX}px, ${cart_locateY - box_productY + cart_locate.clientHeight* 0.7}px) scale(.2)`
+            cart_locate.style.transition = `.3s ease-in-out`
+            cart_locate.style.transform = `scale(1.4)`
+            setTimeout(() => {
+              cart_locate.style.transition = `.3s ease-in-out`
+              cart_locate.style.transform = `scale(1)`
+            }, 600);
+            setTimeout(() => {
+              box_product.remove()
+            }, 1100);
+          }, 2200);
+        }
       }else {
         alert('You have not login!')
       }

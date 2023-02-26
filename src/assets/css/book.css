@@ -563,3 +563,20 @@
 #arrowRight_Icon:hover {
     color: #2a2a2a;
 }
+
+.box_product {
+    position: absolute;
+    width: 100%;
+    /* z-index: 2; */
+    transition: 2s ease;
+    /* transform: ; */
+}
+
+.box_product svg {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* color: #f25579; */
+    color: rgb(242, 102, 137);
+    /* color: rgb(67, 67, 67); */
+}
