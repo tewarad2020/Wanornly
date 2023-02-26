@@ -268,9 +268,11 @@ export default {
         // this.status_send = true
         if (this.status_send) {
           let btn_envet_addToCart = document.getElementsByClassName('btn_envet_addToCart')[0]
-
+          let navbar_ctn = document.getElementsByClassName('navbar_ctn')[0]
           let box_product = document.createElement('div')
           box_product.classList.add('box_product')
+          box_product.style.left = `${btn_envet_addToCart.getBoundingClientRect().x + Math.abs(btn_envet_addToCart.clientWidth - 0.02*navbar_ctn.clientWidth)/2}px`
+          box_product.style.top = `${btn_envet_addToCart.getBoundingClientRect().y + Math.abs(btn_envet_addToCart.clientHeight - 0.02*navbar_ctn.clientWidth)/2}px`
 
           const product_svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
           const product_path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path')
@@ -310,7 +312,7 @@ export default {
           product_svg.appendChild(product_path3);
           
           box_product.replaceChildren(product_svg)
-          btn_envet_addToCart.appendChild(box_product)
+          navbar_ctn.appendChild(box_product)
 
           let cart_locate = document.getElementsByClassName('cart_menu_img')[0]
           const cart_locateX = cart_locate.getBoundingClientRect().x + cart_locate.clientWidth*0.6

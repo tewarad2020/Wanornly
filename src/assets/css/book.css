@@ -566,8 +566,8 @@
 
 .box_product {
     position: absolute;
-    width: 100%;
-    /* z-index: 2; */
+    width: 2%;
+    z-index: -1;
     transition: 2s ease;
     /* transform: ; */
 }
