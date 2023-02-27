@@ -29,8 +29,8 @@ export default {
     computed:{
       currentHistoryFiltered:function(){
         let combined = []
-        if(this.currentPendingFiltered!=null && this.currentInCartFiltered!=null)
-          combined = [].concat(this.currentApproveFiltered,this.currentDenyFiltered,this.currentPendingFiltered)   //just for test, actually is pending and borrowing not inCart
+        if(this.currentPendingFiltered!=null && this.currentInCartFiltered!=null && this.currentReturnFiltered!=null)
+          combined = [].concat(this.currentApproveFiltered,this.currentDenyFiltered,this.currentPendingFiltered,this.currentReturnFiltered)   //just for test, actually is pending and borrowing not inCart
 
         return combined
       } ,

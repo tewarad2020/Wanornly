@@ -66,6 +66,13 @@ const allCartHandler = {
       this.fetchAllRequest()
   },
   computed:{
+    currentPageInfoFiltered:function(){
+      let combined = []
+      if(this.currentApproveFiltered!=null && this.currentReturnFiltered!=null)
+        combined = [].concat(this.currentApproveFiltered,this.currentReturnFiltered)   //just for test, actually is pending and borrowing not inCart
+
+      return combined
+    } ,
       currentPendingFiltered:function(){
       if(this.allRequestBook!=null && this.allRequest!=null)
       {
@@ -114,6 +121,32 @@ const allCartHandler = {
               }
           })
           return ApproveRequestBook
+      }
+           
+      return null
+    } ,
+    currentReturnFiltered:function(){
+      if(this.allRequestBook!=null && this.allRequest!=null)
+      {
+          const ReturnPair = this.allRequest.filter(ele=>ele.status_request=="return")
+                                          .map(b=>{return{user_id:b.user_id,ISBN:b.ISBN}})
+
+          let ReturnRequestBook =  this.allRequestBook.filter(b=>{
+             const findResult =  ReturnPair.filter(pair=>pair.user_id==b.user_id && pair.ISBN==b.ISBN)
+              if(findResult.length!=0){ //found 
+                  return true
+              }
+                  return false
+          })
+          
+          ReturnRequestBook = ReturnRequestBook.sort((a,b)=>{
+              if(a.ISBN-b.ISBN!=0) return a.ISBN-b.ISBN
+              else{ //same isbn then compare date
+                  if(new Date(a.time_resolved).getTime()<new Date(b.time_resolved).getTime()) return -1
+                  else return 1
+              }
+          })
+          return ReturnRequestBook
       }
            
       return null
@@ -211,6 +244,7 @@ const personalCartHandler ={
         currentUserPending:null,
         currentUserDeny:null,
         currentUserApprove:null,
+        currentUserReturn:null,
       }
     },
     mounted(){
@@ -245,6 +279,13 @@ const personalCartHandler ={
         if(this.currentUserAllBook!=null)
         this.currentUserApprove = this.currentUserAllBook.filter(b=>ApproveISBN.includes(b.ISBN))
         return this.currentUserApprove
+      } ,
+      currentReturnFiltered:function(){
+        const ReturnISBN = this.cartData.filter(ele=>ele.status_request=="return")
+                                            .map(b=>b.ISBN)
+        if(this.currentUserAllBook!=null)
+        this.currentUserReturn = this.currentUserAllBook.filter(b=>ReturnISBN.includes(b.ISBN))
+        return this.currentUserReturn
       } ,
     },
     methods:{

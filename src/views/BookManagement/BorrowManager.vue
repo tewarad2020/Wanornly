@@ -1,7 +1,7 @@
 <template>
    <div class="bm_page">
         <h1>Borrow Management</h1>
-        <div class="bm_ctn" v-for="(item,ind) in currentApproveFiltered" :key="ind">
+        <div class="bm_ctn" v-for="(item,ind) in currentPageInfoFiltered" :key="ind">
             <p>{{ item.ISBN }}</p>
             <p>{{ item.name }}</p>
             <p>{{ item.user_id }}</p>
@@ -28,10 +28,19 @@ export default {
     mixins:[allCartHandler],
     methods:{
         async ReturnPerform (user_id,ISBN){
-            console.log(user_id,ISBN)
+
+            console.log("returned:",user_id,ISBN)
+
+            this.BookInfo ={
+                  ...this.BookInfo,
+                  amount:this.BookInfo.amount+1,
+              } //return book amount 
+              this.updateBook()
+              await this.updateRequestStatus(user_id,ISBN,"return")
         },
         async UndoPerform(user_id,ISBN){
-            console.log(user_id,ISBN)
+            console.log("undo:",user_id,ISBN)
+            await this.updateRequestStatus(user_id,ISBN,"undo")
         },
     }
 
