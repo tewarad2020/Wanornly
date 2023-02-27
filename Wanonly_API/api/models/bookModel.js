@@ -37,6 +37,10 @@ const bookSchema = new Schema(
         amount: {
             type: Number,
             required: 'amount cannot be blank'
+        },
+        borrow_count:{
+            type:Number,
+            required: 'borrow count cannot be blank'
         }
     },
     { collection: 'book' }

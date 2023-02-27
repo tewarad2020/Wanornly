@@ -6,7 +6,9 @@
             <p>{{ item.name }}</p>
             <p>{{ item.user_id }}</p>
             <p>{{ item.status_request }}</p>
-            <p>{{ item.time_request }}</p>
+            <p>{{ item.time_return_limit }}</p>
+            <label>day borrow limit</label>
+            <input type="number" v-model="dayLimit" placeholder="0"/>
             <button @click="ApproveCheck(item.user_id,item.ISBN)">approve</button>
             <button @click="DenyPerform(item.user_id,item.ISBN)">deny</button>
         </div>
@@ -25,18 +27,19 @@ export default {
             allRequest:[{
                 user_id:"",
                 ISBN:0,
-                time_item:null,
+                time_resolved:null,
                 status_request:"inCart",
-                time_request:null
+                time_return_limit:null
         }],
             requestBody :{
                 user_id:"",
                 ISBN:0,
-                time_item:null,
+                time_resolved:null,
                 status_request:"inCart",
-                time_request:null
+                time_return_limit:null
         },
         allRequestBook:null,
+        dayLimit:0,
 
 
         }
@@ -62,7 +65,7 @@ export default {
             pendingRequestBook = pendingRequestBook.sort((a,b)=>{
                 if(a.ISBN-b.ISBN!=0) return a.ISBN-b.ISBN
                 else{ //same isbn then compare date
-                    if(new Date(a.time_request).getTime()<new Date(b.time_request).getTime()) return -1
+                    if(new Date(a.time_resolved).getTime()<new Date(b.time_resolved).getTime()) return -1
                     else return 1
                 }
             })
@@ -73,12 +76,20 @@ export default {
       } ,
     },
     methods:{
+     addDaysAndRound(date, days) {
+    var result = new Date(date);
+   result.setDate(result.getDate() + days +1);
+   result.setHours(0, 0, 0);
+   return result;
+   },
     async updateRequestStatus(user_id,ISBN,newStatus){
 
      let [newReq] = this.allRequest.filter(r=>r.ISBN==ISBN&&r.user_id==user_id)
+     const thisDate = new Date()
         newReq = {
             ...newReq,
-            time_item:new Date(), //time approve, deny
+            time_resolved:thisDate, //time approve, deny
+            time_return_limit: this.addDaysAndRound(thisDate,this.dayLimit), // time return limit if borrow
             status_request:newStatus
         }
       console.log(newReq)
@@ -89,14 +100,23 @@ export default {
      this.fetchAllRequest()
     },
         async ApproveCheck(user_id,ISBN){
+            //check day limit
+            if(this.dayLimit<=0){
+                alert("time borrow limit must be more than 0")
+                return;
+            }
+
+
             this.getBookInfo(ISBN)
             if(this.BookInfo.amount<=0){ // book amount is 0
                 alert("this book amount is not sufficient")
+                return;
             }
             else{ //book amount is sufficient
                 this.BookInfo ={
                     ...this.BookInfo,
-                    amount:this.BookInfo.amount-1
+                    amount:this.BookInfo.amount-1,
+                    borrow_count:this.BookInfo.borrow_count+1,
                 } //decrease amount 
                 this.updateBook()
                 this.ApprovePerform(user_id,ISBN)

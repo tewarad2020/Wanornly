@@ -9,7 +9,7 @@
        <p>{{ item.ISBN }}</p> 
        <p>{{ item.name }}</p>
        <p>{{ item.status_request }}</p>
-       <p v-if="item.status_request=='approve'">approved time :{{ new Date(item.time_item).toLocaleTimeString() }}</p>
+       <p v-if="item.status_request=='approve'">approved time :{{ new Date(item.time_resolved).toLocaleTimeString() }}</p>
        <button v-if="item.status_request=='deny'" @click="removeCart(item.user_id,item.ISBN)">delete</button>
       </div>
     </div>

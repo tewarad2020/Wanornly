@@ -15,7 +15,7 @@
             <div class="Author_cart">Author : {{ item.author }}</div>
             <div class="Category_cart">Category : {{ item.category }}</div>
             <div class="Publisher_cart">Publisher : {{ item.publisher }}</div>
-            <div class="Time_cart">Time : {{ (new Date(item.time_item)).toLocaleDateString() }} | {{ (new Date(item.time_item)).toLocaleTimeString('it-IT') }}</div>
+            <div class="Time_cart">Time : {{ (new Date(item.time_resolved)).toLocaleDateString() }} | {{ (new Date(item.time_resolved)).toLocaleTimeString('it-IT') }}</div>
             <!-- <div>Status : {{ item.status_request }}</div> -->
             <div class="base_cart"></div>
           </div>
@@ -85,7 +85,7 @@ export default {
 
       const newReq = this.cartData.map(data=>{return{
           ...data,
-          time_request:new Date(),
+          time_resolved:new Date(), //time check out
           status_request:"pending"
         }})
         console.log(newReq)

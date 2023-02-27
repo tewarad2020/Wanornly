@@ -12,7 +12,8 @@ const bookHandler ={
           book_description:"",
           image:"",
           publisher:"",
-          amount:0
+          amount:0,
+          borrow_count:0
           }
       }
     },
@@ -44,9 +45,9 @@ const cartHandler ={
         cartData : [{
           user_id:"",
           ISBN:0,
-          time_item:null,
+          time_resolved:null,
           status_request:"inCart",
-          time_request:null
+          time_return_limit:null
         }],
         currentUserAllBook:null,
         currentUserInCart:null,
@@ -136,9 +137,9 @@ const AddToCartHandler = {
       reqCart: {
         user_id: "",
         ISBN: 0,
-        time_item: null,
+        time_resolved: null,
         status_request: "inCart",
-        time_request: null,
+        time_return_limit: null,
       },
       status_send: false,
     };
@@ -166,7 +167,7 @@ const AddToCartHandler = {
         ...this.reqCart,
         user_id: userID,
         ISBN: ISBN,
-        time_item: new Date(),
+        time_resolved: new Date(),
       };
       alert("Add this book to cart complete");
       this.status_send = true

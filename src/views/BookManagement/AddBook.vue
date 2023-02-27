@@ -33,6 +33,10 @@
             <label >Amount</label>
             <input type="number" v-model="BookInfo.amount"/>
           </div>
+          <div class="Borrow_Count_label">    
+            <label >Borrow count</label>
+            <input type="number" v-model="BookInfo.borrow_count" />
+          </div>
           <div class="Category_label"> 
             <label >Category</label>
             <input type="text" v-model="BookInfo.category" placeholder="no information"/>

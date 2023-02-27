@@ -45,6 +45,11 @@ const routes = [
         name: 'requestManager',
         component: () => import('../views/BookManagement/RequestManager.vue')
     },
+    {
+        path: '/borrowManager',
+        name: 'borrowManager',
+        component: () => import('../views/BookManagement/BorrowManager.vue')
+    },
 ]
 
 const router = createRouter({
