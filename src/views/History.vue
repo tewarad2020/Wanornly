@@ -17,10 +17,10 @@
 </template>
 
 <script>
-import { cartHandler } from '@/mixins/MixinFunction';
+import { personalCartHandler } from '@/mixins/MixinFunction';
 export default {
     name: 'historyPage',
-    mixins:[cartHandler],
+    mixins:[personalCartHandler],
     data(){
       return{
 

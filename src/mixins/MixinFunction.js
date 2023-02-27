@@ -38,8 +38,165 @@ const bookHandler ={
       },
     }
 
+const allCartHandler = {
+  mixins:[bookHandler],
+  data(){
+      return{
+          allRequest:[{
+              user_id:"",
+              ISBN:0,
+              time_resolved:null,
+              status_request:"inCart",
+              time_return_limit:null
+      }],
+          requestBody :{
+              user_id:"",
+              ISBN:0,
+              time_resolved:null,
+              status_request:"inCart",
+              time_return_limit:null
+      },
+      allRequestBook:null,
+      dayLimit:0,
 
-const cartHandler ={
+
+      }
+  },
+  mounted(){
+      this.fetchAllRequest()
+  },
+  computed:{
+      currentPendingFiltered:function(){
+      if(this.allRequestBook!=null && this.allRequest!=null)
+      {
+          const PendingPair = this.allRequest.filter(ele=>ele.status_request=="pending")
+                                          .map(b=>{return{user_id:b.user_id,ISBN:b.ISBN}})
+
+          let pendingRequestBook =  this.allRequestBook.filter(b=>{
+             const findResult =  PendingPair.filter(pair=>pair.user_id==b.user_id && pair.ISBN==b.ISBN)
+              if(findResult.length!=0){ //found 
+                  return true
+              }
+                  return false
+          })
+          
+          pendingRequestBook = pendingRequestBook.sort((a,b)=>{
+              if(a.ISBN-b.ISBN!=0) return a.ISBN-b.ISBN
+              else{ //same isbn then compare date
+                  if(new Date(a.time_resolved).getTime()<new Date(b.time_resolved).getTime()) return -1
+                  else return 1
+              }
+          })
+          return pendingRequestBook
+      }
+           
+      return null
+    } ,
+    currentApproveFiltered:function(){
+      if(this.allRequestBook!=null && this.allRequest!=null)
+      {
+          const ApprovePair = this.allRequest.filter(ele=>ele.status_request=="approve")
+                                          .map(b=>{return{user_id:b.user_id,ISBN:b.ISBN}})
+
+          let ApproveRequestBook =  this.allRequestBook.filter(b=>{
+             const findResult =  ApprovePair.filter(pair=>pair.user_id==b.user_id && pair.ISBN==b.ISBN)
+              if(findResult.length!=0){ //found 
+                  return true
+              }
+                  return false
+          })
+          
+          ApproveRequestBook = ApproveRequestBook.sort((a,b)=>{
+              if(a.ISBN-b.ISBN!=0) return a.ISBN-b.ISBN
+              else{ //same isbn then compare date
+                  if(new Date(a.time_resolved).getTime()<new Date(b.time_resolved).getTime()) return -1
+                  else return 1
+              }
+          })
+          return ApproveRequestBook
+      }
+           
+      return null
+    } ,
+  },
+  methods:{
+   addDaysAndRound(date, days) {
+  var result = new Date(date);
+ result.setDate(result.getDate() + days +1);
+ result.setHours(0, 0, 0);
+ return result;
+ },
+  async updateRequestStatus(user_id,ISBN,newStatus){
+
+   let [newReq] = this.allRequest.filter(r=>r.ISBN==ISBN&&r.user_id==user_id)
+   const thisDate = new Date()
+
+   //check what is newStatus
+   if(newStatus=="approve"){
+    newReq = {
+      ...newReq,
+      time_resolved:thisDate, //time approve, deny
+      time_return_limit: this.addDaysAndRound(thisDate,this.dayLimit), // time return limit if borrow
+      status_request:newStatus
+  }
+   }
+   else if(newStatus == "deny" || newStatus=="return"){
+    newReq = {
+      ...newReq,
+      time_resolved:thisDate, //time approve, deny
+      status_request:newStatus
+    }
+   }
+   else if(newStatus == "undo"){
+    newReq = {
+      ...newReq,
+      time_resolved:thisDate, //time approve, deny
+      status_request:"approve" //roll back to approve state
+   }
+  }
+      // newReq = {
+      //     ...newReq,
+      //     time_resolved:thisDate, //time approve, deny
+      //     time_return_limit: this.addDaysAndRound(thisDate,this.dayLimit), // time return limit if borrow
+      //     status_request:newStatus
+      // }
+    console.log(newReq)
+    
+    await axios.put(`http://localhost:3000/carts/${user_id}-${ISBN}`,newReq)
+                   .then(()=>{console.log(`update status item :${ISBN} form cart of ${user_id}`)})
+  
+   this.fetchAllRequest()
+  },
+  
+      async fetchAllRequest(){
+          await axios.get('http://localhost:3000/carts')
+                          .then(res=>res.data)
+                              .then(data=>{
+                                  console.log(data)
+                                  this.allRequest = data
+                                 
+          let allBookData = this.$store.getters.data
+           do{
+              setTimeout(() => {
+                  allBookData = this.$store.getters.data
+              }, 200);
+           }while(allBookData==null)  
+
+          this.allRequestBook = this.allRequest.map(c=>{
+            const [cBookData] = allBookData.filter(bd=>bd.ISBN==c.ISBN)
+            return  {
+                ...c,
+                ...cBookData
+            }})
+      
+      })
+      },
+  }
+
+}
+
+
+const personalCartHandler ={
     data(){
       return{
         cartData : [{
@@ -183,4 +340,4 @@ const AddToCartHandler = {
   },
 };
 
-export { AddToCartHandler,cartHandler ,bookHandler};
+export { AddToCartHandler,personalCartHandler ,bookHandler ,allCartHandler};

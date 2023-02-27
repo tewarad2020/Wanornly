@@ -55,7 +55,7 @@
 //import store from '@/store';
 import { Icon } from '@iconify/vue';
 import axios from 'axios';
-import {cartHandler} from '@/mixins/MixinFunction';
+import { personalCartHandler} from '@/mixins/MixinFunction';
 
 export default {
     name:'cartPage',
@@ -63,7 +63,7 @@ export default {
       Icon
     },
 
-    mixins:[cartHandler],
+    mixins:[personalCartHandler],
 
     data(){
       return {
