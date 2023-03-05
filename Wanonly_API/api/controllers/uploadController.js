@@ -9,12 +9,16 @@ const Grid = require('gridfs-stream');
 const mongoURI = 'mongodb+srv://library:ljfrDUX64vYIPn0Y@atlascluster.gplnuda.mongodb.net/wanonly'
 const conn = mongoose.createConnection(mongoURI)
 
-let gfs;
+// let gfs
+let gfs_Upload;
 
 conn.once('open', () => {
     // Init stream
-    gfs = Grid(conn.db, mongoose.mongo);
-    gfs.collection('uploads');
+    // gfs = Grid(conn.db, mongoose.mongo);
+    // gfs.collection('uploads');
+    gfs_Upload = Grid(conn.db, mongoose.mongo);
+    gfs_Upload.collection('uploads');
+    gfs_DeleteAndShow = new mongoose.mongo.GridFSBucket(conn.db, {bucketName: 'uploads'});
 });
 
 const storage = new GridFsStorage({
@@ -48,7 +52,8 @@ exports.upload_profile = (req, res) => {
 }
 
 exports.get_profile_image = (req, res) => {
-  gfs.files.find({ filename: req.params.filename }).toArray((err, file) => {
+  // gfs.files.find({ filename: req.params.filename }).toArray((err, file) => {
+  gfs_Upload.files.find({ filename: req.params.filename }).toArray((err, file) => {
     // Check if file
     console.log('file: ', file)
     if (!file || file.length === 0) {
@@ -60,11 +65,12 @@ exports.get_profile_image = (req, res) => {
     // Check if image
     if (file[0].contentType === 'image/jpeg' || file[0].contentType === 'image/png') {
       // Read output to browser
-      gfs = new mongoose.mongo.GridFSBucket(conn.db, {bucketName: 'uploads'});
-      const readstream = gfs.openDownloadStreamByName(file[0].filename)
+      // gfs = new mongoose.mongo.GridFSBucket(conn.db, {bucketName: 'uploads'});
+      // const readstream = gfs.openDownloadStreamByName(file[0].filename)
+      const readstream = gfs_DeleteAndShow.openDownloadStreamByName(file[0].filename)
       readstream.pipe(res);
-      gfs = Grid(conn.db, mongoose.mongo);
-      gfs.collection('uploads');
+      // gfs = Grid(conn.db, mongoose.mongo);
+      // gfs.collection('uploads');
     } else {
       res.status(404).json({
         err: 'Not an image'
@@ -82,19 +88,21 @@ exports.update_profile = (req, res) => {
   users.find({id: req.params.id}, (err, user) => {
     if(err) console.log(err);
     if (user[0].change_image) {
-      gfs = new mongoose.mongo.GridFSBucket(conn.db, {bucketName: 'uploads'});
+      // gfs = new mongoose.mongo.GridFSBucket(conn.db, {bucketName: 'uploads'});
       const filename = user[0].change_image
-      gfs.find({filename: filename}).toArray((req, file) => {
+      // gfs.find({filename: filename}).toArray((req, file) => {
+      gfs_DeleteAndShow.find({filename: filename}).toArray((req, file) => {
         if (err){
             console.log(err)
         }
         if (file.length > 0) {
           const fileId = file[0]._id
-          gfs.delete(fileId, (err) => {
+          // gfs.delete(fileId, (err) => {
+          gfs_DeleteAndShow.delete(fileId, (err) => {
             if (err) console.log(err);
             console.log(`Deleted file ${filename} with ID ${fileId}`);
-            gfs = Grid(conn.db, mongoose.mongo);
-            gfs.collection('uploads');
+            // gfs = Grid(conn.db, mongoose.mongo);
+            // gfs.collection('uploads');
           });
         }
       })
