@@ -1,7 +1,7 @@
 <template>
    <div class="bm_page">
         <h1>Borrow Management</h1>
-        <div class="bm_ctn" v-for="(item,ind) in currentPageInfoFiltered" :key="ind">
+        <div class="bm_ctn" v-for="(item,ind) in currentApproveFiltered" :key="ind">
             <p>{{ item.ISBN }}</p>
             <p>{{ item.name }}</p>
             <p>{{ item.user_id }}</p>
