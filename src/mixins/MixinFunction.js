@@ -349,7 +349,8 @@ const AddToCartHandler = {
         .get(`http://localhost:3000/carts/${userID}`)
         .then((res) => res.data)
         .then((data) => {
-          const filtered = data.filter((ele) => ele.ISBN == ISBN);
+          const filtered = data.filter((ele) => ele.ISBN == ISBN && 
+          (ele.status_request=="inCart" || ele.status_request=="pending" || ele.status_request=="approve"));
           if (filtered.length !== 0) {
             //already have same book in cart
             this.DuplicateHandle();
