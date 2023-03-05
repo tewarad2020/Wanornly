@@ -84,7 +84,9 @@ export default {
             username: '',
             name: '',
             profileImage: '',
-            role:'customer'
+            role:'customer',
+            change_image: '',
+            change_name: ''
           },
           isShowOptions: false,
           mouseOut1: true,
@@ -124,6 +126,8 @@ export default {
             name: googleUser.getBasicProfile().getName(),
             profileImage: googleUser.getBasicProfile().getImageUrl(),
             role: this.variable.user_info.role,
+            change_image:  this.variable.user_info.change_image,
+            change_name:  this.variable.user_info.change_name
           }))
        
           
@@ -150,12 +154,16 @@ export default {
                      this.variable.user_info ={
                         ...this.variable.user_info,
                         role:data[0].role,
+                        change_image: data[0].change_image,
+                        change_name: data[0].change_name
                      } 
                     }
                     else{
                       this.variable.user_info ={
                         ...this.variable.user_info,
                         role:"customer",
+                        change_image: '',
+                        change_name: ''
                      }
                     }
                   })
@@ -183,6 +191,8 @@ export default {
           id:userInfo.username,
           username:userInfo.name,
           role:userInfo.role,
+          change_image: '',
+          change_name: ''
         }
       )
       console.log(`add new user :${userInfo.username}`)

@@ -61,7 +61,7 @@ export default {
     this.BookInfo = this.bookProp
   },
   methods: {
-    // มีบัคครับ อย่าลืมเเก้
+    
   },
 };
 </script>

@@ -2,7 +2,7 @@
   <div>
     <div id="profilePage">
       <div class="ctn_profile_img">
-        <img :src="variable.user_info?.profileImage" alt="">
+        <img :src="variable.user_info?.change_image? getProfileImage() : variable.user_info?.profileImage" alt="">
       </div>
       <div class="ctn_profile_info">
         <div class="profile_name">Name : {{ variable.user_info?.name }}</div>
@@ -29,12 +29,39 @@
       <AddBook></AddBook>
       <div class="btn_exit_addbook" @click="closeAddBook">X</div>
     </div>
+    
+    <!-- test -->
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1>Mongo upload</h1>
+      <div>
+        <label for="file">Choose file
+        </label>
+        <input type="file" name="file" id="file" ref="file" accept="image/png, image/jpeg" @change="onChangeFileUpload()">
+        <!-- <input type="submit" value="Submit" @click="postImage()"> -->
+        <!-- <div @click="testpost()"> click me </div> -->
+      </div>
+    <div>
+      <div @click="submitForm()">submit</div>
+      <!-- <div @click="getImageTTT()">getImageTTT</div> -->
+      <!-- <img src="http://localhost:3000/image/a56e459e10df9165f26dbdde642d0844.png" alt=""> -->
+      <!-- <img id="testt" src="" alt=""> -->
+    </div>
+    <!-- test -->
+
   </div>
 </template>
 
 <script>
 import AddBook from '../views/BookManagement/AddBook.vue'
-import { Icon } from '@iconify/vue';
+import { Icon } from '@iconify/vue'
+import axios from 'axios'
 
 export default {
     name: 'profilePage',
@@ -50,16 +77,17 @@ export default {
         isShowAdd:false,
         isShowEdit:false,
         testBookProp:{
-        ISBN:"123",
-        name:"dsfsdf",
-        author:"dsfdsf",
-        categoryID:0,
-        book_description:"dfssf",
-        image:"sdfs",
-        publisher:"dsfds",
-        amount:0
+          ISBN:"123",
+          name:"dsfsdf",
+          author:"dsfdsf",
+          categoryID:0,
+          book_description:"dfssf",
+          image:"sdfs",
+          publisher:"dsfds",
+          amount:0
         },
         add_comp: null,
+        file: '',
       }
     },
     methods: {
@@ -77,14 +105,43 @@ export default {
             this.add_comp.classList.add('add_comp_active')
             this.isShowAdd = false;
           }, 250)
-      }
+      },
+      async submitForm(){
+        let formData = new FormData();
+        formData.append('file', this.file);
+        let username = JSON.parse(localStorage.getItem('user_info'))?.username
 
+        await axios.post(`http://localhost:3000/upload/${username}`,
+            formData,
+            {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+          }
+        ).then(async (data) => {
+          await axios.put(`http://localhost:3000/user/${username}`, {change_image: data.data.file.filename})
+            .then(response => console.log(response))
+            .catch(error => console.log(error))
+          // window.location.replace('/')
+        })
+        .catch(() => {
+          console.log('FAILURE!!');
+        });
+      },
+      onChangeFileUpload(){
+        this.file = this.$refs.file.files[0];
+      },
+      getProfileImage() {
+        console.log(`http://localhost:3000/image/${this.variable.user_info?.change_image}`)
+        return `http://localhost:3000/image/${this.variable.user_info?.change_image}`
+      }
     },
     mounted() {
       let initail = () => {
         this.variable.user_info = JSON.parse(localStorage.getItem('user_info'))
         let ctn_profile_img = document.getElementsByClassName('ctn_profile_img')[0]
         ctn_profile_img.firstChild.style.width = `${ctn_profile_img.firstChild.clientHeight}px`
+
       }
 
       initail()

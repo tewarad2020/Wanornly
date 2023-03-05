@@ -170,7 +170,11 @@ export default {
     },
   
   },
-
+  watch:{
+    $route (){
+        this.close_searchbar()
+    }
+  },
   mounted() {
     // Initial
     let initial = () => {

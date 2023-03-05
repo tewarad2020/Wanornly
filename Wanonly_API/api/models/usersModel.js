@@ -18,6 +18,12 @@ const usersSchema = new Schema(
             type:String,
             default: "customer"
         },
+        change_name:{
+            type:String
+        },
+        change_image:{
+            type:String
+        },
     },
     { collection: 'users' }
 )

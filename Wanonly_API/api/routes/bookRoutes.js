@@ -1,6 +1,7 @@
 const bookBuilder = require('../controllers/bookController');
 const cartBuilder = require('../controllers/cartController');
 const usersBuilder = require('../controllers/usersController');
+const profileUpload = require('../controllers/uploadController');
 
 module.exports = app => {
     app
@@ -22,19 +23,26 @@ module.exports = app => {
     app
         .route('/carts/:userID')
         .get(cartBuilder.list_all_books_in_cart)
+
     app
         .route('/carts')
         .put(cartBuilder.add_to_cart)
         .get(cartBuilder.all_cart_every_user)
 
-
     app
         .route('/user/:id')
         .get(usersBuilder.get_user)
+        .put(profileUpload.update_profile)
 
     app
         .route('/user')
         .put(usersBuilder.add_new_user)
-
     
+    app 
+        .route('/upload/:userID')
+        .post(profileUpload.upload_profile)
+    
+    app 
+        .route('/image/:filename')
+        .get(profileUpload.get_profile_image)
 }
