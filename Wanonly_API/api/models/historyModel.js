@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const cartSchema = new Schema(
+const historySchema = new Schema(
     {
         user_id: {
             type: String,  //gmail is user_id
@@ -17,15 +17,14 @@ const cartSchema = new Schema(
         time_resolved: {   //time addToCart, approve,deny
             type: Date
         },
-        status_request: {
-            type: String,
-            required: 'status_request cannot be blank'
-        },
         time_return_limit: { //time limit when borrowing  //time_request(old)
             type: Date,
+        },
+        time_returned:{  //time when return
+            type:Date,
         }
     },
-    { collection: 'cart' }
+    { collection: 'history' }
 )
 
-module.exports = mongoose.model('cart', cartSchema)
+module.exports = mongoose.model('history', historySchema)

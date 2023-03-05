@@ -2,6 +2,7 @@ const bookBuilder = require('../controllers/bookController');
 const cartBuilder = require('../controllers/cartController');
 const usersBuilder = require('../controllers/usersController');
 const profileUpload = require('../controllers/uploadController');
+const historyBuilder = require('../controllers/historyController')
 
 module.exports = app => {
     app
@@ -28,6 +29,19 @@ module.exports = app => {
         .route('/carts')
         .put(cartBuilder.add_to_cart)
         .get(cartBuilder.all_cart_every_user)
+
+    app
+    .route('/history/:ID')
+    .delete(historyBuilder.delete_from_history)
+
+    app
+    .route('/history/:userID')
+    .get(historyBuilder.list_all_books_in_history)
+
+    app
+    .route('/history')
+    .put(historyBuilder.add_to_history)
+    .get(historyBuilder.all_history_every_user)
 
     app
         .route('/user/:id')

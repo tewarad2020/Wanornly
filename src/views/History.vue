@@ -12,15 +12,23 @@
        <p v-if="item.status_request=='approve'">approved time :{{ new Date(item.time_resolved).toLocaleTimeString() }}</p>
        <button v-if="item.status_request=='deny'" @click="removeCart(item.user_id,item.ISBN)">delete</button>
       </div>
+      <h1>Returned</h1>
+      <div  class="itemCtn" v-for="(item,index) in currentUserAllBookHistory" :key="index">
+       <p>{{ item.ISBN }}</p> 
+       <p>{{ item.name }}</p>
+       <p>{{ item.time_resolved }}</p>
+       <p>{{ item.time_returned }}</p>
+       <p>{{ item.time_return_limit }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { personalCartHandler } from '@/mixins/MixinFunction';
+import { personalCartHandler, personalHistoryHandler } from '@/mixins/MixinFunction';
 export default {
     name: 'historyPage',
-    mixins:[personalCartHandler],
+    mixins:[personalCartHandler,personalHistoryHandler],
     data(){
       return{
 
@@ -29,8 +37,8 @@ export default {
     computed:{
       currentHistoryFiltered:function(){
         let combined = []
-        if(this.currentPendingFiltered!=null && this.currentInCartFiltered!=null && this.currentReturnFiltered!=null)
-          combined = [].concat(this.currentApproveFiltered,this.currentDenyFiltered,this.currentPendingFiltered,this.currentReturnFiltered)   //just for test, actually is pending and borrowing not inCart
+        if(this.currentPendingFiltered!=null && this.currentInCartFiltered!=null )
+          combined = [].concat(this.currentApproveFiltered,this.currentDenyFiltered,this.currentPendingFiltered)   //just for test, actually is pending and borrowing not inCart
 
         return combined
       } ,
