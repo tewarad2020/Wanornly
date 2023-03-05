@@ -39,6 +39,7 @@ export default {
       },
       filter() {
         if (!this.$store.getters.Searching) {
+          
           this.$store.commit('setSearching', true)
           this.variable.searchbar.classList.remove('searchbar_passive')
           this.variable.searchbar.classList.add('searchbar_active')
@@ -121,7 +122,8 @@ export default {
               box_info.appendChild(bookAuthor)
               div_books.appendChild(cover_book_img)
               div_books.appendChild(box_info)
-              div_books.appendChild(btn_addToCrat)
+              if(localStorage.getItem('status_login'))
+                div_books.appendChild(btn_addToCrat)
               ctn_books.appendChild(div_books)
               list_books.appendChild(ctn_books)
             }
