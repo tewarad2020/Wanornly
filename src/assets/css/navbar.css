@@ -24,6 +24,7 @@
     top: 0;
     margin-left: 2%;
     /* background-color: red; */
+    cursor: pointer;
 }
 
 .logo_ctn img {
