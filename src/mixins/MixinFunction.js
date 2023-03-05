@@ -38,6 +38,79 @@ const bookHandler ={
       },
     }
 
+const personalHistoryHandler = {
+      data(){
+        return{
+          historyData:[{
+            _id:"",
+            user_id:"",
+            ISBN:0,
+            time_resolved:null,
+            time_return_limit:null,
+            time_returned:null,
+          }],
+          historyAddReqBody:{
+            user_id:"",
+            ISBN:0,
+            time_resolved:null,
+            time_return_limit:null,
+            time_returned:null,
+          },
+          currentUserAllBookHistory:null,
+        }
+      },
+      mounted(){
+        this.fetchHistory()
+      },
+      methods:{
+        async AddToHistory(cartData){
+          this.historyAddReqBody = {
+            user_id:cartData.user_id,
+            ISBN:cartData.ISBN,
+            time_resolved:cartData.time_resolved,
+            time_return_limit:cartData.time_return_limit,
+            time_returned: new Date(),
+          };
+
+          alert("Add this book to history complete");
+          console.log('add To history:', this.historyAddReqBody);
+          await axios
+            .put(`http://localhost:3000/history`, this.historyAddReqBody)
+            .then((response) => console.log(response))
+            .catch((error) => console.log(error));
+        },
+        async fetchHistory(){
+          try{
+            const username = JSON.parse(localStorage.getItem("user_info")).username
+            console.log(`username = ${username}` )
+           await fetch(`http://localhost:3000/history/${username}`) //get history information
+          .then(res => res.json())
+          .then(data => {
+            console.log('history: ',data)
+            //this.cartData = data.filter(ele=>ele.status_request=="inCart")
+            this.historyData = data
+          
+            const allBookData = this.$store.getters.data
+  
+            this.currentUserAllBookHistory = this.historyData.map(c=>{
+                const [cBookData] = allBookData.filter(bd=>bd.ISBN==c.ISBN)
+                return  {
+                    ...c,
+                    ...cBookData
+                }
+            })
+           
+          
+            console.log('fetch history information successfully!')
+          })
+          }
+          catch(err){
+            console.log(err)
+          }
+        }
+      }
+}
+
 const allCartHandler = {
   mixins:[bookHandler],
   data(){
@@ -130,25 +203,7 @@ const allCartHandler = {
            
       return null
     } ,
-    currentReturnFiltered:function(){
-      if(this.allRequestBook!=null && this.allRequest!=null)
-      {
-         
 
-          let ReturnRequestBook =  this.allRequestBook.filter(ele=>ele.status_request=="return")
-          
-          ReturnRequestBook = ReturnRequestBook.sort((a,b)=>{
-              if(a.ISBN-b.ISBN!=0) return a.ISBN-b.ISBN
-              else{ //same isbn then compare date
-                  if(new Date(a.time_resolved).getTime()<new Date(b.time_resolved).getTime()) return -1
-                  else return 1
-              }
-          })
-          return ReturnRequestBook
-      }
-           
-      return null
-    } ,
   },
   methods:{
    addDaysAndRound(date, days) {
@@ -171,20 +226,14 @@ const allCartHandler = {
       status_request:newStatus
   }
    }
-   else if(newStatus == "deny" || newStatus=="return"){
+   else if(newStatus == "deny"){
     newReq = {
       ...newReq,
-      time_resolved:thisDate, //time approve, deny
+      time_resolved:thisDate, //time deny
       status_request:newStatus
     }
    }
-   else if(newStatus == "undo"){
-    newReq = {
-      ...newReq,
-      time_resolved:thisDate, //time approve, deny
-      status_request:"approve" //roll back to approve state
-   }
-  }
+ 
       // newReq = {
       //     ...newReq,
       //     time_resolved:thisDate, //time approve, deny
@@ -222,6 +271,12 @@ const allCartHandler = {
       
       })
       },
+      async removeCart(user_id,ISBN){
+        await axios.delete(`http://localhost:3000/carts/${user_id}-${ISBN}`)
+                    .then(()=>{console.log(`remove item :${ISBN} form cart `)})
+        
+                   this.fetchAllRequest()
+     },
   }
 
 }
@@ -281,13 +336,7 @@ const personalCartHandler ={
         this.currentUserApprove = this.currentUserAllBook.filter(ele=>ele.status_request=="approve")
         return this.currentUserApprove
       } ,
-      currentReturnFiltered:function(){
-        // const ReturnISBN = this.cartData.filter(ele=>ele.status_request=="return")
-        //                                     .map(b=>b.ISBN)
-        if(this.currentUserAllBook!=null)
-        this.currentUserReturn = this.currentUserAllBook.filter(ele=>ele.status_request=="return")
-        return this.currentUserReturn
-      } ,
+
     },
     methods:{
       async fetchCart (){
@@ -383,4 +432,4 @@ const AddToCartHandler = {
   },
 };
 
-export { AddToCartHandler,personalCartHandler ,bookHandler ,allCartHandler};
+export { AddToCartHandler,personalCartHandler ,bookHandler ,allCartHandler , personalHistoryHandler};

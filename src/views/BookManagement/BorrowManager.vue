@@ -9,14 +9,13 @@
             <p>{{  new Date(item.time_return_limit).toString()  }}</p>
             <!-- <label>day borrow limit</label>
             <input type="number" v-model="dayLimit" placeholder="0"/> -->
-            <button @click="ReturnPerform(item.user_id,item.ISBN)">return</button>
-            <button @click="UndoPerform(item.user_id,item.ISBN)">undo</button>
+            <button @click="ReturnPerform(item)">return</button>
         </div>
     </div>
 </template>
 
 <script>
-import { allCartHandler } from '../../mixins/MixinFunction'
+import { allCartHandler, personalHistoryHandler } from '../../mixins/MixinFunction'
 export default {
     name:"borrowManager",
 
@@ -25,9 +24,11 @@ export default {
 
         }
     },
-    mixins:[allCartHandler],
+    mixins:[allCartHandler, personalHistoryHandler],
     methods:{
-        async ReturnPerform (user_id,ISBN){
+        async ReturnPerform (cartData){
+            const user_id = cartData.user_id
+            const ISBN = cartData.ISBN
 
             console.log("returned:",user_id,ISBN)
 
@@ -36,11 +37,12 @@ export default {
                   amount:this.BookInfo.amount+1,
               } //return book amount 
               this.updateBook()
-              await this.updateRequestStatus(user_id,ISBN,"return")
-        },
-        async UndoPerform(user_id,ISBN){
-            console.log("undo:",user_id,ISBN)
-            await this.updateRequestStatus(user_id,ISBN,"undo")
+
+
+             // await this.updateRequestStatus(user_id,ISBN,"return")
+             
+            await this.AddToHistory(cartData) 
+            await this.removeCart(user_id,ISBN) //remove from cart
         },
     }
 
