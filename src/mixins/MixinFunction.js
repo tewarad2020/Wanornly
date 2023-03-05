@@ -76,16 +76,28 @@ const allCartHandler = {
       currentPendingFiltered:function(){
       if(this.allRequestBook!=null && this.allRequest!=null)
       {
-          const PendingPair = this.allRequest.filter(ele=>ele.status_request=="pending")
-                                          .map(b=>{return{user_id:b.user_id,ISBN:b.ISBN}})
+          // const PendingPair = this.allRequest.filter(ele=>ele.status_request=="pending")
+          //                                 .map(b=>{return{user_id:b.user_id,ISBN:b.ISBN}})
 
-          let pendingRequestBook =  this.allRequestBook.filter(b=>{
-             const findResult =  PendingPair.filter(pair=>pair.user_id==b.user_id && pair.ISBN==b.ISBN)
-              if(findResult.length!=0){ //found 
-                  return true
-              }
-                  return false
-          })
+          // let pendingRequestBook =  this.allRequestBook.filter(b=>{
+          //    const findResult =  PendingPair.filter(pair=>pair.user_id==b.user_id && pair.ISBN==b.ISBN)
+          //     if(findResult.length!=0){ //found 
+          //         return true
+          //     }
+          //         return false
+          // })
+          
+          // pendingRequestBook = pendingRequestBook.sort((a,b)=>{
+          //     if(a.ISBN-b.ISBN!=0) return a.ISBN-b.ISBN
+          //     else{ //same isbn then compare date
+          //         if(new Date(a.time_resolved).getTime()<new Date(b.time_resolved).getTime()) return -1
+          //         else return 1
+          //     }
+          // })
+          // return pendingRequestBook
+         
+
+          let pendingRequestBook =  this.allRequestBook.filter(ele=>ele.status_request=="pending")
           
           pendingRequestBook = pendingRequestBook.sort((a,b)=>{
               if(a.ISBN-b.ISBN!=0) return a.ISBN-b.ISBN
@@ -102,16 +114,9 @@ const allCartHandler = {
     currentApproveFiltered:function(){
       if(this.allRequestBook!=null && this.allRequest!=null)
       {
-          const ApprovePair = this.allRequest.filter(ele=>ele.status_request=="approve")
-                                          .map(b=>{return{user_id:b.user_id,ISBN:b.ISBN}})
+       
 
-          let ApproveRequestBook =  this.allRequestBook.filter(b=>{
-             const findResult =  ApprovePair.filter(pair=>pair.user_id==b.user_id && pair.ISBN==b.ISBN)
-              if(findResult.length!=0){ //found 
-                  return true
-              }
-                  return false
-          })
+          let ApproveRequestBook =  this.allRequestBook.filter(ele=>ele.status_request=="approve")
           
           ApproveRequestBook = ApproveRequestBook.sort((a,b)=>{
               if(a.ISBN-b.ISBN!=0) return a.ISBN-b.ISBN
@@ -128,16 +133,9 @@ const allCartHandler = {
     currentReturnFiltered:function(){
       if(this.allRequestBook!=null && this.allRequest!=null)
       {
-          const ReturnPair = this.allRequest.filter(ele=>ele.status_request=="return")
-                                          .map(b=>{return{user_id:b.user_id,ISBN:b.ISBN}})
+         
 
-          let ReturnRequestBook =  this.allRequestBook.filter(b=>{
-             const findResult =  ReturnPair.filter(pair=>pair.user_id==b.user_id && pair.ISBN==b.ISBN)
-              if(findResult.length!=0){ //found 
-                  return true
-              }
-                  return false
-          })
+          let ReturnRequestBook =  this.allRequestBook.filter(ele=>ele.status_request=="return")
           
           ReturnRequestBook = ReturnRequestBook.sort((a,b)=>{
               if(a.ISBN-b.ISBN!=0) return a.ISBN-b.ISBN
