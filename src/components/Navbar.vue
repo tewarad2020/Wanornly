@@ -1,7 +1,7 @@
 <template>
   <div class="navbar_ctn active">
-    <div class="logo_ctn">
-      <img :src="path.logo" alt="">
+    <div @click="goto('/')" class="logo_ctn">
+      <img :src="path.logo"  alt="">
       <span id="logo">wanornly</span>
     </div>
     <div id="manuAll">

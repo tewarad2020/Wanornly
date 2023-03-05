@@ -16,9 +16,9 @@
           <Icon id="add_book_Icon" icon="material-symbols:add-box" />
           <div class="addbook_text">Add book</div>
         </div>
-        <div class="btn_request" v-if="variable.user_info?.role === 'admin'? true : false" >
+        <div class="btn_request" @click="() => $router.push('/requestManager')" v-if="variable.user_info?.role === 'admin'? true : false"  >
           <Icon id="request_Icon" icon="pajamas:requirements" />
-          <div class="request_text">Requirements</div>
+          <div class="request_text" >Request Management</div>
         </div>
         <div class="btn_donation" v-if="variable.user_info?.role === 'admin'? true : false" >
           <Icon id="donation_Icon" icon="ic:outline-menu-book" />          
@@ -29,6 +29,7 @@
       <AddBook></AddBook>
       <div class="btn_exit_addbook" @click="closeAddBook">X</div>
     </div>
+    
     
     <!-- test -->
     <br>
@@ -144,7 +145,7 @@ export default {
           console.log(`http://localhost:3000/image/${link_profile}`)
           profile_Img.src = `http://localhost:3000/image/${link_profile}`
         }
-      }
+      },
     },
     mounted() {
       let initail = () => {
