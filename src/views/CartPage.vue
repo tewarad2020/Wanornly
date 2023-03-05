@@ -3,8 +3,10 @@
     <div class="cartPage">
       <!-- <div  class="itemCtn" v-for="(item,index) in currentInCartFiltered" :key="index"> -->
       <div v-if="isloaded">
-        <div  class="itemCtn" v-for="(item,index) in currentInCartFiltered" :key="index">
-        <!-- <div  class="itemCtn" v-for="(item,index) in this.cartData" :key="index"> -->
+
+      <div v-if="currentInCartFiltered.length>0">
+        <div  class="itemCtn"  v-for="(item,index) in currentInCartFiltered" :key="index" >
+          <!-- <div  class="itemCtn" v-for="(item,index) in this.cartData" :key="index"> -->
           <div class="cart_product_img">
             <img :src="item.image" alt="">
           </div>
@@ -23,6 +25,11 @@
             <Icon id="delete_Icon" icon="material-symbols:delete-outline" />
           </div>
         </div>
+      </div>
+      <div v-else>
+        <strong>The cart is empty</strong>
+      </div>  
+
       </div>
     </div>
 
