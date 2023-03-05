@@ -93,12 +93,14 @@ exports.update_profile = async (req, res) => {
           gfs.delete(fileId, (err) => {
             if (err) console.log(err);
             console.log(`Deleted file ${filename} with ID ${fileId}`);
+            gfs = Grid(conn.db, mongoose.mongo);
+            gfs.collection('uploads');
           });
         }
       })
     }
   })
-  users.findOneAndUpdate({id: req.params.id}, 
+  users.findOneAndUpdate({id: req.params.id},
     { 
       change_image: req.body.change_image,
     },

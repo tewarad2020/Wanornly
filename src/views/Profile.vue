@@ -2,7 +2,7 @@
   <div>
     <div id="profilePage">
       <div class="ctn_profile_img">
-        <img :src="variable.user_info?.change_image? getProfileImage() : variable.user_info?.profileImage" alt="">
+        <img id="profile_Img" src="" alt="">
       </div>
       <div class="ctn_profile_info">
         <div class="profile_name">Name : {{ variable.user_info?.name }}</div>
@@ -16,9 +16,9 @@
           <Icon id="add_book_Icon" icon="material-symbols:add-box" />
           <div class="addbook_text">Add book</div>
         </div>
-        <div class="btn_request" v-if="variable.user_info?.role === 'admin'? true : false" >
+        <div class="btn_request" @click="() => $router.push('/requestManager')" v-if="variable.user_info?.role === 'admin'? true : false"  >
           <Icon id="request_Icon" icon="pajamas:requirements" />
-          <div class="request_text">Requirements</div>
+          <div class="request_text" >Request Management</div>
         </div>
         <div class="btn_donation" v-if="variable.user_info?.role === 'admin'? true : false" >
           <Icon id="donation_Icon" icon="ic:outline-menu-book" />          
@@ -29,6 +29,7 @@
       <AddBook></AddBook>
       <div class="btn_exit_addbook" @click="closeAddBook">X</div>
     </div>
+    
     
     <!-- test -->
     <br>
@@ -49,9 +50,6 @@
       </div>
     <div>
       <div @click="submitForm()">submit</div>
-      <!-- <div @click="getImageTTT()">getImageTTT</div> -->
-      <!-- <img src="http://localhost:3000/image/a56e459e10df9165f26dbdde642d0844.png" alt=""> -->
-      <!-- <img id="testt" src="" alt=""> -->
     </div>
     <!-- test -->
 
@@ -120,9 +118,14 @@ export default {
           }
         ).then(async (data) => {
           await axios.put(`http://localhost:3000/user/${username}`, {change_image: data.data.file.filename})
-            .then(response => console.log(response))
+            .then(response => {
+              console.log(response)
+              console.log(data)
+              localStorage.setItem('link_profile', data.data.file.filename)
+              this.getProfileImage()
+            }).then(() => window.location.replace('/profile'))
             .catch(error => console.log(error))
-          // window.location.replace('/')
+            .catch(error => console.log(error))
         })
         .catch(() => {
           console.log('FAILURE!!');
@@ -132,16 +135,23 @@ export default {
         this.file = this.$refs.file.files[0];
       },
       getProfileImage() {
-        console.log(`http://localhost:3000/image/${this.variable.user_info?.change_image}`)
-        return `http://localhost:3000/image/${this.variable.user_info?.change_image}`
-      }
+        const profile_Img = document.getElementById('profile_Img')
+        
+        let link_profile = localStorage.getItem('link_profile')
+        if (!link_profile){
+          profile_Img.src = this.variable.user_info?.profileImage
+        }else {
+          // console.log(`http://localhost:3000/image/${link_profile}`)
+          profile_Img.src = `http://localhost:3000/image/${link_profile}`
+        }
+      },
     },
     mounted() {
       let initail = () => {
         this.variable.user_info = JSON.parse(localStorage.getItem('user_info'))
         let ctn_profile_img = document.getElementsByClassName('ctn_profile_img')[0]
         ctn_profile_img.firstChild.style.width = `${ctn_profile_img.firstChild.clientHeight}px`
-
+        this.getProfileImage()
       }
 
       initail()
