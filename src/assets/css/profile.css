@@ -10,7 +10,7 @@
     height: 28vh;
     left: 5%;
     top: calc(10vh + 32px);
-    /* background-color: #ECE3F0; */
+    /* background-color: #8f0bc7; */
 }
 
 .ctn_profile_img {
@@ -311,4 +311,70 @@
         opacity: 0;
         transform: scale(0.95);
     }
+}
+
+.edit_profile_ctn {
+    position: absolute;
+    top: 16vh;
+    left: 26%;
+    width: 25%;
+    padding: 0 1% 0 1% ;
+    /* height: 30vh; */
+    background-color: rgba(75, 68, 73, .6);
+    border-radius: 0 6px 6px 6px;
+}
+
+.edit_profile_ctn h1{
+    position: relative;
+    font-size: 1.5vw;
+    width: 100%;
+    height: 30%;
+    /* background-color: rgb(69, 71, 71); */
+}
+.input_ctn {
+    position: relative;
+    width: 100%;
+    height: 45%;
+    /* background-color: beige; */
+    display: flex;
+    align-items: center;
+}
+
+.input_ctn input[type=file] {
+    font-size: 0.94vw;
+    position: relative;
+    width: 100%;
+    /* background-color: red; */
+    /* border-radius: ; */
+    outline: none;
+    border: none;
+    color: #fff;
+}
+
+.input_ctn input[type=file]::file-selector-button {
+    font-size: 0.94vw;
+    position: relative;
+    width: 30%;
+    height: 3.4vh;
+    background-color: #a29bfe;
+    border-radius: 8px 8px 8px 8px;
+    outline: none;
+    border: none;
+    color: #fff;
+    transition: .25s ease-in-out;
+    margin-right: 4%;
+    cursor: pointer;
+}
+
+.input_ctn input[type=file]::file-selector-button:hover {
+    background-color: #96e5d2;
+}
+
+.submit_edit_profile {
+    position: relative;
+    width: 100%;
+    height: 25%;
+    background-color: rgb(39, 195, 114);
+    display: flex;
+    align-items: center;
 }

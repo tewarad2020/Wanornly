@@ -42,41 +42,49 @@ const storage = new GridFsStorage({
 const upload = multer({ storage }).single('file')
 
 exports.upload_profile = (req, res) => {
-  upload(req, res, (err) => {
-    // console.log('res:', res)
-    if(err) {
-      return res.end(`${err}`);
-    }
-    res.json({ file: req.file });
-  }) 
+  try {
+    upload(req, res, (err) => {
+      // console.log('res:', res)
+      if(err) {
+        return res.end(`${err}`);
+      }
+      res.json({ file: req.file });
+    }) 
+  }catch(err) {
+    console.error(err)
+  }
 }
 
 exports.get_profile_image = (req, res) => {
   // gfs.files.find({ filename: req.params.filename }).toArray((err, file) => {
-  gfs_Upload.files.find({ filename: req.params.filename }).toArray((err, file) => {
-    // Check if file
-    console.log('file: ', file)
-    if (!file || file.length === 0) {
-      return res.status(404).json({
-        err: 'No file exists'
-      });
-    }
+  try {  
+    gfs_Upload.files.find({ filename: req.params.filename }).toArray((err, file) => {
+      // Check if file
+      console.log('file: ', file)
+      if (!file || file.length === 0) {
+        return res.status(404).json({
+          err: 'No file exists'
+        });
+      }
 
-    // Check if image
-    if (file[0].contentType === 'image/jpeg' || file[0].contentType === 'image/png') {
-      // Read output to browser
-      // gfs = new mongoose.mongo.GridFSBucket(conn.db, {bucketName: 'uploads'});
-      // const readstream = gfs.openDownloadStreamByName(file[0].filename)
-      const readstream = gfs_DeleteAndShow.openDownloadStreamByName(file[0].filename)
-      readstream.pipe(res);
-      // gfs = Grid(conn.db, mongoose.mongo);
-      // gfs.collection('uploads');
-    } else {
-      res.status(404).json({
-        err: 'Not an image'
-      });
-    }
-  });
+      // Check if image
+      if (file[0].contentType === 'image/jpeg' || file[0].contentType === 'image/png') {
+        // Read output to browser
+        // gfs = new mongoose.mongo.GridFSBucket(conn.db, {bucketName: 'uploads'});
+        // const readstream = gfs.openDownloadStreamByName(file[0].filename)
+        const readstream = gfs_DeleteAndShow.openDownloadStreamByName(file[0].filename)
+        readstream.pipe(res);
+        // gfs = Grid(conn.db, mongoose.mongo);
+        // gfs.collection('uploads');
+      } else {
+        res.status(404).json({
+          err: 'Not an image'
+        });
+      }
+    });
+  }catch(err) {
+    console.error(err)
+  }
 };
 
 // users.updateMany({}, { $set: {change_name: '', change_image: ''}}, function(err, res) {
@@ -84,44 +92,30 @@ exports.get_profile_image = (req, res) => {
 //     console.log("Documents updated");
 // });
 
-exports.update_profile = (req, res) => {
-  users.find({id: req.params.id}, (err, user) => {
-    if(err) console.log(err);
+exports.update_profile = async (req, res) => {
+  try {
+    const user = await users.find({ id: req.params.id });
     if (user[0].change_image) {
-      // gfs = new mongoose.mongo.GridFSBucket(conn.db, {bucketName: 'uploads'});
-      const filename = user[0].change_image
-      // gfs.find({filename: filename}).toArray((req, file) => {
-      gfs_DeleteAndShow.find({filename: filename}).toArray((req, file) => {
-        if (err){
-            console.log(err)
-        }
-        if (file.length > 0) {
-          const fileId = file[0]._id
-          // gfs.delete(fileId, (err) => {
-          gfs_DeleteAndShow.delete(fileId, (err) => {
-            if (err) console.log(err);
-            console.log(`Deleted file ${filename} with ID ${fileId}`);
-            // gfs = Grid(conn.db, mongoose.mongo);
-            // gfs.collection('uploads');
-          });
-        }
-      })
-    }
-  })
-  users.findOneAndUpdate({id: req.params.id},
-    { 
-      change_image: req.body.change_image,
-    },
-    { 
-      new: true, 
-      // upsert: true, 
-    },
-    (err, result) => {
-      if(err){
-          console.log(err);
+      const filename = user[0].change_image;
+      const file = await gfs_DeleteAndShow.find({ filename: filename }).toArray();
+      if (file.length > 0) {
+        const fileId = file[0]._id;
+        await gfs_DeleteAndShow.delete(fileId);
+        console.log(`Deleted file ${filename} with ID ${fileId}`);
       }
-      console.log("RESULT: " + result);
-      res.json({message: 'update profile completed'})
     }
-  )
+    const result = await users.findOneAndUpdate(
+      { id: req.params.id },
+      { 
+        change_image: req.body.change_image,
+      },
+      { 
+        new: true, 
+      }
+    );
+    console.log("RESULT: " + result);
+    res.json({message: 'update profile completed'})
+  } catch(err) {
+    console.error(err);
+  }
 }

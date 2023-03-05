@@ -32,24 +32,16 @@
     
     
     <!-- test -->
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <h1>Mongo upload</h1>
-      <div>
-        <label for="file">Choose file
-        </label>
+    <div class="edit_profile_ctn">
+      <h1>Profile Edit</h1>
+      <div class="input_ctn">
+        <!-- <label for="file">Choose file
+        </label> -->
         <input type="file" name="file" id="file" ref="file" accept="image/png, image/jpeg" @change="onChangeFileUpload()">
-        <!-- <input type="submit" value="Submit" @click="postImage()"> -->
-        <!-- <div @click="testpost()"> click me </div> -->
       </div>
-    <div>
-      <div @click="submitForm()">submit</div>
+      <div class="submit_edit_profile">
+        <div @click="submitForm()">submit</div>
+      </div>
     </div>
     <!-- test -->
 
@@ -151,9 +143,13 @@ export default {
     mounted() {
       let initail = () => {
         this.variable.user_info = JSON.parse(localStorage.getItem('user_info'))
+        let profilePage = document.getElementById('profilePage')
+        profilePage.style.height = `${profilePage.clientWidth * 0.153}px`
         let ctn_profile_img = document.getElementsByClassName('ctn_profile_img')[0]
         ctn_profile_img.firstChild.style.width = `${ctn_profile_img.firstChild.clientHeight}px`
         this.getProfileImage()
+        let edit_profile_ctn = document.getElementsByClassName('edit_profile_ctn')[0]
+        edit_profile_ctn.style.height = `${edit_profile_ctn.clientWidth * 0.3}px`
       }
 
       initail()
