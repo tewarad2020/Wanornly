@@ -14,14 +14,14 @@ const cartSchema = new Schema(
             type: Number,
             required: 'ISBN cannot be blank'
         },
-        time_item: {   //time approve,deny, (default is time add to cart)
+        time_resolved: {   //time addToCart, approve,deny, and when user returned 
             type: Date
         },
         status_request: {
             type: String,
             required: 'status_request cannot be blank'
         },
-        time_request: { //time send request to admin( click check out)
+        time_return_limit: { //time limit when borrowing  //time_request(old)
             type: Date,
         }
     },

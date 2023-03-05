@@ -1,0 +1,14 @@
+
+.bm_page{
+     
+    height: 100%;
+    width: 100%;
+    background-color: rgb(255, 217, 0);
+}
+.bm_ctn{
+    margin-top: 100px;
+    height: 200px;
+    width: 400px;
+    background-color: rgb(255, 0, 191);
+    margin: 20px;
+}
