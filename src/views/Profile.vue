@@ -135,13 +135,12 @@ export default {
       },
       getProfileImage() {
         const profile_Img = document.getElementById('profile_Img')
-
-        console.log('kuy: ', this.variable.user_info?.change_image)
+        
         let link_profile = localStorage.getItem('link_profile')
         if (!link_profile){
           profile_Img.src = this.variable.user_info?.profileImage
         }else {
-          console.log(`http://localhost:3000/image/${link_profile}`)
+          // console.log(`http://localhost:3000/image/${link_profile}`)
           profile_Img.src = `http://localhost:3000/image/${link_profile}`
         }
       }

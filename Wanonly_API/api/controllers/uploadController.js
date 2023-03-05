@@ -100,7 +100,7 @@ exports.update_profile = async (req, res) => {
       })
     }
   })
-  users.findOneAndUpdate({id: req.params.id}, 
+  users.findOneAndUpdate({id: req.params.id},
     { 
       change_image: req.body.change_image,
     },
