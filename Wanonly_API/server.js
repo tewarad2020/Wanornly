@@ -6,14 +6,6 @@ global.Book = require('./api/models/bookModel');
 global.Cart = require('./api/models/cartModel');
 global.User = require('./api/models/usersModel')
 const routes = require('./api/routes/bookRoutes');
-// test
-const path = require('path');
-const crypto = require('crypto');
-const multer = require('multer');
-const { GridFsStorage } = require('multer-gridfs-storage');
-const Grid = require('gridfs-stream');
-const methodOverride = require('method-override');
-// test
 
 mongoose.connect(
     'mongodb+srv://library:ljfrDUX64vYIPn0Y@atlascluster.gplnuda.mongodb.net/wanonly',

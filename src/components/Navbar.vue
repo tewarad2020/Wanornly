@@ -121,13 +121,15 @@ export default {
            await this.fetchRole(this.variable.user_info.username)
           
           localStorage.setItem('status_login', true)
+          localStorage.setItem('link_profile', this.variable.user_info.change_image)
+          // localStorage.setItem('link_profile', this.variable.user_info.change_image)
           localStorage.setItem('user_info', JSON.stringify({
             username: googleUser.getBasicProfile().getEmail(),
             name: googleUser.getBasicProfile().getName(),
             profileImage: googleUser.getBasicProfile().getImageUrl(),
             role: this.variable.user_info.role,
-            change_image:  this.variable.user_info.change_image,
-            change_name:  this.variable.user_info.change_name
+            // change_image:  this.variable.user_info.change_image,
+            // change_name:  this.variable.user_info.change_name
           }))
        
           
