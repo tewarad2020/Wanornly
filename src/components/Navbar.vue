@@ -23,11 +23,11 @@
       </span>
       <span v-show="isLogin()">
         <div class="ctn_user_image_nev" @click="showOptions()">
-          <img :src="(isLogin() && variable.user_info != null)? variable.user_info.profileImage : ''" alt="">
+          <img :src="variable.profile_Img" alt="">
         </div>
         <div v-show="variable.isShowOptions" class="optionbar">
             <div class="op_img">
-              <img :src="(isLogin() && variable.user_info != null)? variable.user_info.profileImage : ''" alt="">
+              <img :src="variable.profile_Img" alt="">
               <div class="op_footer">
                 <div class="op_name">{{ (isLogin() && variable.user_info != null)? variable.user_info.name : '' }}</div>
                 <div class="op_username">{{ (isLogin() && variable.user_info != null)? variable.user_info.username : ''}}</div>
@@ -94,6 +94,8 @@ export default {
           statusOptionbar: false,
           optionbar: null,
           ctn_optionbar: null,
+          profile_Img: '',
+          loginOK: false,
         },
       }
     },
@@ -136,12 +138,6 @@ export default {
             role: this.variable.user_info.role,
           }))
        
-          
-
-          //add data to local storage
-         
-          // localStorage.setItem('user_info', JSON.stringify(googleUser))
-          
           console.log('login successful!')
           window.location.reload()
 
@@ -152,27 +148,27 @@ export default {
       },
       async fetchRole(username){
        await axios.get(`http://localhost:3000/user/${username}`)
-                .then(res=>res.data)
-                  .then(data=>{
-                    console.log("fetch role:",data)
-                    if(data.length!=0)
-                    {
-                     this.variable.user_info ={
-                        ...this.variable.user_info,
-                        role:data[0].role,
-                        change_image: data[0].change_image,
-                        change_name: data[0].change_name
-                     } 
-                    }
-                    else{
-                      this.variable.user_info ={
-                        ...this.variable.user_info,
-                        role:"customer",
-                        change_image: '',
-                        change_name: ''
-                     }
-                    }
-                  })
+        .then(res=>res.data)
+          .then(data=>{
+            console.log("fetch role:",data)
+            if(data.length!=0)
+            {
+              this.variable.user_info ={
+                ...this.variable.user_info,
+                role:data[0].role,
+                change_image: data[0].change_image,
+                change_name: data[0].change_name
+              } 
+            }
+            else{
+              this.variable.user_info ={
+                ...this.variable.user_info,
+                role:"customer",
+                change_image: '',
+                change_name: ''
+              }
+            }
+          })
       
     },
     async CheckUserDatabase(userInfo){
@@ -204,6 +200,8 @@ export default {
       console.log(`add new user :${userInfo.username}`)
     },
       isLogin() {
+        console.log('loginOK')
+        this.variable.loginOK = this.Vue3GoogleOauth.isAuthorized
         return this.Vue3GoogleOauth.isAuthorized
       },
       showOptions() {
@@ -235,8 +233,24 @@ export default {
           }
         }
       },
+      getProfileImage_nav() {
+        // const profile_Img_S = document.getElementsByClassName('profile_Img_logo_S')[0]
+        // const profile_Img_M = document.getElementsByClassName('profile_Img_logo_M')[0]
+        // if (this.isLogin() && this.variable.user_info != null || true) {
+          let link_profile = localStorage.getItem('link_profile')
+          if (!link_profile) {
+            this.variable.profile_Img = this.variable.user_info?.profileImage
+            // profile_Img_S.src = this.variable.user_info?.profileImage
+            // profile_Img_M.src = this.variable.user_info?.profileImage
+          }else {
+            // console.log(`http://localhost:3000/image/${link_profile}`)
+            // profile_Img_S.src = `http://localhost:3000/image/${link_profile}`
+            // profile_Img_M.src = `http://localhost:3000/image/${link_profile}`
+            this.variable.profile_Img = `http://localhost:3000/image/${link_profile}`
+          }
+        // }
+      }
     },
-   
 
     mounted() {
     // Initial
@@ -251,13 +265,25 @@ export default {
       ctn_optionbar[0].addEventListener("mouseover", () => {if (this.variable.statusOptionbar) {this.variable.mouseOut2 = false}});
       this.variable.optionbar = optionbar
       this.variable.ctn_optionbar = ctn_optionbar
+      // setTimeout(() => {
+      //   console.log('dddd')
+      //   this.getProfileImage_nav()
+      // }, 900)
+      this.getProfileImage_nav()
     }
 
     initial()
     // console.log(this.variable.user_info)
     // console.log('functions')
     // console.log(this.functions.handleSignIn)
-    }
+    },
+
+    // watch:{
+    //   $loginOK (){
+    //     console.log('goggoogog')
+    //       this.getProfileImage()
+    //   }
+    // }
 }
 </script>
 
