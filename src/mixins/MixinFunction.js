@@ -253,38 +253,41 @@ const personalCartHandler ={
     },
     computed:{
       currentInCartFiltered:function(){
-        const InCartISBN = this.cartData.filter(ele=>ele.status_request=="inCart")
-                                            .map(b=>b.ISBN)
+        // const InCartISBN = this.cartData.filter(ele=>ele.status_request=="inCart")
+        //                                     .map(b=>b.ISBN)
+        // if(this.currentUserAllBook!=null)
+        // this.currentUserInCart = this.currentUserAllBook.filter(b=>InCartISBN.includes(b.ISBN))
+        // return this.currentUserInCart
         if(this.currentUserAllBook!=null)
-        this.currentUserInCart = this.currentUserAllBook.filter(b=>InCartISBN.includes(b.ISBN))
+        this.currentUserInCart = this.currentUserAllBook.filter(ele=>ele.status_request=="inCart")
         return this.currentUserInCart
       } ,
       currentPendingFiltered:function(){
-        const PendingISBN = this.cartData.filter(ele=>ele.status_request=="pending")
-                                            .map(b=>b.ISBN)
+        // const PendingISBN = this.cartData.filter(ele=>ele.status_request=="pending")
+        //                                     .map(b=>b.ISBN)
         if(this.currentUserAllBook!=null)
-        this.currentUserPending = this.currentUserAllBook.filter(b=>PendingISBN.includes(b.ISBN))
+        this.currentUserPending = this.currentUserAllBook.filter(ele=>ele.status_request=="pending")
         return this.currentUserPending
       } ,
       currentDenyFiltered:function(){
-        const DenyISBN = this.cartData.filter(ele=>ele.status_request=="deny")
-                                            .map(b=>b.ISBN)
+        // const DenyISBN = this.cartData.filter(ele=>ele.status_request=="deny")
+        //                                     .map(b=>b.ISBN)
         if(this.currentUserAllBook!=null)
-        this.currentUserDeny = this.currentUserAllBook.filter(b=>DenyISBN.includes(b.ISBN))
+        this.currentUserDeny = this.currentUserAllBook.filter(ele=>ele.status_request=="deny")
         return this.currentUserDeny
       } ,
       currentApproveFiltered:function(){
-        const ApproveISBN = this.cartData.filter(ele=>ele.status_request=="approve")
-                                            .map(b=>b.ISBN)
+        // const ApproveISBN = this.cartData.filter(ele=>ele.status_request=="approve")
+        //                                     .map(b=>b.ISBN)
         if(this.currentUserAllBook!=null)
-        this.currentUserApprove = this.currentUserAllBook.filter(b=>ApproveISBN.includes(b.ISBN))
+        this.currentUserApprove = this.currentUserAllBook.filter(ele=>ele.status_request=="approve")
         return this.currentUserApprove
       } ,
       currentReturnFiltered:function(){
-        const ReturnISBN = this.cartData.filter(ele=>ele.status_request=="return")
-                                            .map(b=>b.ISBN)
+        // const ReturnISBN = this.cartData.filter(ele=>ele.status_request=="return")
+        //                                     .map(b=>b.ISBN)
         if(this.currentUserAllBook!=null)
-        this.currentUserReturn = this.currentUserAllBook.filter(b=>ReturnISBN.includes(b.ISBN))
+        this.currentUserReturn = this.currentUserAllBook.filter(ele=>ele.status_request=="return")
         return this.currentUserReturn
       } ,
     },
@@ -349,7 +352,8 @@ const AddToCartHandler = {
         .get(`http://localhost:3000/carts/${userID}`)
         .then((res) => res.data)
         .then((data) => {
-          const filtered = data.filter((ele) => ele.ISBN == ISBN);
+          const filtered = data.filter((ele) => ele.ISBN == ISBN && 
+          (ele.status_request=="inCart" || ele.status_request=="pending" || ele.status_request=="approve"));
           if (filtered.length !== 0) {
             //already have same book in cart
             this.DuplicateHandle();
