@@ -22,7 +22,7 @@ const bookHandler ={
         await  axios.put(`http://localhost:3000/books/${this.BookInfo.ISBN}`, this.BookInfo)
             .then(response => console.log(response))
             .catch(error => console.log(error))
-            window.location.replace('/')
+            // window.location.replace('/')
         },
         getBookInfo(ISBN){
           let allBooks = this.$store.getters.data
