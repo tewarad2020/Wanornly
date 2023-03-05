@@ -48,7 +48,7 @@ exports.upload_profile = (req, res) => {
 }
 
 exports.get_profile_image = (req, res) => {
-  gfs.files?.find({ filename: req.params.filename }).toArray((err, file) => {
+  gfs.files.find({ filename: req.params.filename }).toArray((err, file) => {
     // Check if file
     console.log('file: ', file)
     if (!file || file.length === 0) {
@@ -78,7 +78,7 @@ exports.get_profile_image = (req, res) => {
 //     console.log("Documents updated");
 // });
 
-exports.update_profile = async (req, res) => {
+exports.update_profile = (req, res) => {
   users.find({id: req.params.id}, (err, user) => {
     if(err) console.log(err);
     if (user[0].change_image) {
@@ -106,14 +106,14 @@ exports.update_profile = async (req, res) => {
     },
     { 
       new: true, 
-      upsert: true, 
+      // upsert: true, 
     },
     (err, result) => {
-        if(err){
-            console.log(err);
-        }
-        console.log("RESULT: " + result);
-        res.send('update profile completed')
+      if(err){
+          console.log(err);
+      }
+      console.log("RESULT: " + result);
+      res.json({message: 'update profile completed'})
     }
   )
 }

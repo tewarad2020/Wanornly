@@ -119,12 +119,14 @@ export default {
         ).then(async (data) => {
           await axios.put(`http://localhost:3000/user/${username}`, {change_image: data.data.file.filename})
             .then(response => {
-              console.log(response)
-              console.log(data)
+              console.log('response: ', response)
+              // console.log('data: ', data)
               localStorage.setItem('link_profile', data.data.file.filename)
+            })
+            .then(() => {
               this.getProfileImage()
-            }).then(() => window.location.replace('/profile'))
-            .catch(error => console.log(error))
+              window.location.replace('/profile')
+            })
             .catch(error => console.log(error))
         })
         .catch(() => {

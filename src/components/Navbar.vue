@@ -27,7 +27,7 @@
         </div>
         <div v-show="variable.isShowOptions" class="optionbar">
             <div class="op_img">
-              <img :src="variable.profile_Img" alt="">
+              <img ref="img_profile_option" class="img_profile_option1" :src="variable.profile_Img" alt="">
               <div class="op_footer">
                 <div class="op_name">{{ (isLogin() && variable.user_info != null)? variable.user_info.name : '' }}</div>
                 <div class="op_username">{{ (isLogin() && variable.user_info != null)? variable.user_info.username : ''}}</div>
@@ -95,7 +95,6 @@ export default {
           optionbar: null,
           ctn_optionbar: null,
           profile_Img: '',
-          loginOK: false,
         },
       }
     },
@@ -109,7 +108,6 @@ export default {
             return null
           }
 
-        
           this.variable.user_info = {
             username: googleUser.getBasicProfile().getEmail(),
             name: googleUser.getBasicProfile().getName(),
@@ -200,8 +198,7 @@ export default {
       console.log(`add new user :${userInfo.username}`)
     },
       isLogin() {
-        console.log('loginOK')
-        this.variable.loginOK = this.Vue3GoogleOauth.isAuthorized
+        if (this.Vue3GoogleOauth.isAuthorized) this.test = 1
         return this.Vue3GoogleOauth.isAuthorized
       },
       showOptions() {
@@ -216,7 +213,9 @@ export default {
           this.variable.optionbar[0].classList.add('optionbar_passive')
           setTimeout(() => {
             this.variable.isShowOptions = false
-          }, 100)
+            this.variable.optionbar[0].classList.remove('optionbar_active')
+            this.variable.optionbar[0].classList.add('optionbar_passive')
+          }, 150)
         }
       },
       goto(nextpath) {
@@ -234,28 +233,25 @@ export default {
         }
       },
       getProfileImage_nav() {
-        // const profile_Img_S = document.getElementsByClassName('profile_Img_logo_S')[0]
-        // const profile_Img_M = document.getElementsByClassName('profile_Img_logo_M')[0]
-        // if (this.isLogin() && this.variable.user_info != null || true) {
           let link_profile = localStorage.getItem('link_profile')
           if (!link_profile) {
             this.variable.profile_Img = this.variable.user_info?.profileImage
-            // profile_Img_S.src = this.variable.user_info?.profileImage
-            // profile_Img_M.src = this.variable.user_info?.profileImage
           }else {
             // console.log(`http://localhost:3000/image/${link_profile}`)
-            // profile_Img_S.src = `http://localhost:3000/image/${link_profile}`
-            // profile_Img_M.src = `http://localhost:3000/image/${link_profile}`
             this.variable.profile_Img = `http://localhost:3000/image/${link_profile}`
           }
-        // }
-      }
+      },
     },
 
     mounted() {
     // Initial
-    let initial = () => {
-      this.variable.user_info = JSON.parse(localStorage.getItem('user_info'))
+    let initial = async () => {
+      this.variable.user_info = await JSON.parse(localStorage.getItem('user_info'))
+      // this.test = await JSON.parse(localStorage.getItem('user_info'))
+      // .then(() => {
+        // let img_profile_option = document.getElementById('img_profile_option')
+        // img_profile_option.style.height = `${img_profile_option.clientWidth}px`
+      // })
       const optionbar = document.getElementsByClassName('optionbar')
       const ctn_optionbar = document.getElementsByClassName('ctn_user_image_nev')
       window.addEventListener("mousedown", () => {if (this.variable.statusOptionbar && this.variable.mouseOut2) {this.showOptions()}})
@@ -265,11 +261,12 @@ export default {
       ctn_optionbar[0].addEventListener("mouseover", () => {if (this.variable.statusOptionbar) {this.variable.mouseOut2 = false}});
       this.variable.optionbar = optionbar
       this.variable.ctn_optionbar = ctn_optionbar
-      // setTimeout(() => {
-      //   console.log('dddd')
-      //   this.getProfileImage_nav()
-      // }, 900)
       this.getProfileImage_nav()
+     
+      // let img_profile_option = document.getElementsByClassName('img_profile_option')[0]
+      // this.$refs.img_profile_option
+      // console.log('clientWidth: ', this.$refs.img_profile_option.clientWidth)
+      // img_profile_option.style.height = `${img_profile_option.clientWidth}px`
     }
 
     initial()
@@ -278,12 +275,6 @@ export default {
     // console.log(this.functions.handleSignIn)
     },
 
-    // watch:{
-    //   $loginOK (){
-    //     console.log('goggoogog')
-    //       this.getProfileImage()
-    //   }
-    // }
 }
 </script>
 
