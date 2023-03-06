@@ -120,7 +120,8 @@
     position: absolute;
     right: 0;
     /* top: 100%; */
-    width: 250px;
+    /* width: 250px; */
+    width: 36%;
     height: 300px;
     background-color: rgba(44, 44, 44, 0.9);
     z-index: 3;
@@ -243,21 +244,29 @@
 .op_img img {
     position: absolute;
     width: 40%;
-    height: 40%;
+    height: 50%;
     border-radius: 50%;
 }
 
 .op_footer {
     position: absolute;
     width: 100%;
-    top: 54%;
+    top: 65%;
     /* background-color: blue; */
 }
 
-.op_footer hr {
+.hr_line hr {
     position: relative;
-    top: 32px;
+    width: 100%;
     border-bottom: 1px solid #747474;
+}
+
+.hr_line {
+    position: absolute;
+    width: 100%;
+    top: 130%;
+    left: 0px;
+    /* background-color: red; */
 }
 
 .op_name {

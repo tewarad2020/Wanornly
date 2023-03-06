@@ -119,3 +119,16 @@ exports.update_profile = async (req, res) => {
     console.error(err);
   }
 }
+
+exports.delete_profile = async (req, res) => {
+  try {
+    const file = await gfs_DeleteAndShow.find({ filename: req.params.filename }).toArray();
+    if (file.length > 0) {
+      const fileId = file[0]._id;
+      await gfs_DeleteAndShow.delete(fileId);
+      console.log(`Deleted file ${filename} with ID ${fileId}`);
+    }
+  } catch(err) {
+    console.error(err);
+  }
+}

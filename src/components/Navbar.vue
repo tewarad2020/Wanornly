@@ -31,7 +31,7 @@
               <div class="op_footer">
                 <div class="op_name">{{ (isLogin() && variable.user_info != null)? variable.user_info.name : '' }}</div>
                 <div class="op_username">{{ (isLogin() && variable.user_info != null)? variable.user_info.username : ''}}</div>
-                <hr>
+                <div class="hr_line"><hr></div>
               </div>
             </div>
             <div @click="goto('/profile')" class="op_profile">
@@ -247,11 +247,6 @@ export default {
     // Initial
     let initial = async () => {
       this.variable.user_info = await JSON.parse(localStorage.getItem('user_info'))
-      // this.test = await JSON.parse(localStorage.getItem('user_info'))
-      // .then(() => {
-        // let img_profile_option = document.getElementById('img_profile_option')
-        // img_profile_option.style.height = `${img_profile_option.clientWidth}px`
-      // })
       const optionbar = document.getElementsByClassName('optionbar')
       const ctn_optionbar = document.getElementsByClassName('ctn_user_image_nev')
       window.addEventListener("mousedown", () => {if (this.variable.statusOptionbar && this.variable.mouseOut2) {this.showOptions()}})
@@ -262,14 +257,21 @@ export default {
       this.variable.optionbar = optionbar
       this.variable.ctn_optionbar = ctn_optionbar
       this.getProfileImage_nav()
-     
-      // let img_profile_option = document.getElementsByClassName('img_profile_option')[0]
-      // this.$refs.img_profile_option
-      // console.log('clientWidth: ', this.$refs.img_profile_option.clientWidth)
-      // img_profile_option.style.height = `${img_profile_option.clientWidth}px`
+      
+      setTimeout(() => {
+        optionbar[0].style.display = 'block'
+        optionbar[0].style.opacity = 0
+        optionbar[0].style.height = `${optionbar[0].clientWidth * 1.2}px`
+        setTimeout(() => {
+          optionbar[0].style.display = 'none'
+          optionbar[0].style.opacity = 1
+        }, 50)
+      }, 1500)
+       
     }
 
     initial()
+    
     // console.log(this.variable.user_info)
     // console.log('functions')
     // console.log(this.functions.handleSignIn)

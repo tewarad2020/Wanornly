@@ -55,6 +55,10 @@ module.exports = app => {
     app 
         .route('/upload/:userID')
         .post(profileUpload.upload_profile)
+
+    app
+        .route('/upload/:filename')    
+        .delete(profileUpload.delete_profile)
     
     app 
         .route('/image/:filename')
