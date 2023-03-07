@@ -55,6 +55,7 @@ module.exports = app => {
     app 
         .route('/upload/:userID')
         .post(profileUpload.upload_profile)
+        .put(profileUpload.update_name)
 
     app
         .route('/upload/:filename')    

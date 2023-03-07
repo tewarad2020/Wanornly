@@ -132,3 +132,21 @@ exports.delete_profile = async (req, res) => {
     console.error(err);
   }
 }
+
+exports.update_name = async (req, res) => {
+  try {
+    const result = await users.findOneAndUpdate(
+      { id: req.params.id },
+      { 
+        change_name: req.body.change_name,
+      },
+      { 
+        new: true, 
+      }
+    );
+    console.log("RESULT: " + result);
+    res.json({message: 'update name completed'})
+  } catch(err) {
+    console.error(err);
+  }
+}

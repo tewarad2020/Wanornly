@@ -11,7 +11,7 @@
         <div @click="clickShowEdit_name()" class="edit_Icon_ctn_name">
           <Icon id="edit_Icon_name" icon="material-symbols:edit" />
         </div>
-        <div class="profile_name">Name : {{ variable.user_info?.name }}</div>
+        <div class="profile_name">Name : {{ Name }}</div>
         <div class="profile_username">Username : {{ variable.user_info?.username }}</div>
         <div class="profile_role">Role : {{ variable.user_info?.role }}</div>
         <div class="base_profile"></div>
@@ -51,11 +51,12 @@
     <div v-show="isShowEdit_name" class="edit_name_ctn">
       <h1>Name Edit</h1>
       <div class="input_ctn">
-        <input type="text" name="text_name" id="text_name" ref="text_name" @change="onChangeFileUpload()">
+        <input type="text" name="text_name" id="text_name" ref="text_name" :maxlength="40" 
+        placeholder="your name.." v-model="nameChange" @keyup="onChangenameUpload()" @change="onChangenameUpload()">
       </div>
       <div class="submit_edit_name">
-        <div class="submit_btn" @click="submitForm()">submit</div>
-        <div class="default_btn">default</div>
+        <div class="submit_btn" @click="submitForm_name('Change')">submit</div>
+        <div class="default_btn" @click="submitForm_name('Default')" >default</div>
       </div>
     </div>
 
@@ -93,6 +94,8 @@ export default {
         },
         add_comp: null,
         file: '',
+        nameChange: '',
+        Name: ''
       }
     },
     methods: {
@@ -150,15 +153,36 @@ export default {
           localStorage.setItem('link_profile', '')
         })
         .then(() => {
-          this.getProfileImage()
+          // this.getProfileImage()
           setTimeout(() => {
             window.location.replace('/profile')
-          }, 100)
+          }, 10)
+        })
+        .catch(error => console.log(error))
+      },
+      async submitForm_name(detail){
+        if (detail === 'Default') {
+          this.nameChange = ''
+        }
+        let username = JSON.parse(localStorage.getItem('user_info'))?.username
+        await axios.put(`http://localhost:3000/upload/${username}`, {change_name: this.nameChange})
+        .then(response => {
+          console.log('response: ', response)
+          localStorage.setItem('name_profile', this.nameChange)
+        })
+        .then(() => {
+          // this.getName()
+          setTimeout(() => {
+            window.location.replace('/profile')
+          }, 10)
         })
         .catch(error => console.log(error))
       },
       onChangeFileUpload(){
-        this.file = this.$refs.file.files[0];
+        this.file = this.$refs.file.files[0]
+      },
+      onChangenameUpload() {
+        this.nameChange = this.$refs.text_name.value
       },
       getProfileImage() {
         const profile_Img = document.getElementById('profile_Img')
@@ -169,6 +193,14 @@ export default {
           profile_Img.src = this.variable.user_info?.profileImage
         }else {
           profile_Img.src = `http://localhost:3000/image/${link_profile}`
+        }
+      },
+      getName() {
+        let name_profile = localStorage.getItem('name_profile')
+        if (name_profile) {
+          this.Name = name_profile
+        }else {
+          this.Name = this.variable.user_info.name
         }
       },
       clickShowEdit() {
@@ -214,6 +246,7 @@ export default {
         let ctn_profile_img = document.getElementsByClassName('ctn_profile_img')[0]
         ctn_profile_img.firstChild.style.width = `${ctn_profile_img.firstChild.clientHeight}px`
         this.getProfileImage()
+        this.getName()
         let edit_Icon_ctn = document.getElementsByClassName('edit_Icon_ctn')[0]
         edit_Icon_ctn.style.height = `${edit_Icon_ctn.clientWidth}px`
         let edit_Icon_ctn_name = document.getElementsByClassName('edit_Icon_ctn_name')[0]
