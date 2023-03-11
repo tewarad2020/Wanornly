@@ -130,7 +130,7 @@ const allCartHandler = {
               time_return_limit:null
       },
       allRequestBook:null,
-      dayLimit:0,
+      dayLimit: 7,
 
 
       }
@@ -252,7 +252,7 @@ const allCartHandler = {
           await axios.get('http://localhost:3000/carts')
                           .then(res=>res.data)
                               .then(data=>{
-                                  console.log(data)
+                                  // console.log(data)
                                   this.allRequest = data
                                  
           let allBookData = this.$store.getters.data

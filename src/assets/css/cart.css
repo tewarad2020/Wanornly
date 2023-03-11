@@ -136,7 +136,7 @@
     left: 1.3%;
     top: 4%;
     /* background-color: #f13c69; */
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     font-weight: 700;
     color: #fff;
     display: flex;
@@ -149,7 +149,7 @@
     width: 100%;
     /* height: ; */
     /* background-color: #e53cf1; */
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     color: #fff;
     margin-bottom: 0.8%;
     margin-left: 2%;
@@ -160,7 +160,7 @@
     width: 100%;
     /* height: ; */
     /* background-color: #3cf1d3; */
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     color: #fff;
     margin-bottom: 0.8%;
     margin-left: 2%;
@@ -171,7 +171,7 @@
     width: 100%;
     /* height: ; */
     /* background-color: #3cf1d3; */
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     color: #fff;
     margin-bottom: 0.8%;
     margin-left: 2%;
@@ -182,7 +182,7 @@
     width: 100%;
     /* height: ; */
     /* background-color: #3cf1d3; */
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     color: #fff;
     margin-bottom: 0.8%;
     margin-left: 2%;
@@ -193,7 +193,7 @@
     width: 100%;
     /* height: ; */
     /* background-color: #3cf1d3; */
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     color: #fff;
     margin-bottom: 0.8%;
     margin-left: 2%;
@@ -201,7 +201,7 @@
 
 .btn_cart_remove {
     position: absolute;
-    width: 3%;
+    width: 2.5%;
     height: 15%;
     background-color: rgba(242, 102, 137, .8);
     border-radius: 8px;

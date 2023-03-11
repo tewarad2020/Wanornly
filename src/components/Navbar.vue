@@ -29,7 +29,7 @@
             <div class="op_img">
               <img ref="img_profile_option" class="img_profile_option1" :src="variable.profile_Img" alt="">
               <div class="op_footer">
-                <div class="op_name">{{ (isLogin() && variable.user_info != null)? variable.user_info.name : '' }}</div>
+                <div class="op_name">{{ this.variable.profile_Name }}</div>
                 <div class="op_username">{{ (isLogin() && variable.user_info != null)? variable.user_info.username : ''}}</div>
                 <div class="hr_line"><hr></div>
               </div>
@@ -95,6 +95,7 @@ export default {
           optionbar: null,
           ctn_optionbar: null,
           profile_Img: '',
+          profile_Name: ''
         },
       }
     },
@@ -241,6 +242,14 @@ export default {
             this.variable.profile_Img = `http://localhost:3000/image/${link_profile}`
           }
       },
+      getProfilename_nav() {
+          let name_profile = localStorage.getItem('name_profile')
+          if (!name_profile) {
+            this.variable.profile_Name = this.variable.user_info?.profileImage
+          }else {
+            this.variable.profile_Name = name_profile
+          }
+      },
     },
 
     mounted() {
@@ -257,6 +266,7 @@ export default {
       this.variable.optionbar = optionbar
       this.variable.ctn_optionbar = ctn_optionbar
       this.getProfileImage_nav()
+      this.getProfilename_nav()
       
       setTimeout(() => {
         optionbar[0].style.display = 'block'

@@ -4,7 +4,7 @@
       <!-- <div  class="itemCtn" v-for="(item,index) in currentInCartFiltered" :key="index"> -->
       <div v-if="isloaded">
 
-      <div v-if="currentInCartFiltered.length>0">
+      <div v-if="currentInCartFiltered.length > 0">
         <div  class="itemCtn"  v-for="(item,index) in currentInCartFiltered" :key="index" >
           <!-- <div  class="itemCtn" v-for="(item,index) in this.cartData" :key="index"> -->
           <div class="cart_product_img">
@@ -159,7 +159,7 @@ export default {
         let base_cart = document.querySelectorAll('.base_cart')
         let width = cart_product_img?.clientWidth
         itemCtn.forEach(element => {
-          element.style.height = `${width * 1.3}px`
+          element.style.height = `${width * 1.1}px`
         });
         let i = 0
         base_cart.forEach(element => {
