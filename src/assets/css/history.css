@@ -5,20 +5,69 @@
 }
 
 #historyPage{
-
-    
-        height: 100%;
-        width: 100%;
-        background-color:rgb(127, 255, 236);
-
+    position: relative;
+    height: 100%;
+    width: 92%;
+    left: 4%;
+    top: 10vh;
+    background-color:rgb(127, 255, 236);
 }
 
 
-.itemCtn{
+.itemCtn_progress{
+    /* margin-top: 0; */
+    height: 200px;
+    width: 400px;
+    background-color: rgb(157, 255, 0);
+    /* margin: 20px; */
+    display: inline-block;
+}
+
+.itemCtn_return{
     margin-top: 100px;
     height: 200px;
     width: 400px;
     background-color: rgb(157, 255, 0);
     margin: 20px;
 
+}
+
+.title_history {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* background-color: red; */
+}
+
+#history_Icon {
+    position: absolute;
+    /* left: 30%; */
+    top: 7.5%;
+    left: 8%;
+    width: 5%;
+    height: 85%;
+    /* background-color: beige; */
+}
+
+.ctn_image_Inprogress {
+    position: relative;
+    width: 35%;
+    height: 100%;
+    /* background-color: blue; */
+    display: inline-block;
+}
+
+.ctn_image_Inprogress img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.ctn_content_Inprogress {
+    position: relative;
+    width: 63%;
+    height: 200px;
+    display: inline-block;
+    background-color: red;
+    padding-left: 1.5%;
 }

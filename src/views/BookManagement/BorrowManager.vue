@@ -1,6 +1,9 @@
 <template>
    <div class="ctn_bm_page">
-        <h1>Borrow Management</h1>
+        <div class="title_borrow">
+            <h1>Borrow Management</h1>
+            <Icon id="return_Icon_main" icon="material-symbols:assignment-return-outline-rounded" />
+        </div>  
         <div class="count_pending_return"> Remaining : {{ currentApproveFiltered?.length }} books</div>
         <div class="bm_ctn_content" v-for="(item,ind) in currentApproveFiltered" :key="ind">
             <div class="ctn_image_book_return"> 

@@ -245,7 +245,7 @@ export default {
       getProfilename_nav() {
           let name_profile = localStorage.getItem('name_profile')
           if (!name_profile) {
-            this.variable.profile_Name = this.variable.user_info?.profileImage
+            this.variable.profile_Name = this.variable.user_info?.name
           }else {
             this.variable.profile_Name = name_profile
           }

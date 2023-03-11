@@ -84,12 +84,29 @@
 
 #check_Icon {
     position: relative;
-    font-size: 1.5vw;
+    font-size: 3vw;
     left: 0;
     top: 0;
     width: 100%;
     transition: 0.15s ease-in-out;
     /* background-color: rgba(138, 43, 226, .2); */
+}
+
+.title_request {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* background-color: aquamarine; */
+}
+
+#request_Icon_main {
+    position: absolute;
+    /* left: 30%; */
+    top: 10%;
+    left: 31%;
+    width: 5%;
+    height: 80%;
+    /* background-color: beige; */
 }
 
 .btn_Approve:hover {
@@ -142,7 +159,7 @@
     width: 20%;
     height: 10vh;
     top: 0;
-    right: 5%;
+    right: 3%;
     font-size: 1.7vw;
     /* background-color: aquamarine; */
     display: flex;

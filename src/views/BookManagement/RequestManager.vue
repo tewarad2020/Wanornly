@@ -1,6 +1,9 @@
 <template>
     <div class="rm_page_ctn">
-        <h1>Request Management</h1>
+        <div class="title_request">
+            <h1>Request Management</h1>
+            <Icon id="request_Icon_main" icon="pajamas:requirements" />
+        </div>    
         <div class="count_pending_request"> Remaining : {{ currentPendingFiltered?.length }} books</div>
         <div class="rm_ctn_content" v-for="(item,ind) in currentPendingFiltered" :key="ind">
             <div class="ctn_image_book">
