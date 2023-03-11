@@ -42,7 +42,7 @@
               <img :src="path.historyIcon" alt="">
               History
             </div>
-            <div @click="functions.handleSignOut()" class="op_logout">
+            <div @click="  functions.handleSignOut(); goto('/')" class="op_logout">
               <img :src="path.logoutIcon" alt="">
               Logout
             </div>         
