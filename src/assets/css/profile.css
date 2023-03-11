@@ -45,7 +45,7 @@
     font-size: 1.7vw;
     border-radius: 8px 0 0 8px;
     overflow: hidden;
-    z-index: -1;
+    z-index: 0;
 }
 
 .profile_name {
@@ -583,6 +583,7 @@
     right: 10%;
     top: 10%;
     transition: .12s ease-in-out;
+    z-index: 2;
 }
 
 #edit_Icon_name {

@@ -7,11 +7,10 @@
       <div class="ctn_profile_img">
         <img id="profile_Img" src="" alt="">
       </div>
-      <div @click="clickShowEdit_name()" class="edit_Icon_ctn_name">
+      <div class="ctn_profile_info">
+        <div @click="clickShowEdit_name()" class="edit_Icon_ctn_name">
           <Icon id="edit_Icon_name" icon="material-symbols:edit" />
         </div>
-      <div class="ctn_profile_info">
-        
 
         <div v-show="isShowEdit_name" class="edit_name_ctn">
           <!-- <h1>Name Edit</h1> -->
@@ -41,6 +40,10 @@
         <div class="btn_request" @click="() => $router.push('/requestManager')" v-if="variable.user_info?.role === 'admin'? true : false">
           <Icon id="request_Icon" icon="pajamas:requirements" />
           <div class="request_text" >Request Management</div>
+        </div>
+        <div class="btn_request" @click="() => $router.push('/BorrowManager')" v-if="variable.user_info?.role === 'admin'? true : false">
+          <Icon id="request_Icon" icon="pajamas:requirements" />
+          <div class="request_text" >Borrow Management</div>
         </div>
         <div class="btn_donation" v-if="variable.user_info?.role === 'admin'? true : false" >
           <Icon id="donation_Icon" icon="ic:outline-menu-book" />          
