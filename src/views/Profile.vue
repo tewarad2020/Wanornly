@@ -42,7 +42,6 @@
           <div class="request_text" >Request Management</div>
         </div>
         <div class="btn_return" @click="() => $router.push('/BorrowManager')" v-if="variable.user_info?.role === 'admin'? true : false">
-          <!-- <Icon id="request_Icon" icon="pajamas:requirements" /> -->
           <Icon id="return_Icon" icon="material-symbols:assignment-return-outline-rounded" />
           <div class="return_text" >Return Management</div>
         </div>
