@@ -107,15 +107,13 @@ export default {
               
               let btn_addToCart = document.createElement('div')
               if(this.variable.searchMode=="forOnline"){
-              btn_addToCart.addEventListener('click', () => {this.addToCart(ISBN)})
-              btn_addToCart.innerHTML = 'add to Cart'
-              btn_addToCart.classList.add('btn_addToCart')
+                btn_addToCart.addEventListener('click', () => {this.addToCart(ISBN)})
+                btn_addToCart.innerHTML = 'add to Cart'
+              }else if(this.variable.searchMode=="forOffline"){
+                btn_addToCart.addEventListener('click', () => {this.$emit('selectedBookISBN',ISBN)})
+                btn_addToCart.innerHTML = 'add to offlineCart'
               }
-              else if(this.variable.searchMode=="forOffline"){
-              btn_addToCart.addEventListener('click', () => {this.$emit('selectedBookISBN',ISBN)})
-              btn_addToCart.innerHTML = 'add to offlineCart'
               btn_addToCart.classList.add('btn_addToCart')
-              }
              
               
               let box_info = document.createElement('div')

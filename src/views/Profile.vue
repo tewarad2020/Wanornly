@@ -49,6 +49,10 @@
           <Icon id="donation_Icon" icon="ic:outline-menu-book" />          
           <div class="donation_text">Donation</div>
         </div>
+        <div class="btn_donation" @click="() => $router.push('/offlineBorrow')" v-if="variable.user_info?.role === 'admin'? true : false" >
+          <Icon id="donation_Icon" icon="ic:outline-menu-book" />          
+          <div class="donation_text">OfflineBorrow</div>
+        </div>
     </div>
     <div v-if="isShowAdd" class="ctn_addbookpage add_comp_active">
       <AddBook></AddBook>
