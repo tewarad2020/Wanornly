@@ -17,17 +17,21 @@
         <div @click="CheckoutBorrowOffline()">submit</div>
       </form>
     </div>
-
-    <div>
-      {{ this.borrowInfo.offlineCartISBN }}
-    </div>
-
+    
     <div class="searchbar_ctn">
       <Searchbar
         :searchModeProp="searchModeProp"
         @selectedBookISBN="AddToOfflineCart"
       />
     </div>
+
+    <div class="ob_ctn" v-for="(item,ind) in offlineCartBooks" :key="ind">
+            <p>{{ item.ISBN }}</p>
+            <p>{{ item.name }}</p>
+            <button @click="removeFromOfflineCart(item.ISBN)">delete</button>
+        </div>
+
+   
   </div>
 </template>
 
@@ -52,8 +56,22 @@ export default {
       },
     };
   },
+  computed:{
+    offlineCartBooks:function(){
+        let allBooks = this.$store.getters.data
 
+        if(allBooks!=null){
+          let inCartBook =  allBooks.filter(ele=>this.borrowInfo.offlineCartISBN.includes(ele.ISBN))
+          return inCartBook
+      }
+           
+      return null
+    }
+  },
   methods: {
+    removeFromOfflineCart(ISBN){
+      this.borrowInfo.offlineCartISBN = this.borrowInfo.offlineCartISBN.filter(incartISBN =>incartISBN!=ISBN)
+    },
     AddToOfflineCart(ISBN) {
       let [found] = this.allRequest.filter(
         (bookreq) =>
@@ -92,6 +110,7 @@ export default {
 
      await this.updateAllBook()
      await this.pushAllRequestStatus();
+     this.resetCart()
     },
     OfflineCartValidation() {
       this.borrowInfo.offlineCartISBN.map((bookISBN) => {
@@ -131,10 +150,6 @@ export default {
         console.log(newReq);
         await this.removeCart(this.borrowInfo.user_id,bookISBN) //remove then add 
         await axios
-          // .put(
-          //   `http://localhost:3000/carts/${this.borrowInfo.user_id}-${bookISBN}`,
-          //   newReq
-          // )
           .put(
             `http://localhost:3000/carts/`,
             newReq
@@ -163,6 +178,14 @@ export default {
           
         }
       });
+  },
+  resetCart(){
+    this.borrowInfo = {
+      user_id: "",
+        offlineCartISBN: [],
+        isValidID: false,
+    }
+    this.dayLimit = 0
   },
   },
 
