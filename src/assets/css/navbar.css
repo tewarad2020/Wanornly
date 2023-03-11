@@ -124,7 +124,7 @@
     width: 36%;
     height: 300px;
     background-color: rgba(44, 44, 44, 0.9);
-    z-index: 3;
+    z-index: 99;
     border-radius: 2%;
     color: #faf4f4;
     cursor: default;
@@ -132,7 +132,9 @@
 }
 
 .optionbar_active {
+    position: absolute;
     animation: showOptionActive .25s forwards ease-in-out;
+    z-index: 99;
 }
 
 @keyframes showOptionActive {
@@ -147,6 +149,8 @@
 }
 
 .optionbar_passive {
+    /* position: absolute;
+    z-index: 99; */
     animation: showOptionPassive .15s forwards ease-in-out;
 }
 
