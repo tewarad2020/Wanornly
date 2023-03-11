@@ -18,6 +18,14 @@ const donateSchema = new Schema(
         imgURL: {
             type: String
         },
+        status: {
+            type: String,
+            require: ''
+        },
+        realFileName: {
+            type: String,
+            required:''
+        },
         fileName: {
             type: String,
             required:''
