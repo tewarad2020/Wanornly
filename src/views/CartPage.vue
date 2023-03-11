@@ -90,7 +90,8 @@ export default {
       async SendRequest(){
       console.log("send req")
 
-      const newReq = this.cartData.map(data=>{return{
+      const newReq = this.cartData.filter(cd=>cd.status_request=='inCart')
+      .map(data=>{return{
           ...data,
           time_resolved:new Date(), //time check out
           status_request:"pending"

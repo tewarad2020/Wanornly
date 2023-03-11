@@ -20,6 +20,7 @@ export default {
     components: {
       Icon
     },
+    props:['searchModeProp'],
     data() {
         return {
             path: {
@@ -28,10 +29,11 @@ export default {
             text: '',
             variable: {
               searchbar: null,
-             
+              searchMode: 'forOnline', //forOnline=>addToCart  forOffline=>addToOfflineCart
             }
         }
     },
+  
     methods: {
       refresh() {
         this.text = ''
@@ -102,10 +104,20 @@ export default {
               bookName.classList.add('bookName')
               let bookAuthor = document.createElement('div')
               bookAuthor.classList.add('bookAuthor')
-              let btn_addToCrat = document.createElement('div')
-              btn_addToCrat.addEventListener('click', () => {this.addToCart(ISBN)})
-              btn_addToCrat.innerHTML = 'add to Cart'
-              btn_addToCrat.classList.add('btn_addToCrat')
+              
+              let btn_addToCart = document.createElement('div')
+              if(this.variable.searchMode=="forOnline"){
+              btn_addToCart.addEventListener('click', () => {this.addToCart(ISBN)})
+              btn_addToCart.innerHTML = 'add to Cart'
+              btn_addToCart.classList.add('btn_addToCart')
+              }
+              else if(this.variable.searchMode=="forOffline"){
+              btn_addToCart.addEventListener('click', () => {this.$emit('selectedBookISBN',ISBN)})
+              btn_addToCart.innerHTML = 'add to offlineCart'
+              btn_addToCart.classList.add('btn_addToCart')
+              }
+             
+              
               let box_info = document.createElement('div')
               box_info.classList.add('box_info')
               box_info.addEventListener('click', () => {
@@ -123,7 +135,7 @@ export default {
               div_books.appendChild(cover_book_img)
               div_books.appendChild(box_info)
               if(localStorage.getItem('status_login'))
-                div_books.appendChild(btn_addToCrat)
+                div_books.appendChild(btn_addToCart)
               ctn_books.appendChild(div_books)
               list_books.appendChild(ctn_books)
             }
@@ -135,16 +147,22 @@ export default {
         const username = JSON.parse(localStorage.getItem("user_info")).username
         this.CheckAddToCart(ISBN,username)
         console.log('addToCart')
-      }
+      },
   },
   mixins:[AddToCartHandler],
-  mounted() {
+  mounted() { 
+    
+    if(this.searchModeProp!=null){
+        this.variable.searchMode = this.searchModeProp
+      }
     let initial = () => {
       const searchbar = document.getElementById('list_books')
       this.variable.searchbar = searchbar
     }
     
     initial()
+
+   
   }
 
 }

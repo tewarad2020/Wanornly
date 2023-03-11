@@ -1,0 +1,174 @@
+<template>
+  <div class="ob_page">
+    <br />
+    <br />
+    <br />
+    <h1>Offline Borrow</h1>
+    <div>
+      <form @submit.prevent="CheckoutBorrowOffline">
+        <div>
+          <label>customer userID (gmail)</label>
+          <input type="text" v-model="borrowInfo.user_id" />
+        </div>
+        <div>
+          <label>day borrow</label>
+          <input type="number" v-model="dayLimit" />
+        </div>
+        <div @click="CheckoutBorrowOffline()">submit</div>
+      </form>
+    </div>
+
+    <div>
+      {{ this.borrowInfo.offlineCartISBN }}
+    </div>
+
+    <div class="searchbar_ctn">
+      <Searchbar
+        :searchModeProp="searchModeProp"
+        @selectedBookISBN="AddToOfflineCart"
+      />
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+import { allCartHandler } from "@/mixins/MixinFunction";
+import Searchbar from "../../components/Searchbar.vue";
+export default {
+  name: "offlineBorrow",
+  components: {
+    Searchbar,
+  },
+  mixins: [allCartHandler],
+  data() {
+    return {
+      searchModeProp: "forOffline",
+
+      borrowInfo: {
+        user_id: "",
+        offlineCartISBN: [],
+        isValidID: false,
+      },
+    };
+  },
+
+  methods: {
+    AddToOfflineCart(ISBN) {
+      let [found] = this.allRequest.filter(
+        (bookreq) =>
+          bookreq.user_id == this.borrowInfo.user_id &&
+          bookreq.ISBN == ISBN &&
+          bookreq.status_request == "approve"
+      );
+
+      if (found != null) {
+        // if currently borrow
+        alert("already borrow");
+        return;
+      }
+      if (this.borrowInfo.offlineCartISBN.includes(ISBN)) {
+        alert("already in offline cart");
+        return;
+      }
+      this.borrowInfo.offlineCartISBN.push(ISBN);
+      console.log("book in offlineCart", this.borrowInfo.offlineCartISBN);
+    },
+    async CheckoutBorrowOffline() {
+      await this.CheckValidUsername()
+      if (!this.borrowInfo.isValidID) {
+        console.log("username not valid");
+        return;
+      }
+      if (this.dayLimit <= 0) {
+        alert("time borrow limit must be more than 0");
+        return;
+      }
+
+      if (!this.OfflineCartValidation()) {
+        console.log("cart not valid");
+        return;
+      }
+
+     await this.updateAllBook()
+     await this.pushAllRequestStatus();
+    },
+    OfflineCartValidation() {
+      this.borrowInfo.offlineCartISBN.map((bookISBN) => {
+        this.getBookInfo(bookISBN);
+        if (this.BookInfo.amount <= 0) {
+          // book amount is 0
+          alert("this book amount is not sufficient:", bookISBN);
+          return false;
+        }
+      });
+      return true
+    },
+    async updateAllBook() {
+      this.borrowInfo.offlineCartISBN.map((bookISBN) => {
+        this.getBookInfo(bookISBN);
+
+        this.BookInfo = {
+          ...this.BookInfo,
+          amount: this.BookInfo.amount - 1,
+          borrow_count: this.BookInfo.borrow_count + 1,
+        }; //decrease amount
+        this.updateBook();
+      });
+    },
+    async pushAllRequestStatus() {
+      const thisDate = new Date();
+
+      this.borrowInfo.offlineCartISBN.map(async (bookISBN) => {
+        let newReq = {
+          user_id: this.borrowInfo.user_id,
+          ISBN: bookISBN,
+          time_resolved: thisDate,
+          status_request: "approve",
+          time_return_limit: this.addDaysAndRound(thisDate, this.dayLimit),
+        };
+
+        console.log(newReq);
+        await this.removeCart(this.borrowInfo.user_id,bookISBN) //remove then add 
+        await axios
+          // .put(
+          //   `http://localhost:3000/carts/${this.borrowInfo.user_id}-${bookISBN}`,
+          //   newReq
+          // )
+          .put(
+            `http://localhost:3000/carts/`,
+            newReq
+          )
+          .then(() => {
+            console.log(
+              `update status item :${bookISBN} form cart of ${this.borrowInfo.user_id}`
+            );
+          });
+      });
+
+      this.fetchAllRequest();
+    },  
+    async CheckValidUsername() {
+    await fetch(`http://localhost:3000/user/${this.borrowInfo.user_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.length === 0) {
+          //dont have this user in database
+          console.log("not in user database");
+          this.borrowInfo.isValidID = false;
+          
+        } else {
+          console.log("user already in database");
+          this.borrowInfo.isValidID = true;
+          
+        }
+      });
+  },
+  },
+
+};
+</script>
+
+<style scoped>
+@import "../../assets/css/offlineBorrow.css";
+</style>
