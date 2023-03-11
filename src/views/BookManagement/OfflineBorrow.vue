@@ -1,8 +1,5 @@
 <template>
-  <div class="ob_page">
-    <br />
-    <br />
-    <br />
+  <div class="ctn_ob_page">
     <h1>Offline Borrow</h1>
     <div>
       <form @submit.prevent="CheckoutBorrowOffline">

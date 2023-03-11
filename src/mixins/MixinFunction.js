@@ -192,7 +192,7 @@ const allCartHandler = {
           let ApproveRequestBook =  this.allRequestBook.filter(ele=>ele.status_request=="approve")
           
           ApproveRequestBook = ApproveRequestBook.sort((a,b)=>{
-              if(a.ISBN-b.ISBN!=0) return a.ISBN-b.ISBN
+              if(new Date(a.time_return_limit).getTime()-new Date(b.time_return_limit).getTime()!=0) return new Date(a.time_return_limit).getTime()-new Date(b.time_return_limit).getTime()
               else{ //same isbn then compare date
                   if(new Date(a.time_resolved).getTime()<new Date(b.time_resolved).getTime()) return -1
                   else return 1

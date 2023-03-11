@@ -1,7 +1,7 @@
 
 .rm_page_ctn{
     position: relative;
-    height: 110%;
+    height: 100%;
     padding-bottom: 6vh;
     width: 90%;
     left: 5%;
@@ -25,7 +25,7 @@
     left: 4%;
     background-color: rgba(219, 194, 235, 0.8);
     font-size: 1.1vw;
-    border-radius: 1vw;
+    border-radius: 0.6vw;
     display: flex;
     align-items: center;
 }
@@ -133,6 +133,20 @@
 
 #trash_Icon:hover {
     color: rgb(252, 252, 252);
+}
+
+.count_pending_request {
+    height: 300vh;
+    font-family: 'Mitr', sans-serif;
+    position: absolute;
+    width: 20%;
+    height: 10vh;
+    top: 0;
+    right: 5%;
+    font-size: 1.7vw;
+    /* background-color: aquamarine; */
+    display: flex;
+    align-items: center;
 }
 
 .ctn_image_book {

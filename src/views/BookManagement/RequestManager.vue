@@ -1,6 +1,7 @@
 <template>
     <div class="rm_page_ctn">
         <h1>Request Management</h1>
+        <div class="count_pending_request"> Remaining : {{ currentPendingFiltered?.length }} books</div>
         <div class="rm_ctn_content" v-for="(item,ind) in currentPendingFiltered" :key="ind">
             <div class="ctn_image_book">
                 <img :src="item.image" alt="">
@@ -98,13 +99,13 @@ export default {
                 alert(`deny this book from ${user_id} book ISBN:${ISBN}`)
             })
             .then(() => {
-                        let index = 0
-                        input_dayLimit.forEach(element => {
-                            if (index === ind) index++
-                            element.value = this.time_limit[index++]
-                        });
-                    }
-                )
+                    let index = 0
+                    input_dayLimit.forEach(element => {
+                        if (index === ind) index++
+                        element.value = this.time_limit[index++]
+                    });
+                }
+            )
         },
         update_dayLimit(ind) {
             let input_dayLimit = document.querySelectorAll('.input_dayLimit')
@@ -124,7 +125,6 @@ export default {
         } 
 
         setTimeout(() => {
-            console.log('currentPendingFiltered: ', this.currentPendingFiltered)
             init()
         }, 200)
         
