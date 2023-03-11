@@ -4,8 +4,7 @@
   <br>
   <div  id="donatePage">
     
-    
-    <div>
+    <div v-show="!isReqSent">
       <form action="">
         <div>
           <label>E-Book Name</label>
@@ -22,8 +21,6 @@
             <input type="text" v-model="DonateReq.imgURL"  placeholder=""/>
         </div>
 
-        
-
       </form>
 
       <div>
@@ -36,8 +33,18 @@
           </div>
       </div>
     </div>
-  
 
+    <div v-show="isReqSent">
+        <strong>Wait for your current request to be checked</strong>
+        <div>username: {{currentReq.username}}</div>
+        <div>E-Book Name: {{currentReq.name}}</div>
+        <div>description: {{currentReq.description}}</div>
+        <div>img URL: {{currentReq.imgURL}}</div>
+        <div>file name: {{currentReq.realFileName}}</div>
+        <div>time sent: {{currentReq.time_sent}}</div>
+    </div>
+
+  
   </div>
 
 </template>
@@ -53,16 +60,21 @@ export default {
   },
   data() {
     return {
+      isReqSent: false,
       DonateReq:{
         username:"",
         name:"",
         description:"",
+        status: "",
         imgURL:"",
+        realFileName:"",
         fileName:"",
         time_sent:"",
         time_approved:""
       },
-      file: ''
+      file: '',
+      currentReq: ''
+      
     }
   },
   methods: {
@@ -72,6 +84,7 @@ export default {
     async submitForm(){
       let formData = new FormData();
       formData.append('file', this.file);
+      this.DonateReq.realFileName = this.file.name
       let username = JSON.parse(localStorage.getItem('user_info'))?.username
 
       await axios.post(`http://localhost:3000/upload/${username}`,
@@ -84,18 +97,41 @@ export default {
       )
       .then(async (data) => {
         this.DonateReq.username = username
+        this.DonateReq.status = "pending"
         this.DonateReq.fileName = data.data.file.filename
         this.DonateReq.time_sent = new Date()
-        await axios.post(`http://localhost:3000/donate`, this.DonateReq )
+        await axios.post(`http://localhost:3000/donate/${username}`, this.DonateReq)
         .then(response => {
               console.log('response: ', response)
+              this.isReqSent = true
+              this.CheckIfReqWasSent()
         })
         .catch(error => console.log(error))
       })
       .catch((error) => {
           console.log(error);
       });
+    },
+    async CheckIfReqWasSent() {
+      let username = JSON.parse(localStorage.getItem('user_info'))?.username
+      await axios
+        .get(`http://localhost:3000/donate/${username}`)
+        .then((res) => res.data)
+        .then((data) => {
+          const filtered = data.filter((ele) => ele.status == "pending")
+          if (filtered.length != 0) {
+            this.currentReq = data[0]
+            this.isReqSent = true
+          }else{
+            this.isReqSent = false
+          }
+        })
     }
+    
+    
+  },
+  mounted() {
+    this.CheckIfReqWasSent()
   }
   
 }

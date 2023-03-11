@@ -67,6 +67,7 @@ module.exports = app => {
         .get(profileUpload.get_profile_image)
 
     app
-        .route('/donate')
+        .route('/donate/:userID')
         .post(donateBuilder.send_request)
+        .get(donateBuilder.get_all_donate_req)
 }
