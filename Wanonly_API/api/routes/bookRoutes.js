@@ -3,6 +3,7 @@ const cartBuilder = require('../controllers/cartController');
 const usersBuilder = require('../controllers/usersController');
 const profileUpload = require('../controllers/uploadController');
 const historyBuilder = require('../controllers/historyController')
+const donateBuilder = require('../controllers/donateController')
 
 module.exports = app => {
     app
@@ -64,4 +65,8 @@ module.exports = app => {
     app 
         .route('/image/:filename')
         .get(profileUpload.get_profile_image)
+
+    app
+        .route('/donate')
+        .post(donateBuilder.send_request)
 }
