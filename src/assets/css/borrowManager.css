@@ -1,14 +1,118 @@
 
-.bm_page{
-     
+.ctn_bm_page{
+    position: relative;
     height: 100%;
-    width: 100%;
-    background-color: rgb(255, 217, 0);
+    top: 10vh;
+    width: 92%;
+    left: 4%;
+    /* background-color: rgb(255, 217, 0); */
+    padding-bottom: 6vh;
 }
-.bm_ctn{
-    margin-top: 100px;
-    height: 200px;
-    width: 400px;
-    background-color: rgb(255, 0, 191);
-    margin: 20px;
+
+.ctn_bm_page h1 {
+    position: relative;
+    left: 1%;
+    font-size: 2.5vw;
+}
+
+.bm_ctn_content{
+    position: relative;
+    height: 150px;
+    width: 92%;
+    margin-top: 3vh;
+    /* padding: 1.2% 2% 1.5% 1.8%; */
+    left: 4%;
+    /* background-color: rgba(219, 194, 235, 0.8); */
+    background-color: rgba(157, 82, 7, 0.4);
+    font-size: 1.1vw;
+    border-radius: 0.6vw;
+    display: flex;
+    align-items: center;
+}
+
+.ctn_content_return {
+    position: relative;
+    width: 88%;
+    display: inline-block;
+    /* background-color: aqua; */
+    padding-left: 1.5%;
+}
+
+.ctn_image_book_return {
+    position: relative;
+    width: 12%;
+    height: 100%;
+    /* background-color: blue; */
+    display: inline-block;
+}
+
+.ctn_image_book_return img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.btn_return_book {
+    right: 0%;
+    top: 0;
+    /* height:100%; */
+    font-family: 'Mitr', sans-serif;
+    position: absolute;
+    border: none;
+    width: 15%;
+    /* border-radius: 0vw 0 0 0.3vw; */
+    background-color: rgb(133, 133, 133);
+    height: 100%;
+    z-index: 1;
+    /* font-size: 0.8vw; */
+    /* margin-top: 0.4%; */
+    transition: 0.15s ease-in-out;
+    color: #fff;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#archive_Icon {
+    position: relative;
+    width: 100%;
+    height: 75%;
+    transition: 0.15s ease-in-out;
+}
+
+#archive_Icon:hover {
+    color: rgb(66, 66, 66);
+}
+
+.btn_return_book:hover {
+    background-color: rgb(177, 177, 177);
+}
+
+.count_pending_return  {
+    height: 300vh;
+    font-family: 'Mitr', sans-serif;
+    position: absolute;
+    width: 20%;
+    height: 10vh;
+    top: 0;
+    right: 3%;
+    font-size: 1.7vw;
+    /* background-color: aquamarine; */
+    display: flex;
+    align-items: center;
+}
+
+#return_Icon_main {
+    position: absolute;
+    top: 7.5%;
+    left: 28.5%;
+    width: 5%;
+    height: 85%;
+}
+
+.title_borrow {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* background-color: aquamarine; */
 }

@@ -1,14 +1,189 @@
 
-.rm_page{
-     
+.rm_page_ctn{
+    position: relative;
     height: 100%;
-    width: 100%;
-    background-color: rgb(166, 255, 0);
+    padding-bottom: 6vh;
+    width: 90%;
+    left: 5%;
+    top: 10vh;
+    /* background-color: rgba(164, 164, 164, 0.8); */
+    border-radius: 12px;
 }
-.rm_ctn{
-    margin-top: 100px;
-    height: 200px;
-    width: 400px;
-    background-color: rgb(0, 119, 255);
-    margin: 20px;
+
+.rm_page_ctn h1 {
+    position: relative;
+    left: 1%;
+    font-size: 2.5vw;
+}
+
+.rm_ctn_content{
+    position: relative;
+    height: 150px;
+    width: 92%;
+    margin-top: 3vh;
+    /* padding: 1.2% 2% 1.5% 1.8%; */
+    left: 4%;
+    background-color: rgba(219, 194, 235, 0.8);
+    font-size: 1.1vw;
+    border-radius: 0.6vw;
+    display: flex;
+    align-items: center;
+}
+
+.ctn_limit {
+    position: relative;
+    width: 100%;
+    height: 19%;
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    margin-top: 1%;
+}
+
+.input_dayLimit {
+    position: absolute;
+    width: 10%;
+    margin: 0 2% 0 2%;
+    height: 100%;
+    border: none;
+    border-radius: 0.3vw;
+    padding-left: 1%;
+    font-size: 1vw;
+    color: black;
+    left: 13%;
+}
+
+.input_dayLimit:focus {
+    background-color: rgb(255, 255, 255);
+    outline: none;
+    /* position: relative; */
+}
+
+.input_dayLimit::placeholder {
+    position: relative;
+    /* padding-left: 10%; */
+    font-size: 1vw;
+    color: rgb(122, 122, 122);
+}
+
+.btn_Approve{
+    position: absolute;
+    width: 10%;
+    height: 100%;
+    left: 27%;
+    background-color: rgb(74 222 128);
+    color: rgb(0, 0, 0);
+    outline: none;
+    border: none;
+    border-radius: 0.3vw;
+    transition: .15s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#check_Icon {
+    position: relative;
+    font-size: 3vw;
+    left: 0;
+    top: 0;
+    width: 100%;
+    transition: 0.15s ease-in-out;
+    /* background-color: rgba(138, 43, 226, .2); */
+}
+
+.title_request {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* background-color: aquamarine; */
+}
+
+#request_Icon_main {
+    position: absolute;
+    /* left: 30%; */
+    top: 10%;
+    left: 31%;
+    width: 5%;
+    height: 80%;
+    /* background-color: beige; */
+}
+
+.btn_Approve:hover {
+    background-color: rgb(106, 240, 155);
+}
+
+#check_Icon:hover {
+    color: rgb(252, 252, 252);
+}
+
+.btn_Deny{
+    position: absolute;
+    width: 10%;
+    height: 100%;
+    left: 37%;
+    background-color: rgb(255, 55, 105);
+    color: rgb(0, 0, 0);
+    outline: none;
+    border: none;
+    margin-left: 2%;
+    border-radius: 0.3vw;
+    transition: .15s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#trash_Icon {
+    position: relative;
+    font-size: 1.6vw;
+    left: 0;
+    top: 0;
+    width: 100%;
+    transition: 0.15s ease-in-out;
+    /* background-color: rgba(138, 43, 226, .2); */
+}
+
+.btn_Deny:hover {
+    background-color: rgb(240, 110, 143);
+}
+
+#trash_Icon:hover {
+    color: rgb(252, 252, 252);
+}
+
+.count_pending_request {
+    height: 300vh;
+    font-family: 'Mitr', sans-serif;
+    position: absolute;
+    width: 20%;
+    height: 10vh;
+    top: 0;
+    right: 3%;
+    font-size: 1.7vw;
+    /* background-color: aquamarine; */
+    display: flex;
+    align-items: center;
+}
+
+.ctn_image_book {
+    position: relative;
+    width: 12%;
+    height: 100%;
+    /* background-color: blue; */
+    display: inline-block;
+}
+
+.ctn_image_book img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.ctn_content {
+    position: relative;
+    width: 88%;
+    display: inline-block;
+    /* background-color: aqua; */
+    padding-left: 1.5%;
 }

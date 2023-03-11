@@ -130,7 +130,7 @@ const allCartHandler = {
               time_return_limit:null
       },
       allRequestBook:null,
-      dayLimit:0,
+      dayLimit: 7,
 
 
       }
@@ -192,7 +192,7 @@ const allCartHandler = {
           let ApproveRequestBook =  this.allRequestBook.filter(ele=>ele.status_request=="approve")
           
           ApproveRequestBook = ApproveRequestBook.sort((a,b)=>{
-              if(a.ISBN-b.ISBN!=0) return a.ISBN-b.ISBN
+              if(new Date(a.time_return_limit).getTime()-new Date(b.time_return_limit).getTime()!=0) return new Date(a.time_return_limit).getTime()-new Date(b.time_return_limit).getTime()
               else{ //same isbn then compare date
                   if(new Date(a.time_resolved).getTime()<new Date(b.time_resolved).getTime()) return -1
                   else return 1
@@ -252,7 +252,7 @@ const allCartHandler = {
           await axios.get('http://localhost:3000/carts')
                           .then(res=>res.data)
                               .then(data=>{
-                                  console.log(data)
+                                  // console.log(data)
                                   this.allRequest = data
                                  
           let allBookData = this.$store.getters.data

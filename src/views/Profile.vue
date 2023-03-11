@@ -215,7 +215,7 @@ export default {
         if (name_profile) {
           this.Name = name_profile
         }else {
-          this.Name = this.variable.user_info.name
+          this.Name = this.variable.user_info?.name
         }
       },
       clickShowEdit() {
