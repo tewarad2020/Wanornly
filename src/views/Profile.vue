@@ -7,10 +7,26 @@
       <div class="ctn_profile_img">
         <img id="profile_Img" src="" alt="">
       </div>
-      <div class="ctn_profile_info">
-        <div @click="clickShowEdit_name()" class="edit_Icon_ctn_name">
+      <div @click="clickShowEdit_name()" class="edit_Icon_ctn_name">
           <Icon id="edit_Icon_name" icon="material-symbols:edit" />
         </div>
+      <div class="ctn_profile_info">
+        
+
+        <div v-show="isShowEdit_name" class="edit_name_ctn">
+          <!-- <h1>Name Edit</h1> -->
+          <div class="ctn_form_name">
+            <div class="input_ctn_name">
+              <input type="text" name="text_name" id="text_name" ref="text_name" :maxlength="40" 
+              v-model="nameChange" @keyup="onChangenameUpload()" @change="onChangenameUpload()">
+            </div>
+            <div class="submit_edit_name">
+              <div class="submit_btn_name" @click="submitForm_name('Change')">submit</div>
+              <div class="default_btn_name" @click="submitForm_name('Default')" >default</div>
+            </div>
+          </div>
+        </div>
+
         <div class="profile_name">Name : {{ Name }}</div>
         <div class="profile_username">Username : {{ variable.user_info?.username }}</div>
         <div class="profile_role">Role : {{ variable.user_info?.role }}</div>
@@ -22,7 +38,7 @@
           <Icon id="add_book_Icon" icon="material-symbols:add-box" />
           <div class="addbook_text">Add book</div>
         </div>
-        <div class="btn_request" @click="() => $router.push('/requestManager')" v-if="variable.user_info?.role === 'admin'? true : false"  >
+        <div class="btn_request" @click="() => $router.push('/requestManager')" v-if="variable.user_info?.role === 'admin'? true : false">
           <Icon id="request_Icon" icon="pajamas:requirements" />
           <div class="request_text" >Request Management</div>
         </div>
@@ -45,18 +61,6 @@
       <div class="submit_edit_profile">
         <div class="submit_btn" @click="submitForm()">submit</div>
         <div class="default_btn" @click="defaultForm()">default</div>
-      </div>
-    </div>
-
-    <div v-show="isShowEdit_name" class="edit_name_ctn">
-      <h1>Name Edit</h1>
-      <div class="input_ctn">
-        <input type="text" name="text_name" id="text_name" ref="text_name" :maxlength="40" 
-        placeholder="your name.." v-model="nameChange" @keyup="onChangenameUpload()" @change="onChangenameUpload()">
-      </div>
-      <div class="submit_edit_name">
-        <div class="submit_btn" @click="submitForm_name('Change')">submit</div>
-        <div class="default_btn" @click="submitForm_name('Default')" >default</div>
       </div>
     </div>
 
@@ -222,13 +226,28 @@ export default {
       },
       clickShowEdit_name() {
         let edit_name_ctn = document.getElementsByClassName('edit_name_ctn')[0]
+        let ctn_profile_info = document.getElementsByClassName('ctn_profile_info')[0]
+        let text_name = document.getElementById('text_name')
+        let profile_name = document.getElementsByClassName('profile_name')[0]
         if (!this.isShowEdit_name) {
+          text_name.value = this.nameChange
+          this.nameChange = this.Name
+          this.Name = ''
+          console.log('text_name: ', text_name)
           this.isShowEdit_name = true
           edit_name_ctn.classList.add('Edit_profile_active')
           setTimeout(() => {
-            edit_name_ctn.style.height = `${edit_name_ctn.clientWidth * 0.35}px`
+            let leftsize = profile_name.getBoundingClientRect().left - ctn_profile_info.getBoundingClientRect().left
+            let topsize = profile_name.getBoundingClientRect().top - ctn_profile_info.getBoundingClientRect().top
+            edit_name_ctn.style.left = `${leftsize}px`
+            edit_name_ctn.style.top = `${topsize}px`
+            edit_name_ctn.style.width = `${profile_name.clientWidth}px`
+            edit_name_ctn.style.height = `${profile_name.clientHeight}px`
           }, 20)
         }else {
+          text_name.value = this.nameChange
+          this.nameChange = this.Name
+          this.Name = this.variable.user_info.name
           edit_name_ctn.classList.remove('Edit_profile_active')
           edit_name_ctn.classList.add('Edit_profile_passive')
           setTimeout(() => {
