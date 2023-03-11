@@ -6,6 +6,7 @@ global.Book = require('./api/models/bookModel');
 global.Cart = require('./api/models/cartModel');
 global.User = require('./api/models/usersModel')
 global.Histories = require('./api/models/historyModel')
+global.Donates = require('./api/models/donateModel')
 const routes = require('./api/routes/bookRoutes');
 
 mongoose.connect(

@@ -33,12 +33,17 @@ const routes = [
     {
         path: '/searchbook',
         name: 'SearchBookPage',
-        component: () => import('../views/SearchBook.vue')
+        component: () => import('../views/Donate.vue')
     },
     {
         path: '/cart',
         name: 'cartPage',
         component: () => import('../views/CartPage.vue')
+    },
+    {
+        path: '/donate',
+        name: 'donatePage',
+        component: () => import('../views/Donate.vue')
     },
     {
         path: '/requestManager',
@@ -49,6 +54,11 @@ const routes = [
         path: '/borrowManager',
         name: 'borrowManager',
         component: () => import('../views/BookManagement/BorrowManager.vue')
+    },
+    {
+        path: '/offlineBorrow',
+        name: 'offlineBorrow',
+        component: () => import('../views/BookManagement/OfflineBorrow.vue')
     },
 ]
 
