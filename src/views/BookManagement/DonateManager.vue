@@ -1,21 +1,34 @@
 <template>
+    <div>
     <br>
     <br>
     <br>
     <div>
-        <div v-for="(item,ind) in allRequest" :key="ind"> 
+        <div v-show="!isAnyReqPending">
+        <strong>there is no any request to be resolved at this time :)</strong>
+        </div>
+
+        <div v-show="isAnyReqPending" v-for="(item,ind) in allRequest" :key="ind"> 
+        <div v-if="item.image != ''">
+          <img :src="item.image" alt="">
+        </div>
         <div>username: {{item.username}}</div>
         <div>E-Book Name: {{item.name}}</div>
-        <div>description: {{item.description}}</div>
-        <div>img URL: {{item.imgURL}}</div>
+        <div>category: {{item.category}}</div>
+        <div>author: {{item.author}}</div>
+        <div>publisher: {{item.publisher}}</div>
+        <div>book_description: {{item.book_description}}</div>
+        <div>img URL: {{item.image}}</div>
         <div>file name: {{item.realFileName}}</div>
         <div>time sent: {{new Date(item.time_sent).toString()}}</div>
         <div>status: {{item.status}}</div>
-        <button @click="updateRequest(item.fileName, item.realFileName, 'approve', item.name)">approve</button>
-        <button @click="updateRequest(item.fileName, item.realFileName, 'deny', item.name)">deny</button>
+        <button @click="updateRequest(item.realFileName, 'approve', item.name)">approve</button>
+        <button @click="updateRequest(item.realFileName, 'deny', item.name)">deny</button>
         </div>
+
+        
     </div>
-  
+  </div>
 </template>
 
 <script>
@@ -28,7 +41,8 @@ export default {
     },
     data() {
         return {
-            allRequest:''
+            allRequest:null,
+            isAnyReqPending:false
         }
     },
     methods: {
@@ -40,14 +54,21 @@ export default {
         .then(data => {
             // console.log(data)
             const filtered = data.filter((ele) => ele.status == "pending")
-            this.allRequest = filtered
+            
+            if (filtered.length != 0){
+                this.isAnyReqPending = true
+                this.allRequest = filtered
+            }
+            else{
+                this.isAnyReqPending = false
+            }
         })
         .catch((error) => {
             console.log(error);
         });
     },
-    async updateRequest(fileName, realFileName, newStatus, name){
-        let [donate_req] = this.allRequest.filter(r=>r.fileName==fileName && r.status=='pending')
+    async updateRequest(realFileName, newStatus, name){
+        let [donate_req] = this.allRequest.filter(r=>r.name==name && r.status=='pending')
         
         donate_req = {
         ...donate_req,
@@ -57,7 +78,7 @@ export default {
 
         console.log(donate_req)
         // console.log(donate_req)
-        await axios.put(`http://localhost:3000/donate/${fileName}-${name}`,donate_req)
+        await axios.put(`http://localhost:3000/donate/${name}`,donate_req)
         .catch((error) => {
             console.log(error);
         });

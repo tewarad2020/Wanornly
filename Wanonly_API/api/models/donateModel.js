@@ -8,14 +8,26 @@ const donateSchema = new Schema(
             type: String,  
             required: 'username cannot be blank'
         },
+        ISBN: {
+            type: String
+        },
         name: {
             type: String,  
             required: 'book name cannot be blank'
         },
-        description: {
+        category: {
             type: String
         },
-        imgURL: {
+        book_description: {
+            type: String
+        },
+        author: {
+            type: String
+        },
+        publisher: {
+            type: String
+        },
+        image: {
             type: String
         },
         status: {

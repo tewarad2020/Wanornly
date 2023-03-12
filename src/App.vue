@@ -50,6 +50,17 @@ export default {
     }
     GetAll()
 
+    function GetEbook(){
+      fetch('http://localhost:3000/donateAll')
+      .then(res=>res.json())
+      .then(data=>{
+        console.log('ebook:',data)
+        store.commit('setEbookData',data)
+        console.log('add ebook data to store complete')
+      })
+    }
+    GetEbook()
+    
     const Vue3GoogleOauth = inject('Vue3GoogleOauth');
     return {
       GetAll,
