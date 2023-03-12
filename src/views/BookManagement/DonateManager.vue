@@ -1,4 +1,5 @@
 <template>
+    <div>
     <br>
     <br>
     <br>
@@ -8,16 +9,16 @@
         </div>
 
         <div v-show="isAnyReqPending" v-for="(item,ind) in allRequest" :key="ind"> 
-        <div v-if="item.imgURL != ''">
-          <img :src="item.imgURL" alt="">
+        <div v-if="item.image != ''">
+          <img :src="item.image" alt="">
         </div>
         <div>username: {{item.username}}</div>
         <div>E-Book Name: {{item.name}}</div>
         <div>category: {{item.category}}</div>
         <div>author: {{item.author}}</div>
         <div>publisher: {{item.publisher}}</div>
-        <div>description: {{item.description}}</div>
-        <div>img URL: {{item.imgURL}}</div>
+        <div>book_description: {{item.book_description}}</div>
+        <div>img URL: {{item.image}}</div>
         <div>file name: {{item.realFileName}}</div>
         <div>time sent: {{new Date(item.time_sent).toString()}}</div>
         <div>status: {{item.status}}</div>
@@ -27,7 +28,7 @@
 
         
     </div>
-  
+  </div>
 </template>
 
 <script>

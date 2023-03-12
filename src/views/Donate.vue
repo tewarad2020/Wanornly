@@ -1,4 +1,5 @@
 <template>
+  <div>
   <br>
   <br>
   <br>
@@ -29,13 +30,13 @@
         </div>
 
         <div>
-          <label>Description</label>
-          <input :maxlength="879" type="text" v-model="DonateReq.description"  placeholder="optional"/>
+          <label>book_description</label>
+          <input :maxlength="879" type="text" v-model="DonateReq.book_description"  placeholder="optional"/>
         </div>
 
         <div >
             <label >Image URL</label>
-            <input type="text" v-model="DonateReq.imgURL"  placeholder="optional"/>
+            <input type="text" v-model="DonateReq.image"  placeholder="optional"/>
         </div>
 
       </form>
@@ -54,22 +55,22 @@
     <!--case: user already has pending request  -->
     <div v-show="isReqSent">
         <strong>Wait for your current request to be checked</strong>
-        <div v-if="currentReq.imgURL != ''">
-          <img :src="currentReq.imgURL" alt="">
+        <div v-if="currentReq.image != ''">
+          <img :src="currentReq.image" alt="">
         </div>
         <div>username: {{currentReq.username}}</div>
         <div>E-Book Name: {{currentReq.name}}</div>
         <div>category: {{currentReq.category}}</div>
         <div>author: {{currentReq.author}}</div>
         <div>publisher: {{currentReq.publisher}}</div>
-        <div>description: {{currentReq.description}}</div>
-        <!-- <div>img URL: {{currentReq.imgURL}}</div> -->
+        <div>book_description: {{currentReq.book_description}}</div>
+        <!-- <div>img URL: {{currentReq.image}}</div> -->
         <div>file name: {{currentReq.realFileName}}</div>
         <div>time sent: {{new Date(currentReq.time_sent).toString()}}</div>
     </div>
 
   </div>
-
+</div>
 </template>
 
 <script>
@@ -88,9 +89,9 @@ export default {
         username:"",
         ISBN:"",
         name:"",
-        description:"",
+        book_description:"",
         category:"",
-        imgURL:"",
+        image:"",
         author:"",        
         publisher:"",
         status: "",

@@ -18,7 +18,7 @@ const donateSchema = new Schema(
         category: {
             type: String
         },
-        description: {
+        book_description: {
             type: String
         },
         author: {
@@ -27,7 +27,7 @@ const donateSchema = new Schema(
         publisher: {
             type: String
         },
-        imgURL: {
+        image: {
             type: String
         },
         status: {
