@@ -3,9 +3,19 @@
     <br>
     <br>
     <div>
-        <div v-for="(item,ind) in allRequest" :key="ind"> 
+        <div v-show="!isAnyReqPending">
+        <strong>there is no any request to be resolved at this time :)</strong>
+        </div>
+
+        <div v-show="isAnyReqPending" v-for="(item,ind) in allRequest" :key="ind"> 
+        <div v-if="item.imgURL != ''">
+          <img :src="item.imgURL" alt="">
+        </div>
         <div>username: {{item.username}}</div>
         <div>E-Book Name: {{item.name}}</div>
+        <div>category: {{item.category}}</div>
+        <div>author: {{item.author}}</div>
+        <div>publisher: {{item.publisher}}</div>
         <div>description: {{item.description}}</div>
         <div>img URL: {{item.imgURL}}</div>
         <div>file name: {{item.realFileName}}</div>
@@ -14,6 +24,8 @@
         <button @click="updateRequest(item.fileName, item.realFileName, 'approve', item.name)">approve</button>
         <button @click="updateRequest(item.fileName, item.realFileName, 'deny', item.name)">deny</button>
         </div>
+
+        
     </div>
   
 </template>
@@ -28,7 +40,8 @@ export default {
     },
     data() {
         return {
-            allRequest:''
+            allRequest:null,
+            isAnyReqPending:false
         }
     },
     methods: {
@@ -40,7 +53,14 @@ export default {
         .then(data => {
             // console.log(data)
             const filtered = data.filter((ele) => ele.status == "pending")
-            this.allRequest = filtered
+            
+            if (filtered.length != 0){
+                this.isAnyReqPending = true
+                this.allRequest = filtered
+            }
+            else{
+                this.isAnyReqPending = false
+            }
         })
         .catch((error) => {
             console.log(error);

@@ -4,21 +4,38 @@
   <br>
   <div  id="donatePage">
     
+    <!-- case: user has no any pending request -->
     <div v-show="!isReqSent">
       <form action="">
         <div>
           <label>E-Book Name</label>
           <input :maxlength="56" type="text" v-model="DonateReq.name"  placeholder="enter e-book name"/>
         </div>
+        <div>
+          <label>ISBN</label>
+          <input :maxlength="56" type="text" v-model="DonateReq.ISBN"  placeholder="optional"/>
+        </div>
+        <div>
+          <label>Category</label>
+          <input :maxlength="56" type="text" v-model="DonateReq.category"  placeholder="optional"/>
+        </div>
+        <div>
+          <label>Author</label>
+          <input :maxlength="56" type="text" v-model="DonateReq.author"  placeholder="optional"/>
+        </div>
+        <div>
+          <label>Publisher</label>
+          <input :maxlength="56" type="text" v-model="DonateReq.publisher"  placeholder="optional"/>
+        </div>
 
         <div>
           <label>Description</label>
-          <input :maxlength="879" type="text" v-model="DonateReq.description"  placeholder=""/>
+          <input :maxlength="879" type="text" v-model="DonateReq.description"  placeholder="optional"/>
         </div>
 
         <div >
             <label >Image URL</label>
-            <input type="text" v-model="DonateReq.imgURL"  placeholder=""/>
+            <input type="text" v-model="DonateReq.imgURL"  placeholder="optional"/>
         </div>
 
       </form>
@@ -34,12 +51,19 @@
       </div>
     </div>
 
+    <!--case: user already has pending request  -->
     <div v-show="isReqSent">
         <strong>Wait for your current request to be checked</strong>
+        <div v-if="currentReq.imgURL != ''">
+          <img :src="currentReq.imgURL" alt="">
+        </div>
         <div>username: {{currentReq.username}}</div>
         <div>E-Book Name: {{currentReq.name}}</div>
+        <div>category: {{currentReq.category}}</div>
+        <div>author: {{currentReq.author}}</div>
+        <div>publisher: {{currentReq.publisher}}</div>
         <div>description: {{currentReq.description}}</div>
-        <div>img URL: {{currentReq.imgURL}}</div>
+        <!-- <div>img URL: {{currentReq.imgURL}}</div> -->
         <div>file name: {{currentReq.realFileName}}</div>
         <div>time sent: {{new Date(currentReq.time_sent).toString()}}</div>
     </div>
@@ -62,10 +86,14 @@ export default {
       isReqSent: false,
       DonateReq:{
         username:"",
+        ISBN:"",
         name:"",
         description:"",
-        status: "",
+        category:"",
         imgURL:"",
+        author:"",        
+        publisher:"",
+        status: "",
         realFileName:"",
         fileName:"",
         time_sent:"",
@@ -116,7 +144,7 @@ export default {
 
       if (this.allRequest != null){
         if (this.allRequest.filter(r=>r.realFileName == this.DonateReq.realFileName).length != 0) {
-          alert(`This file is already existed in the database!`)
+          alert(`This file is already existed in the database or may be denied before!`)
         }
         else if (this.allRequest.filter(r=>r.name == this.DonateReq.name).length != 0) {
           alert(`This book name is already existed in database! Your book might be existed in the database or please change your book's name.`)
@@ -166,6 +194,7 @@ export default {
           }
 
         }
+        alert(`donation request is sent successfully!`)
       }
     },
     async CheckIfReqWasSent() {

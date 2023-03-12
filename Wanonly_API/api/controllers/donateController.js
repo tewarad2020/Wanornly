@@ -3,6 +3,7 @@ const donate_request = mongoose.model('donate');
 
 exports.send_request = (req, res) => {
     const newDonate = new donate_request(req.body);
+    console.log(req.body)
     newDonate.save((err, donate) => {
         // console.log(err);
         if (err) res.send(err);
