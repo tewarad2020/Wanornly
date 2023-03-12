@@ -151,9 +151,9 @@ export default {
       // find ebooks with same author which to be reccommended
       let k = 0
       for (let i=0; i<n; i++) {
-        if (this.$store.getters.ebookData[i].author != ""){
-            if (this.$store.getters.ebookData[i].author === this.ebookInfo.author && this.ebookInfo !== this.$store.getters.edata[i]) {
-            this.sameAuthor[k++] = this.$store.getters.edata[i]
+        if (this.$store.getters.ebookData[i].author != "no information"){
+            if (this.$store.getters.ebookData[i].author === this.ebookInfo.author && this.ebookInfo !== this.$store.getters.ebookData[i]) {
+            this.sameAuthor[k++] = this.$store.getters.ebookData[i]
             }
         }
       }

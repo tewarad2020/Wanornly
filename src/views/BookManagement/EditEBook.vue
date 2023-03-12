@@ -42,14 +42,13 @@
 </template>
 
 <script>
-import { bookHandler } from '../../mixins/MixinFunction';
-// import axios from 'axios'
+// import { bookHandler } from '../../mixins/MixinFunction';
+import axios from 'axios'
 export default {
   name: "editEBook",
   props:[
     'eBookProp',
   ],
-  mixins:[bookHandler],
   data() {
     return {
         ebookInfo:{
@@ -59,7 +58,7 @@ export default {
         book_description:"",
         category:"",
         image:"",
-        author:"",        
+        author:"no information",        
         publisher:"",
         status: "",
         realFileName:"",
@@ -73,7 +72,12 @@ export default {
     this.ebookInfo = this.eBookProp
   },
   methods: {
-    
+    async updateBook() {
+        await  axios.put(`http://localhost:3000/donate/${this.ebookInfo.realFileName}-${this.ebookInfo.name}`, this.ebookInfo)
+            .then(response => console.log(response))
+            .catch(error => console.log(error))
+            // window.location.replace('/')
+        }
   },
 };
 </script>

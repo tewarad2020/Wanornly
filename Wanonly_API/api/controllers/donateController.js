@@ -39,3 +39,15 @@ exports.update_a_request = (req, res) => {
     )
 }
 
+exports.delete_donate = (req, res) => {
+    // console.log(req.params)
+    donate_request.remove( { name: req.params.name } , err => {
+        if (err) res.send(err);
+        res.json({
+            message: 'ebook successfully deleted', 
+            name: req.params.name
+        })
+    })
+    
+}
+

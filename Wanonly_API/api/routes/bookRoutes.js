@@ -78,4 +78,5 @@ module.exports = app => {
     app
         .route('/donate/:fileName-:name')
         .put(donateBuilder.update_a_request)
+        .delete(donateBuilder.delete_donate)
 }
