@@ -188,10 +188,10 @@ export default {
       circleBase[0].style.height = `${circleBase[0].clientWidth}px`
       book_img[0].style.height = `${book_img[0].clientWidth * (1 + 1.5 / 3.5)}px`
 
-      let ctn_envet = document.getElementsByClassName('ctn_envet')
-      let btn_envet_addToCart = document.getElementsByClassName('btn_envet_addToCart')
+      // let ctn_envet = document.getElementsByClassName('ctn_envet')
+      // let btn_envet_addToCart = document.getElementsByClassName('btn_envet_addToCart')
 
-      ctn_envet[0].style.height = `${btn_envet_addToCart[0].clientWidth}px`
+      // ctn_envet[0].style.height = `${btn_envet_addToCart[0].clientWidth}px`
 
       let heart_Icon = document.getElementById('heart_Icon')
       heart_Icon.addEventListener('mouseenter', () => {
@@ -255,7 +255,7 @@ export default {
     },
     async DeleteHandle(){
       console.log("deleting")
-      await axios.delete(`http://localhost:3000/books/${this.bookInfo.ISBN}`)
+      await axios.delete(`http://localhost:3000/donate/${this.ebookInfo.name}`)
       .then(response => console.log(response))
           .catch(error => console.log(error))
           window.location.replace('/')
