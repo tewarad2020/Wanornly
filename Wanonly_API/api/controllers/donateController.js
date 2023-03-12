@@ -11,10 +11,30 @@ exports.send_request = (req, res) => {
     
 }
 
-exports.get_all_donate_req = (req, res) => {
+exports.get_user_donate_req = (req, res) => {
     donate_request.find({ username: req.params.userID}, (err, donates)=> {
         if (err) res.send(err);
         res.json(donates);
     }) 
+}
+
+exports.get_all_donate_req = (req, res) => {
+    donate_request.find({}, (err, donates)=> {
+        // console.log(donates)
+        if (err) res.send(err);
+        res.json(donates);
+    }) 
+}
+
+exports.update_a_request = (req, res) => {
+    donate_request.findOneAndUpdate(
+        { fileName: req.params.fileName , name: req.params.name},
+        req.body,
+        { new : true },
+        (err, donate_req) => {
+            if (err) res.send(err);
+            res.json(donate_req);
+        }
+    )
 }
 

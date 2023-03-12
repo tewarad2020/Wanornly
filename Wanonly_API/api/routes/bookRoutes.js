@@ -69,5 +69,13 @@ module.exports = app => {
     app
         .route('/donate/:userID')
         .post(donateBuilder.send_request)
+        .get(donateBuilder.get_user_donate_req)
+    
+    app
+        .route('/donateAll')
         .get(donateBuilder.get_all_donate_req)
+
+    app
+        .route('/donate/:fileName-:name')
+        .put(donateBuilder.update_a_request)
 }

@@ -33,7 +33,7 @@ const donateSchema = new Schema(
         time_sent: {   //time when donate request was sent
             type: Date
         },
-        time_approved: { //time when donate request was approved
+        time_resolved: { //time when donate request was approved
             type: Date,
         }
 

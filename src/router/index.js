@@ -60,6 +60,11 @@ const routes = [
         name: 'offlineBorrow',
         component: () => import('../views/BookManagement/OfflineBorrow.vue')
     },
+    {
+        path: '/donateManager',
+        name: 'donateManager',
+        component: () => import('../views/BookManagement/DonateManager.vue')
+    },
 ]
 
 const router = createRouter({
