@@ -34,6 +34,18 @@
             <label >Category</label>
             <input type="text" v-model="ebookInfo.category"/>
           </div>
+
+          <div class="Category_label"> 
+            <label >File</label>
+            <input type="text" disabled v-model="ebookInfo.realFileName"/>
+            <label >Add new file</label>
+            <input type="file" name="file" id="file" ref="file" accept="application/pdf" @change="onChangeFileUpload()">
+          </div>
+
+          <div>
+            
+          </div>
+
         </form>
       </div>
       <div class="btn_submit_edit" @click="updateEBook()">update</div>
@@ -66,7 +78,10 @@ export default {
         time_resolved:""
       },
       oldRealFileName:'',
-      oldName:''
+      oldName:'',
+      file:'',
+      allRequest:null,
+      newRealFileName:''
     }
   },
   mounted(){
@@ -82,8 +97,41 @@ export default {
           .then(response => console.log(response))
           .catch(error => console.log(error))
           
+      },
+    async onChangeFileUpload(){
+      this.file = this.$refs.file.files[0]
+
+      this.newRealFileName = this.file.name
+      // let username = JSON.parse(localStorage.getItem('user_info'))?.username
+
+      await this.getAllRequest()
+
+      if (this.allRequest != null){
+
+        console.log(this.newRealFileName)
+        if (this.allRequest.filter(r=>r.realFileName == this.newRealFileName).length != 0) {
+          alert(`This file is already existed in the database or may be denied before!`)
+          document.getElementById("file").value = "";
+        }
 
       }
+
+    },
+    async getAllRequest() {
+        // let username = JSON.parse(localStorage.getItem('user_info'))?.username
+        // await axios.get(`http://localhost:3000/donate/${username}`)
+        await axios.get(`http://localhost:3000/donateAll`)
+        .then((res) => res.data)
+        .then(data => {
+            
+            this.allRequest = data
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    },
+
+
   },
 };
 </script>
