@@ -15,12 +15,11 @@
 
 
 .itemCtn_progress{
-    /* margin-top: 0; */
-    height: 200px;
-    width: 400px;
+    position: relative;
+    display: inline-flex;
     background-color: rgb(157, 255, 0);
-    /* margin: 20px; */
-    display: inline-block;
+    align-items: center;
+    margin: 0.4%;
 }
 
 .itemCtn_return{
@@ -65,8 +64,9 @@
 
 .ctn_content_Inprogress {
     position: relative;
-    width: 63%;
-    height: 200px;
+    width: 65%;
+    height: 100%;
+    top: 0px;
     display: inline-block;
     background-color: red;
     padding-left: 1.5%;

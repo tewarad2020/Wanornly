@@ -14,18 +14,17 @@
         <p>{{ item.name }}</p>
         <p>{{ item.status_request }}</p>
         <p v-if="item.status_request=='approve'">approved time :{{ new Date(item.time_resolved).toLocaleTimeString() }}</p>
-        <button v-if="item.status_request=='deny'" @click="removeCart(item.user_id,item.ISBN)">delete</button>
+        <!-- <button v-if="item.status_request=='deny'" @click="removeCart(item.user_id,item.ISBN)">delete</button> -->
       </div>
     </div>
     
-    <h2>Returned</h2>
+    <!-- <h2>Returned</h2>
     <div  class="itemCtn_Returned" v-for="(item,index) in currentUserAllBookHistory" :key="index">
-      <!-- <p>{{ item.ISBN }}</p>  -->
       <p>{{ item.name }}</p>
       <p>{{ item.time_resolved }}</p>
       <p>{{ item.time_returned }}</p>
       <p>{{ item.time_return_limit }}</p>
-    </div>
+    </div> -->
 
   </div>
 </template>
@@ -48,10 +47,9 @@ export default {
     computed:{
       currentHistoryFiltered:function(){
         let combined = []
-        console.log('tttt: ', this.currentPendingFiltered)
         if(this.currentPendingFiltered!=null && this.currentInCartFiltered!=null )
           combined = [].concat(this.currentApproveFiltered,this.currentDenyFiltered,this.currentPendingFiltered)   //just for test, actually is pending and borrowing not inCart
-        console.log('test: ', combined)
+       
         return combined
       },
     },
@@ -59,17 +57,19 @@ export default {
       
     },
     mounted() {
-      // let init = () => {
-      //   let itemCtn_progress = document.querySelectorAll('.itemCtn_progress')
-      //   console.log('itemCtn_progress', itemCtn_progress)
-      //   let historyPage = document.getElementById('historyPage')
-      //   itemCtn_progress.forEach(element => {
-      //     element.style.width = `${historyPage.clientWidth / 3}px`
-      //   });
-      // }
-      // setTimeout(() => {
-      //   init()
-      // }, 200)
+      let init = () => {
+        let itemCtn_progress = document.querySelectorAll('.itemCtn_progress')
+        let historyPage = document.getElementById('historyPage')
+        itemCtn_progress.forEach(element => {
+          let margin_box = historyPage.clientWidth * 0.4 / 100
+          element.style.margin = `${margin_box}px`
+          element.style.width = `${(historyPage.clientWidth / 3) - (margin_box * 6)}px`
+          element.style.height = `${historyPage.clientWidth / 3 * 0.4}px`
+        });
+      }
+      setTimeout(() => {
+        init()
+      }, 100)
     }
 }
 </script>
