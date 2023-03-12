@@ -30,7 +30,7 @@ exports.get_all_donate_req = (req, res) => {
 exports.update_a_request = (req, res) => {
     console.log(req.body)
     donate_request.findOneAndUpdate(
-        {name: req.params.name},
+        {filename: req.params.filename},
         req.body,
         { new : true },
         (err, donate_req) => {
@@ -42,13 +42,14 @@ exports.update_a_request = (req, res) => {
 
 exports.delete_donate = (req, res) => {
     // console.log(req.params)
-    donate_request.remove( { name: req.params.name } , err => {
+    donate_request.deleteOne( { filename: req.params.filename } , err => {
         if (err) res.send(err);
         res.json({
             message: 'ebook successfully deleted', 
             name: req.params.name
         })
     })
+
     
 }
 

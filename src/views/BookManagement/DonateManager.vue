@@ -22,8 +22,8 @@
         <div>file name: {{item.realFileName}}</div>
         <div>time sent: {{new Date(item.time_sent).toString()}}</div>
         <div>status: {{item.status}}</div>
-        <button @click="updateRequest(item.realFileName, 'approve', item.name)">approve</button>
-        <button @click="updateRequest(item.realFileName, 'deny', item.name)">deny</button>
+        <button @click="updateRequest(item.filename, item.realFileName, 'approve')">approve</button>
+        <button @click="updateRequest(item.filename, item.realFileName, 'deny')">deny</button>
         </div>
 
         
@@ -67,8 +67,8 @@ export default {
             console.log(error);
         });
     },
-    async updateRequest(realFileName, newStatus, name){
-        let [donate_req] = this.allRequest.filter(r=>r.name==name && r.status=='pending')
+    async updateRequest(filename, realFileName, newStatus){
+        let [donate_req] = this.allRequest.filter(r=>r.filename==filename && r.status=='pending')
         
         donate_req = {
         ...donate_req,
@@ -76,14 +76,13 @@ export default {
         status:newStatus
         }
 
-        console.log(donate_req)
-        // console.log(donate_req)
-        await axios.put(`http://localhost:3000/donate/${name}`,donate_req)
+        await axios.put(`http://localhost:3000/donate/${filename}`,donate_req)
         .catch((error) => {
             console.log(error);
         });
         alert(`${newStatus} donation of ${realFileName}`)
         this.getAllRequest()
+        window.location.reload('/')
     }
     },
 

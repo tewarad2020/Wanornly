@@ -67,7 +67,7 @@ export default {
         // image:
         // status:
         // realFileName:
-        // fileName:
+        // filename:
         // time_sent:
         // time_resolved:  //time when donate request was approved
       }
@@ -190,6 +190,7 @@ export default {
           .filter((book) => {
           let name = book.name;
           if (name) name = name.toLowerCase().replaceAll(" ", "");
+          let filename = book.filename
           let author = book.author;
           if (author) author = author.toLowerCase().replaceAll(" ", "");
           // let newtext = this.text.toLowerCase().replaceAll(' ', '');
@@ -216,7 +217,7 @@ export default {
             let cover_book_img = document.createElement("div");
             cover_book_img.classList.add("cover_book_img");
             cover_book_img.addEventListener("click", () => {
-              window.open(`/ebook/${name}`, "_blank");  
+              window.open(`/ebook/${filename}`, "_blank");  
               //console.log('open ebook:',name) //for test
             });
 
@@ -240,7 +241,7 @@ export default {
            
               btn_addToCart.addEventListener("click", () => {
                // this.addToCart(ISBN);
-               window.open(`/ebook/${name}`, "_blank");  
+               window.open(`/ebook/${filename}`, "_blank");  
               // console.log('downloaddd')
               });
               btn_addToCart.innerHTML = "Ebook";
@@ -250,7 +251,7 @@ export default {
             box_info.classList.add("box_info");
             box_info.addEventListener("click", () => {
               console.log("info");
-              window.location.replace(`/ebook/${name}`);
+              window.location.replace(`/ebook/${filename}`);
             // console.log('open ebook:',name)
             });
 
