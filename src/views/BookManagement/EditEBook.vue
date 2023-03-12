@@ -11,7 +11,7 @@
           </div>
           <div class="ISBN_label">
             <label >ISBN</label>
-            <input :maxlength="13" disabled type="text" v-model="ebookInfo.ISBN"/>
+            <input :maxlength="13" type="text" v-model="ebookInfo.ISBN"/>
           </div>
           <div class="Author_label">  
             <label >Author</label>
@@ -36,13 +36,12 @@
           </div>
         </form>
       </div>
-      <div class="btn_submit_edit" @click="updateBook()">update</div>
+      <div class="btn_submit_edit" @click="updateEBook()">update</div>
     </div>
   </div>
 </template>
 
 <script>
-// import { bookHandler } from '../../mixins/MixinFunction';
 import axios from 'axios'
 export default {
   name: "editEBook",
@@ -65,19 +64,26 @@ export default {
         fileName:"",
         time_sent:"",
         time_resolved:""
-    },
-      }
+      },
+      oldRealFileName:'',
+      oldName:''
+    }
   },
   mounted(){
+    this.oldRealFileName = this.eBookProp.realFileName
+    this.oldName = this.eBookProp.name
     this.ebookInfo = this.eBookProp
   },
   methods: {
-    async updateBook() {
-        await  axios.put(`http://localhost:3000/donate/${this.ebookInfo.realFileName}-${this.ebookInfo.name}`, this.ebookInfo)
-            .then(response => console.log(response))
-            .catch(error => console.log(error))
-            // window.location.replace('/')
-        }
+    async updateEBook() {
+      // let [update_req] = this.allRequest.filter(r=>r.fileName==fileName && r.status=='pending')
+
+      await  axios.put(`http://localhost:3000/donate/${this.oldName}`, this.ebookInfo)
+          .then(response => console.log(response))
+          .catch(error => console.log(error))
+          
+
+      }
   },
 };
 </script>
