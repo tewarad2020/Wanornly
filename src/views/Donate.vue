@@ -92,7 +92,7 @@ export default {
         book_description:"",
         category:"",
         image:"",
-        author:"",        
+        author:"no information",        
         publisher:"",
         status: "",
         realFileName:"",

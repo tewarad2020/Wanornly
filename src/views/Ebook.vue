@@ -8,24 +8,24 @@
       <div class="ctn_book_img">
         <div class="circleBase"></div>
         <div class="book_img">
-          <img v-if="isFetched" :src="bookInfo.image" alt="">
+          <img v-if="isFetched" :src="ebookInfo.image" alt="">
         </div>
       </div>
       <div class="book_info_ctn">
         <div class="book_info">
-          <div class="book_info_name"> {{ bookInfo.name }}</div>
-          <div class="book_info_author">Author | {{ bookInfo.author }}</div>
+          <div class="book_info_name"> {{ebookInfo.name }}</div>
+          <div class="book_info_author">Author | {{ ebookInfo.author }}</div>
           <div class="book_info_description">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ bookInfo.book_description }}</div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ ebookInfo.book_description }}</div>
         </div>
 
         <div class="ctn_envet">
           <div class="btn_envet_heart" @click="likeIt">
             <span><Icon id="heart_Icon" icon="mdi:cards-heart" /></span>
           </div>
-          <div class="btn_envet_addToCart" @click="islogin()">
+          <!-- <div class="btn_envet_addToCart" @click="islogin()">
             <span><Icon id="shopping-cart_Icon" icon="material-symbols:shopping-cart-rounded" /></span>
-          </div>
+          </div> -->
           <div class="ctn_envet_edit" v-if="role === 'admin'? true : false" @click="EditHandle">
             <span><Icon id="edit_Icon" icon="material-symbols:edit" /></span>
           </div>
@@ -34,10 +34,9 @@
           </div>
 
           <!-- <Icon icon="clarity:shopping-bag-solid" /> -->
-
-          <div class="ctn_status">
+          <!-- <div class="ctn_status">
             <span>{{ product_status() }}</span>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -58,7 +57,7 @@
     
 
     <div v-if="isEdit" class="Edit_comp_active">
-      <EditBook :bookProp="bookInfo"></EditBook>
+      <EditEBook :eBookProp="ebookInfo"></EditEBook>
       <span class="btn_exit_edit" @click="EditHandle()">X</span>
     </div>
 
@@ -74,16 +73,17 @@
 </template>
 
 <script>
+import EditEBook from './BookManagement/EditEBook.vue';
 import axios from 'axios'
 import { Icon } from '@iconify/vue';
-import EditBook from './BookManagement/EditBook.vue'
+
 import { AddToCartHandler } from '@/mixins/MixinFunction';
 
 export default {
 
-  name: 'bookPage',
+  name: 'ebookPage',
   components:{
-    EditBook,
+    EditEBook,
     Icon
   },
   mixins:[AddToCartHandler],
@@ -102,17 +102,32 @@ export default {
         image:"",
         publisher:"",
         amount:0
-        },
-      isEdit:false,
-      isFetched:false,
-      role: null,
-      islike: false,
-      Edit_comp: null,
-      confirmDelete: false,
-      ctn_status: null,
-      sameAuthor: [],
-      step: 0,
-      count_bookRelate: 0,
+    },
+    ebookInfo:{
+        username:"",
+        ISBN:"",
+        name:"",
+        book_description:"",
+        category:"",
+        image:"",
+        author:"",        
+        publisher:"",
+        status: "",
+        realFileName:"",
+        fileName:"",
+        time_sent:"",
+        time_resolved:""
+    },
+        isEdit:false,
+        isFetched:false,
+        role: null,
+        islike: false,
+        Edit_comp: null,
+        confirmDelete: false,
+        ctn_status: null,
+        sameAuthor: [],
+        step: 0,
+        count_bookRelate: 0,
     }
   },
   props:[
@@ -124,20 +139,22 @@ export default {
 
     let initial = () => {
 
-      // find the book with given ISBN from route which we want to see detail
-      let n = this.$store.getters.data.length
+      // find the ebook with given name from route which we want to see detail
+      let n = this.$store.getters.ebookData.length
       for (let i=0; i<n; i++) {
-        if (this.$store.getters.data[i].ISBN == this.$route.params.id) {
-          this.bookInfo = this.$store.getters.data[i]
+        if (this.$store.getters.ebookData[i].name == this.$route.params.name) {
+          this.ebookInfo = this.$store.getters.ebookData[i]
           break
         }
       }
       
-      // find books with same author which to be reccommended
+      // find ebooks with same author which to be reccommended
       let k = 0
       for (let i=0; i<n; i++) {
-        if (this.$store.getters.data[i].author === this.bookInfo.author && this.bookInfo !== this.$store.getters.data[i]) {
-          this.sameAuthor[k++] = this.$store.getters.data[i]
+        if (this.$store.getters.ebookData[i].author != ""){
+            if (this.$store.getters.ebookData[i].author === this.ebookInfo.author && this.ebookInfo !== this.$store.getters.edata[i]) {
+            this.sameAuthor[k++] = this.$store.getters.edata[i]
+            }
         }
       }
       console.log('Same autore books: ', this.sameAuthor)
@@ -193,7 +210,7 @@ export default {
 
     setTimeout(() => {
       initial()
-      console.log('info of book: ', this.bookInfo)
+      console.log('info of book: ', this.ebookInfo)
     }, 200)
 
     if(localStorage.getItem("user_info")) {
@@ -257,16 +274,16 @@ export default {
         alert('You have not login!')
       }
     },
-    product_status() {
-      if (this.bookInfo.amount !== 0) {
-        if (this.ctn_status) this.ctn_status.style.background = '#03de91'
-        return 'Available'
-      }
-      else {
-        if (this.ctn_status) this.ctn_status.style.background = '#f25579'
-        return 'Out of stock'
-      }
-    },
+    // product_status() {
+    //   if (this.bookInfo.amount !== 0) {
+    //     if (this.ctn_status) this.ctn_status.style.background = '#03de91'
+    //     return 'Available'
+    //   }
+    //   else {
+    //     if (this.ctn_status) this.ctn_status.style.background = '#f25579'
+    //     return 'Out of stock'
+    //   }
+    // },
     async islogin() {
       if (localStorage.getItem('status_login')) {
         await this.CheckAddToCart(this.bookInfo.ISBN,this.userID)
@@ -359,10 +376,10 @@ export default {
       ctn_sameAuthor_content.style.transform = `translateX(-${this.step * ctn_sameAuthor.clientWidth / 4}px)`
     },
     seebookinfo(item) {
-      window.location.replace(`/book/${item.ISBN}`)
+      window.location.replace(`/ebook/${item.name}`)
     },
     newbookinfo(item) {
-      window.open(`/book/${item.ISBN}`)
+      window.open(`/ebook/${item.name}`)
     }
   }
 
