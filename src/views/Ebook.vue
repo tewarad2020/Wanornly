@@ -69,9 +69,9 @@
       <div @click="showConfirmDelete" class="btn_exit_confirm_delete">X</div>
     </div>
 
+
   </div>
 </template>
-
 <script>
 import EditEBook from './BookManagement/EditEBook.vue';
 import axios from 'axios'
@@ -114,7 +114,7 @@ export default {
         publisher:"",
         status: "",
         realFileName:"",
-        fileName:"",
+        filename:"",
         time_sent:"",
         time_resolved:""
     },
@@ -142,11 +142,14 @@ export default {
       // find the ebook with given name from route which we want to see detail
       let n = this.$store.getters.ebookData.length
       for (let i=0; i<n; i++) {
-        if (this.$store.getters.ebookData[i].name == this.$route.params.name) {
+        if (this.$store.getters.ebookData[i].filename == this.$route.params.filename) {
+          
           this.ebookInfo = this.$store.getters.ebookData[i]
+          
           break
         }
       }
+      console.log(this.$store.getters.ebookData)
       
       // find ebooks with same author which to be reccommended
       let k = 0
@@ -255,10 +258,20 @@ export default {
     },
     async DeleteHandle(){
       console.log("deleting")
-      await axios.delete(`http://localhost:3000/donate/${this.ebookInfo.name}`)
-      .then(response => console.log(response))
-          .catch(error => console.log(error))
-          window.location.replace('/')
+      await axios.delete(`http://localhost:3000/donate/${this.ebookInfo.filename}`)
+      .then(async(response) =>  {
+        console.log(response)
+        await axios.delete(`http://localhost:3000/upload/${this.ebookInfo.filename}`)
+          .then(async(response) => {
+          console.log('pedro', response)
+          
+          setTimeout(() => {
+            window.location.replace('/')
+          }, 2900);
+        })
+        .catch(error => console.error(error))
+      })
+      .catch(error => console.error(error)) 
     },
     likeIt() {
       if (localStorage.getItem('status_login')) {

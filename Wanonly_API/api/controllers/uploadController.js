@@ -126,7 +126,8 @@ exports.delete_profile = async (req, res) => {
     if (file.length > 0) {
       const fileId = file[0]._id;
       await gfs_DeleteAndShow.delete(fileId);
-      console.log(`Deleted file ${filename} with ID ${fileId}`);
+      console.log(`Deleted file ${req.params.filename} with ID ${fileId}`);
+      res.json({message: 'update name completed'})
     }
   } catch(err) {
     console.error(err);

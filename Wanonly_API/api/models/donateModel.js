@@ -38,7 +38,7 @@ const donateSchema = new Schema(
             type: String,
             required:''
         },
-        fileName: {
+        filename: {
             type: String,
             required:''
         },

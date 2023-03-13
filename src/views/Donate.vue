@@ -96,7 +96,7 @@ export default {
         publisher:"",
         status: "",
         realFileName:"",
-        fileName:"",
+        filename:"",
         time_sent:"",
         time_resolved:""
       },
@@ -170,7 +170,7 @@ export default {
             .then(async (data) => {
               this.DonateReq.username = username
               this.DonateReq.status = "pending"
-              this.DonateReq.fileName = data.data.file.filename 
+              this.DonateReq.filename = data.data.file.filename 
               this.DonateReq.time_sent = new Date()
               await axios.post(`http://localhost:3000/donate/${username}`, this.DonateReq)
               .then(response => {
@@ -183,7 +183,7 @@ export default {
           }else{
             this.DonateReq.username = username
             this.DonateReq.status = "pending"
-            this.DonateReq.fileName = filtered[0].fileName
+            this.DonateReq.filename = filtered[0].filename
             this.DonateReq.time_sent = new Date()
             await axios.post(`http://localhost:3000/donate/${username}`, this.DonateReq)
             .then(response => {
@@ -193,9 +193,9 @@ export default {
             })
             .catch(error => console.log(error))
           }
-
+          alert(`donation request is sent successfully!`)
         }
-        alert(`donation request is sent successfully!`)
+        
       }
     },
     async CheckIfReqWasSent() {
