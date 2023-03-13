@@ -55,7 +55,6 @@
 .btn_return_book {
     right: 0%;
     top: 0;
-    /* height:100%; */
     font-family: 'Mitr', sans-serif;
     position: absolute;
     border: none;
@@ -64,13 +63,12 @@
     background-color: rgb(133, 133, 133);
     height: 100%;
     z-index: 1;
-    /* font-size: 0.8vw; */
-    /* margin-top: 0.4%; */
     transition: 0.15s ease-in-out;
     color: #fff;
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    z-index: 0;
 }
 
 #archive_Icon {

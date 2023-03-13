@@ -51,12 +51,13 @@ export default {
             let input_dayLimit = document.querySelectorAll('.input_dayLimit')
             this.time_limit = []
             input_dayLimit.forEach(element => {
-                if (!element.value) this.time_limit.push('7')
+                if (!element.value) this.time_limit.push(7)
                 else this.time_limit.push(element.value)
             });
             // console.log('this.time_limit: ', this.time_limit)
          
             this.update_dayLimit(ind)
+            // console.log('tiem: ', this.dayLimit)
             if(this.dayLimit<=0){
                 alert("time borrow limit must be more than 0")
                 return;
@@ -94,7 +95,7 @@ export default {
             let input_dayLimit = document.querySelectorAll('.input_dayLimit')
             this.time_limit = []
             input_dayLimit.forEach(element => {
-                if (!element.value) this.time_limit.push('7')
+                if (!element.value) this.time_limit.push(7)
                 else this.time_limit.push(element.value)
             });
             await this.updateRequestStatus(user_id,ISBN,"deny")
@@ -113,9 +114,9 @@ export default {
         update_dayLimit(ind) {
             let input_dayLimit = document.querySelectorAll('.input_dayLimit')
             if (input_dayLimit[ind].value === '') {
-                this.dayLimit = '7'
+                this.dayLimit = 7
             }else {
-                this.dayLimit = parseInt(input_dayLimit[ind].value).toString()
+                this.dayLimit = parseInt(input_dayLimit[ind].value)
             } 
         },
     },

@@ -7,6 +7,15 @@
       <div v-if="currentInCartFiltered.length > 0">
         <div  class="itemCtn"  v-for="(item,index) in currentInCartFiltered" :key="index" >
           <!-- <div  class="itemCtn" v-for="(item,index) in this.cartData" :key="index"> -->
+          <div v-if="checkDeny(item, index)" class="is_denied">
+            <div class="denied_img">
+              <img src="../assets/images/warning.png" alt="">
+            </div>
+            <div class="denied_text">
+              <div>This book is denied.</div>
+              <div>Please, press the delete button.</div>
+            </div>
+          </div>
           <div class="cart_product_img">
             <img :src="item.image" alt="">
           </div>
@@ -83,9 +92,17 @@ export default {
         confirmCheckOut: false,
         index_book: 0,
         selected_item: null,
+        combined_list: [],
       }
     },
-  
+    computed:{
+      currentHistoryFiltered:function(){
+        let combined = []
+        if(this.currentPendingFiltered!=null && this.currentInCartFiltered!=null )
+          combined = [].concat(this.currentApproveFiltered,this.currentDenyFiltered,this.currentPendingFiltered)
+        return combined
+      },
+    },
     methods:{
       async SendRequest(){
       console.log("send req")
@@ -139,36 +156,51 @@ export default {
             confirm_checkout_div.classList.remove('Delete_comp_passive')
           }, 250)
         }
+      },
+      checkDeny(item, index) {
+        let element = this.combined_list.find(e => (e.status_request === 'deny' && item.ISBN === e.ISBN))
+        if (element) {
+          let cart_product_info = document.querySelectorAll('.cart_product_info')
+          let base_cart = document.querySelectorAll('.base_cart')
+          cart_product_info[index].classList.add('cart_product_info_deny')
+          base_cart[index].classList.add('base_cart_deny')
+          return true
+        }
+        else  return false
       }
-  },
-  
-  mounted() {
-    let initial = () => {
-      this.isloaded = true
-    }
-
-    setTimeout(() => {
-      initial()
-    }, 0)
-
-    setTimeout(() => {
-      let itemCtn = document.querySelectorAll('.itemCtn')
-      console.log('itemCtn: ', itemCtn)
-      if (itemCtn) {
-        let cart_product_img = document.getElementsByClassName('cart_product_img')[0]
-        let base_cart = document.querySelectorAll('.base_cart')
-        let width = cart_product_img?.clientWidth
-        itemCtn.forEach(element => {
-          element.style.height = `${width * 1.1}px`
-        });
-        let i = 0
-        base_cart.forEach(element => {
-          element.style.animation = `slide 7s infinite linear ${(i % 5) / 1.2}s`
-          i++
-        });
-        // animation: slide 5s infinite linear;
+    },
+    mounted() {
+      let initial = () => {
+        this.isloaded = true
       }
-    }, 100)
+
+      setTimeout(() => {
+        this.combined_list = this.currentHistoryFiltered
+        console.log('asdasd: ', this.combined_list)
+      }, 100)
+
+      setTimeout(() => {
+        initial()
+      }, 0)
+
+      setTimeout(() => {
+        let itemCtn = document.querySelectorAll('.itemCtn')
+        console.log('itemCtn: ', itemCtn)
+        if (itemCtn) {
+          let cart_product_img = document.getElementsByClassName('cart_product_img')[0]
+          let base_cart = document.querySelectorAll('.base_cart')
+          let width = cart_product_img?.clientWidth
+          itemCtn.forEach(element => {
+            element.style.height = `${width * 1.1}px`
+          });
+          let i = 0
+          base_cart.forEach(element => {
+            element.style.animation = `slide 7s infinite linear ${(i % 5) / 1.2}s`
+            i++
+          });
+          // animation: slide 5s infinite linear;
+        }
+      }, 100)
   }
 }
 </script>
