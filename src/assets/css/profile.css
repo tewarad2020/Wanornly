@@ -4,6 +4,10 @@
     margin: 0;
 }
 
+body {
+    overflow-x: hidden;
+}
+
 #profilePage {
     position: relative;
     width: 90%;
@@ -106,11 +110,22 @@
     }
 }
 
-.menu_profile {
+.menu_profile_1 {
     position: absolute;
     width: 100%;
     height: 50px;
     top: 45vh;
+    /* top: 45%; */
+    /* background-color: aqua; */
+    display: flex;
+    align-items: center;
+}
+
+.menu_profile_2 {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    top: calc(45vh + 65px);
     /* background-color: aqua; */
     display: flex;
     align-items: center;
@@ -133,6 +148,17 @@
 #add_book_Icon {
     position: absolute;
     width: 22%;
+    height: auto;
+    left: 5%;
+    display: flex;
+    align-items: center;
+    /* top: 10%; */
+    /* border-color: aquamarine; */
+}
+
+#donate_Icon {
+    position: absolute;
+    width: 17.5%;
     height: auto;
     left: 5%;
     display: flex;
@@ -262,7 +288,7 @@
     color: rgb(146, 63, 201);
 }
 
-.btn_return:hover .request_text{
+.btn_return:hover .return_text{
     color: rgb(146, 63, 201);
 }
 
@@ -295,7 +321,7 @@
     position: absolute;
     height: 100%;
     width: 70%;
-    left: 30%;
+    left: 26%;
     display: inline-block;
     /* background-color: red; */
     display: flex;
@@ -304,6 +330,7 @@
     padding-left: 2%;
     color: rgb(154,118,178);
     transition: .15s ease-in-out;
+    line-height: 2vw;
 }
 
 .btn_donation:hover {
@@ -722,4 +749,84 @@
 
 .input_ctn input:focus::placeholder {
     color: rgba(0, 0, 0, .8);
+}
+
+.btn_OfflineBorrow {
+    position: relative;
+    display: inline-block;
+    /* background-color: blue; */
+    color: rgb(154,118,178);
+    width: 15%;
+    height: 100%;
+    left: 30.25%;
+    transition: .15s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.OfflineBorrow_text {
+    font-size: 1.5vw;
+    font-weight: 700;
+    position: absolute;
+    height: 100%;
+    width: 70%;
+    left: 30%;
+    display: inline-block;
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 2%;
+    color: rgb(154,118,178);
+    transition: .15s ease-in-out;
+    line-height: 2vw;
+}
+
+.btn_OfflineBorrow:hover {
+    color: rgb(146, 63, 201);
+}
+
+.btn_OfflineBorrow:hover .OfflineBorrow_text{
+    color: rgb(146, 63, 201);
+}
+
+.btn_Donate_Manager {
+    position: relative;
+    display: inline-block;
+    /* background-color: blue; */
+    color: rgb(154,118,178);
+    width: 15%;
+    height: 100%;
+    left: 30.25%;
+    transition: .15s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.Donate_Manager_text {
+    font-size: 1.5vw;
+    font-weight: 700;
+    position: absolute;
+    height: 100%;
+    width: 70%;
+    left: 30%;
+    display: inline-block;
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 2%;
+    color: rgb(154,118,178);
+    transition: .15s ease-in-out;
+    line-height: 2vw;
+}
+
+.btn_Donate_Manager:hover {
+    color: rgb(146, 63, 201);
+}
+
+.btn_Donate_Manager:hover .Donate_Manager_text{
+    color: rgb(146, 63, 201);
 }

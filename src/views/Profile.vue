@@ -32,31 +32,33 @@
         <div class="base_profile"></div>
       </div>
     </div>
-    <div class="menu_profile">
-        <div class="btn_addbook" v-if="variable.user_info?.role === 'admin'? true : false" @click="showAddBook">
-          <Icon id="add_book_Icon" icon="material-symbols:add-box" />
-          <div class="addbook_text">Add book</div>
-        </div>
-        <div class="btn_request" @click="() => $router.push('/requestManager')" v-if="variable.user_info?.role === 'admin'? true : false">
-          <Icon id="request_Icon" icon="pajamas:requirements" />
-          <div class="request_text" >Request Management</div>
-        </div>
-        <div class="btn_return" @click="() => $router.push('/BorrowManager')" v-if="variable.user_info?.role === 'admin'? true : false">
-          <Icon id="return_Icon" icon="material-symbols:assignment-return-outline-rounded" />
-          <div class="return_text" >Return Management</div>
-        </div>
-        <div class="btn_donation" @click="() => $router.push('/donate')" >
-          <Icon id="donation_Icon" icon="ic:outline-menu-book" />          
-          <div class="donation_text">Donation</div>
-        </div>
-        <div class="btn_donation" @click="() => $router.push('/offlineBorrow')" v-if="variable.user_info?.role === 'admin'? true : false" >
-          <Icon id="donation_Icon" icon="ic:outline-menu-book" />          
-          <div class="donation_text">OfflineBorrow</div>
-        </div>
-        <div class="btn_donation" @click="() => $router.push('/DonateManager')" v-if="variable.user_info?.role === 'admin'? true : false" >
-          <Icon id="donation_Icon" icon="ic:outline-menu-book" />          
-          <div class="donation_text">Donate Manager</div>
-        </div>
+    <div class="menu_profile_1">
+      <div class="btn_addbook" v-if="variable.user_info?.role === 'admin'? true : false" @click="showAddBook">
+        <Icon id="add_book_Icon" icon="material-symbols:add-box" />
+        <div class="addbook_text">Add book</div>
+      </div>
+      <div class="btn_request" @click="() => $router.push('/requestManager')" v-if="variable.user_info?.role === 'admin'? true : false">
+        <Icon id="request_Icon" icon="pajamas:requirements" />
+        <div class="request_text" >Request Management</div>
+      </div>
+      <div class="btn_return" @click="() => $router.push('/BorrowManager')" v-if="variable.user_info?.role === 'admin'? true : false">
+        <Icon id="return_Icon" icon="material-symbols:assignment-return-outline-rounded" />
+        <div class="return_text" >Return Management</div>
+      </div>
+      <div class="btn_donation" @click="() => $router.push('/donate')" >
+        <Icon id="donate_Icon" icon="mdi:donate" />         
+        <div class="donation_text">Donation</div>
+      </div>
+    </div>
+    <div class="menu_profile_2">
+      <div class="btn_OfflineBorrow" @click="() => $router.push('/offlineBorrow')" v-if="variable.user_info?.role === 'admin'? true : false" >
+        <Icon id="donation_Icon" icon="ic:outline-menu-book" />          
+        <div class="OfflineBorrow_text">OfflineBorrow</div>
+      </div>
+      <div class="btn_Donate_Manager" @click="() => $router.push('/DonateManager')" v-if="variable.user_info?.role === 'admin'? true : false" >
+        <Icon id="request_Icon" icon="pajamas:requirements" />        
+        <div class="Donate_Manager_text">Donate Manager</div>
+      </div>
     </div>
     <div v-if="isShowAdd" class="ctn_addbookpage add_comp_active">
       <AddBook></AddBook>
