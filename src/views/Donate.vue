@@ -4,51 +4,56 @@
   <br>
   <br>
   <div  id="donatePage">
-    
+    <div class="title_donate">Donate Book</div>
     <!-- case: user has no any pending request -->
-    <div v-show="!isReqSent">
-      <form action="">
-        <div>
-          <label>E-Book Name</label>
-          <input :maxlength="56" type="text" v-model="DonateReq.name"  placeholder="enter e-book name"/>
-        </div>
-        <div>
-          <label>ISBN</label>
-          <input :maxlength="56" type="text" v-model="DonateReq.ISBN"  placeholder="optional"/>
-        </div>
-        <div>
-          <label>Category</label>
-          <input :maxlength="56" type="text" v-model="DonateReq.category"  placeholder="optional"/>
-        </div>
-        <div>
-          <label>Author</label>
-          <input :maxlength="56" type="text" v-model="DonateReq.author"  placeholder="optional"/>
-        </div>
-        <div>
-          <label>Publisher</label>
-          <input :maxlength="56" type="text" v-model="DonateReq.publisher"  placeholder="optional"/>
-        </div>
+    <div v-show="!isReqSent" class="ctn_label">
+      <div class="ctn_form">
+        <form action="" class="box_form">
 
-        <div>
-          <label>book_description</label>
-          <input :maxlength="879" type="text" v-model="DonateReq.book_description"  placeholder="optional"/>
-        </div>
+          <div class="box_E-book_name">
+            <label>E-Book Name</label>
+            <input :maxlength="56" type="text" v-model="DonateReq.name"  placeholder="enter e-book name"/>
+          </div>
 
-        <div >
-            <label >Image URL</label>
-            <input type="text" v-model="DonateReq.image"  placeholder="optional"/>
-        </div>
+          <div class="box_ISBN">
+            <label>ISBN</label>
+            <input :maxlength="56" type="text" v-model="DonateReq.ISBN"  placeholder="optional"/>
+          </div>
 
-      </form>
+          <div class="box_category">
+            <label>Category</label>
+            <input :maxlength="56" type="text" v-model="DonateReq.category"  placeholder="optional"/>
+          </div>
 
-      <div>
+          <div class="box_Author">
+            <label>Author</label>
+            <input :maxlength="56" type="text" v-model="DonateReq.author"  placeholder="optional"/>
+          </div>
+
+          <div class="box_Publisher">
+            <label>Publisher</label>
+            <input :maxlength="56" type="text" v-model="DonateReq.publisher"  placeholder="optional"/>
+          </div>
+
+          <div class="box_description">
+            <label>book_description</label>
+            <input :maxlength="879" type="text" v-model="DonateReq.book_description"  placeholder="optional"/>
+          </div>
+
+          <div class="box_image_URL">
+              <label >Image URL</label>
+              <input type="text" v-model="DonateReq.image"  placeholder="optional"/>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="add_Ebook_file">
           <h1>Add E-Book File</h1>
-          <div>
+          <div class="box_chooseFile">
             <input type="file" name="file" id="file" ref="file" accept="application/pdf" @change="onChangeFileUpload()">
           </div>
-          <div>
-            <div @click="submitForm()">Submit</div>
-          </div>
+          <div @click="submitForm()" class="submit_box">Submit</div> 
       </div>
     </div>
 
