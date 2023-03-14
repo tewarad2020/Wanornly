@@ -1,0 +1,123 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.ctn_manage_donate {
+    position: relative;
+    width: 92%;
+    left: 4%;
+    top: 10vh;
+    /* background-color: aquamarine; */
+}
+
+.no_item_text {
+    font-size: 1.5vw;
+}
+
+.title_donate_management {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* background-color: aquamarine; */
+}
+
+.title_donate_management h1 {
+    font-size: 2vw;
+}
+
+.box_manage_donate_img {
+    position: relative;
+    width: 18%;
+    height: 100%;
+    /* background-color: blue; */
+    display: inline-block;
+}
+
+.box_manage_donate_img img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#request_Icon_donate {
+    position: absolute;
+    /* left: 30%; */
+    top: 10%;
+    left: 23%;
+    width: 5%;
+    height: 80%;
+    /* background-color: beige; */
+}
+
+.count_pending_donate{
+    font-family: 'Mitr', sans-serif;
+    position: absolute;
+    width: 20%;
+    height: 100%;
+    top: 0;
+    right: 3%;
+    font-size: 1.7vw;
+    /* background-color: rgb(200, 127, 255); */
+    display: flex;
+    align-items: center;
+}
+
+.dm_ctn_content{
+    position: relative;
+    height: 150px;
+    width: 92%;
+    margin-top: 3vh;
+    /* padding: 1.2% 2% 1.5% 1.8%; */
+    left: 4%;
+    background-color: rgba(219, 194, 235, 0.8);
+    font-size: 1.1vw;
+    border-radius: 0.6vw;
+    display: flex;
+    align-items: center;
+}
+
+.box_manage_donate_text {
+    position: relative;
+    width: 82%;
+    display: inline-block;
+    /* background-color: aqua; */
+    padding-left: 2%;
+}
+
+.btn_donate_approve {
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    background-color: rgb(30, 177, 128);
+    transition: 0.15s ease-in-out;
+    border: none;
+    color: #fff;
+    font-size: 1.1vw;
+    border-radius: 0.4vw;
+    right: 15%;
+    bottom: 2%;
+}
+
+.btn_donate_approve:hover {
+    background-color: rgb(1, 139, 93);
+}
+
+.btn_donate_deny {
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    background-color: rgb(218, 76, 125);
+    transition: 0.15s ease-in-out;
+    border: none;
+    color: #fff;
+    font-size: 1.1vw;
+    border-radius: 0.4vw;
+    right: 2%;
+    bottom: 2%;
+}
+
+.btn_donate_deny:hover {
+    background-color: rgb(188, 21, 79);
+}

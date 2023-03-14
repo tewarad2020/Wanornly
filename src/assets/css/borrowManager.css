@@ -87,11 +87,10 @@
 }
 
 .count_pending_return  {
-    height: 300vh;
     font-family: 'Mitr', sans-serif;
     position: absolute;
     width: 20%;
-    height: 10vh;
+    height: 100%;
     top: 0;
     right: 3%;
     font-size: 1.7vw;

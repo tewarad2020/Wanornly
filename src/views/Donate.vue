@@ -1,8 +1,4 @@
 <template>
-  <div>
-  <br>
-  <br>
-  <br>
   <div  id="donatePage">
     <div class="title_donate">Donate Book</div>
     <!-- case: user has no any pending request -->
@@ -58,24 +54,26 @@
     </div>
 
     <!--case: user already has pending request  -->
-    <div v-show="isReqSent">
-        <strong>Wait for your current request to be checked</strong>
-        <div v-if="currentReq.image != ''">
+    <div v-show="isReqSent" class="ctn_Successful">
+        <strong>Please, Wait for your current request to be checked.</strong>
+        <div v-if="currentReq.image != ''" class="box_image_Successful">
           <img :src="currentReq.image" alt="">
         </div>
-        <div>username: {{currentReq.username}}</div>
-        <div>E-Book Name: {{currentReq.name}}</div>
-        <div>category: {{currentReq.category}}</div>
-        <div>author: {{currentReq.author}}</div>
-        <div>publisher: {{currentReq.publisher}}</div>
-        <div>book_description: {{currentReq.book_description}}</div>
-        <!-- <div>img URL: {{currentReq.image}}</div> -->
-        <div>file name: {{currentReq.realFileName}}</div>
-        <div>time sent: {{new Date(currentReq.time_sent).toString()}}</div>
+        <div class="ctn_content_donate">
+          <div>username  | {{currentReq.username}}</div>
+          <div>E-Book Name | {{currentReq.name}}</div>
+          <div>category | {{currentReq.category}}</div>
+          <div>author | {{currentReq.author}}</div>
+          <div>publisher | {{currentReq.publisher}}</div>
+          <div>book_description | {{currentReq.book_description}}</div>
+          <!-- <div>img URL: {{currentReq.image}}</div> -->
+          <div>file name | {{currentReq.realFileName}}</div>
+          <div>time sent | {{ gettime(currentReq.time_sent) }} : {{ new Date(currentReq.time_sent).toLocaleTimeString('en-US', {
+          hour: 'numeric', minute: 'numeric', hour12: true }).toString() }}</div>
+        </div>  
     </div>
 
   </div>
-</div>
 </template>
 
 <script>
@@ -112,6 +110,10 @@ export default {
     }
   },
   methods: {
+    gettime(itemTime) {
+      let str = new Date(itemTime).toString().split(' ')
+      return str[0] + ', ' + str[1] + ' ' + str[2] + ' ' + str[3]
+    },
     onChangeFileUpload(){
         this.file = this.$refs.file.files[0]
     },
@@ -222,6 +224,20 @@ export default {
   },
   mounted() {
     this.CheckIfReqWasSent()
+    
+    setTimeout(() => {
+        let box_image_Successful = document.getElementsByClassName('box_image_Successful')[0]
+        if (box_image_Successful)
+          box_image_Successful.style.height = `${box_image_Successful.clientWidth}px`
+    }, 100)
+  },
+  watch: {
+    isReqSent() {
+      setTimeout(() => {
+        let box_image_Successful = document.getElementsByClassName('box_image_Successful')[0]
+        box_image_Successful.style.height = `${box_image_Successful.clientWidth}px`
+      }, 100)
+    }
   }
   
 }

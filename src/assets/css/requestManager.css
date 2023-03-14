@@ -37,7 +37,7 @@
     /* background-color: red; */
     display: flex;
     align-items: center;
-    margin-top: 1%;
+    margin-top: 0.6%;
 }
 
 .input_dayLimit {
@@ -153,11 +153,10 @@
 }
 
 .count_pending_request {
-    height: 300vh;
     font-family: 'Mitr', sans-serif;
     position: absolute;
     width: 20%;
-    height: 10vh;
+    height: 100%;
     top: 0;
     right: 3%;
     font-size: 1.7vw;
@@ -180,7 +179,7 @@
     height: 100%;
 }
 
-.ctn_content {
+.ctn_content_request {
     position: relative;
     width: 88%;
     display: inline-block;

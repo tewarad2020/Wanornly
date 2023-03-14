@@ -3,17 +3,20 @@
         <div class="title_request">
             <h1>Request Management</h1>
             <Icon id="request_Icon_main" icon="pajamas:requirements" />
+            <div v-show="currentPendingFiltered?.length > 0" class="count_pending_request"> Remaining : {{ currentPendingFiltered?.length }} books</div>
         </div>    
-        <div class="count_pending_request"> Remaining : {{ currentPendingFiltered?.length }} books</div>
+        
         <div class="rm_ctn_content" v-for="(item,ind) in currentPendingFiltered" :key="ind">
             <div class="ctn_image_book">
                 <img :src="item.image" alt="">
             </div>
-            <div class="ctn_content">
+            <div class="ctn_content_request">
                 <p>ISBN | {{ item.ISBN }}</p>
                 <p>Book name | {{ item.name }}</p>
                 <p>Usernam | {{ item.user_id }}</p>
                 <p>Time | {{ item.time_resolved.split('T')[0] }} : {{ item.time_resolved.split('T')[1].split('.')[0] }}</p>
+                <p>Time | {{ gettime(item.time_resolved) }} : {{ new Date(item.time_resolved).toLocaleTimeString('en-US', {
+                    hour: 'numeric', minute: 'numeric', hour12: true }).toString() }}</p>
                 <p>{{ item.time_return_limit }}</p>
                 <div class="ctn_limit">
                     Day borrow limit
@@ -46,6 +49,10 @@ export default {
         }
     },
     methods:{
+        gettime(itemTime) {
+            let str = new Date(itemTime).toString().split(' ')
+            return str[0] + ', ' + str[1] + ' ' + str[2] + ' ' + str[3]
+        },
         async ApproveCheck(user_id,ISBN, ind){
             //check day limit
             let input_dayLimit = document.querySelectorAll('.input_dayLimit')
