@@ -4,6 +4,7 @@
       <img :src="path.logo"  alt="">
       <span id="logo">wanornly</span>
     </div>
+    <span class="searchbar" v-show="checkShow()"><Searchbar/></span>
     <div id="manuAll">
       <span @click="goto('/')" class="menu">
        <div class="home_menu_img"><img :src="path.homeIcon" alt=""></div>
@@ -21,7 +22,7 @@
         <div class="login_menu_img"><img :src="path.loginIcon" alt=""></div>
         <div class="login_menu_text">Log in</div>
       </span>
-      <span v-show="isLogin()">
+      <span v-show="isLogin()" class="box_image">
         <div class="ctn_user_image_nev" @click="showOptions()">
           <img :src="variable.profile_Img" alt="">
         </div>
@@ -49,7 +50,6 @@
         </div>
       </span>
     </div>
-    <span class="searchbar"><Searchbar/></span>
   </div>
 </template>
 
@@ -250,6 +250,14 @@ export default {
             this.variable.profile_Name = name_profile
           }
       },
+      checkShow() {
+        console.log('rount: ', this.$route.fullPath)
+        if (this.$route.fullPath == '/offlineBorrow') {
+          return false
+        }else {
+          return true
+        }
+      }
     },
 
     mounted() {
@@ -267,6 +275,16 @@ export default {
       this.variable.ctn_optionbar = ctn_optionbar
       this.getProfileImage_nav()
       this.getProfilename_nav()
+
+      let navbar_ctn = document.getElementsByClassName('navbar_ctn')[0]
+      navbar_ctn.style.height = `${navbar_ctn.clientWidth * 0.05}px`
+
+      let ctn_user_image_nev = document.getElementsByClassName('ctn_user_image_nev')[0]
+      ctn_user_image_nev.style.width = `${navbar_ctn.clientWidth * 0.026}px`
+      ctn_user_image_nev.style.height = `${navbar_ctn.clientWidth * 0.026}px`
+
+      let logo_ctn = document.getElementsByClassName('logo_ctn')[0]
+      logo_ctn.firstChild.style.height = `${logo_ctn.firstChild.clientWidth * 0.7}px`
       
       setTimeout(() => {
         optionbar[0].style.display = 'block'
@@ -286,6 +304,12 @@ export default {
     // console.log('functions')
     // console.log(this.functions.handleSignIn)
     },
+
+    watch: {
+      $route() {
+        this.checkShow()
+      }
+    }
 
 }
 </script>

@@ -52,6 +52,7 @@ module.exports = app => {
     app
         .route('/user')
         .put(usersBuilder.add_new_user)
+        .get(usersBuilder.get_Alluser)
     
     app 
         .route('/upload/:userID')

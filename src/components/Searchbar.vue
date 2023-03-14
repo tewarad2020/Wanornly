@@ -38,39 +38,6 @@ export default {
         searchbar: null,
         searchMode: "forOnline", //forOnline=>addToCart  forOffline=>addToOfflineCart
       },
-      // reqCart: {
-      //   user_id: "",
-      //   ISBN: 0,
-      //   time_resolved: null,
-      //   status_request: "inCart",
-      //   time_return_limit: null,
-      // },
-      // BookInfo:{
-      //     ISBN:0,
-      //     name:"",
-      //     author:"",
-      //     category:"",
-      //     book_description:"",
-      //     image:"",
-      //     publisher:"",
-      //     amount:0,
-      //     borrow_count:0
-      //     },
-      ebook:{
-        // username: //user_id
-        // ISBN: 
-        // name:
-        // category: 
-        // book_description:
-        // author:
-        // publisher: 
-        // image:
-        // status:
-        // realFileName:
-        // filename:
-        // time_sent:
-        // time_resolved:  //time when donate request was approved
-      }
     };
   },
 
@@ -296,5 +263,5 @@ export default {
 </script>
 
 <style>
-@import "../assets/css/searchbar.css";
+  @import "../assets/css/searchbar.css";
 </style>

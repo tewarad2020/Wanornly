@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 const users = mongoose.model('users'); 
 
+exports.get_Alluser = (req, res) => {
+    users.find({}, (err, user) =>  {
+        // console.log(user)
+        if (err) res.send(err);
+            res.json(user);
+    }) 
+}
+
 exports.get_user = (req, res) => {
     users.find({id:req.params.id}, (err, user)=> {
         if (err) res.send(err);

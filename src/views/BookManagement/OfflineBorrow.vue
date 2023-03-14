@@ -1,32 +1,43 @@
 <template>
   <div class="ctn_ob_page">
     <h1>Offline Borrow</h1>
-    <div>
-      <form @submit.prevent="CheckoutBorrowOffline">
-        <div>
-          <label>customer userID (gmail)</label>
-          <input type="text" v-model="borrowInfo.user_id" />
-        </div>
-        <div>
-          <label>day borrow</label>
-          <input type="number" v-model="dayLimit" />
-        </div>
-        <div @click="CheckoutBorrowOffline()">submit</div>
-      </form>
-    </div>
-    
     <div class="searchbar_ctn">
-      <Searchbar
+      <Searchbar class="searchbar_box"
         :searchModeProp="searchModeProp"
         @selectedBookISBN="AddToOfflineCart"
       />
     </div>
 
-    <div class="ob_ctn" v-for="(item,ind) in offlineCartBooks" :key="ind">
-            <p>{{ item.ISBN }}</p>
-            <p>{{ item.name }}</p>
-            <button @click="removeFromOfflineCart(item.ISBN)">delete</button>
+    <div  class="ctn_data_text">
+      <form @submit.prevent="CheckoutBorrowOffline">
+        <div class="box_customer">
+          <label>Customer userID (G-mail)</label>
+          <div class="ctn_SWO">
+            <input type="text" v-model="borrowInfo.user_id" list="Username" placeholder="gmail">
+              <datalist id="Username"></datalist>
+          </div>
         </div>
+
+        <div class="box_day">
+          <label>Day borrow</label>
+          <input type="number" v-model="dayLimit" />
+        </div>
+
+        <div class="box_submit" @click="CheckoutBorrowOffline()">submit</div>
+      </form>
+    </div>
+
+    <div class="ob_ctn" v-for="(item,ind) in offlineCartBooks" :key="ind">
+        <div class="ob_book_img">
+          <img class="ob_book_img_item" :src="item.image" alt="">
+        </div>
+        <div class="ob_book_text">
+          <p>ISBN | {{ item.ISBN }}</p>
+          <p>Book name | {{ item.name }}</p>
+          <p>Author | {{ item.author }}</p>
+        </div>  
+        <div class="btn_delete_ob" @click="removeFromOfflineCart(item.ISBN)">X</div>
+    </div>
 
    
   </div>
@@ -36,6 +47,7 @@
 import axios from "axios";
 import { allCartHandler } from "@/mixins/MixinFunction";
 import Searchbar from "../../components/Searchbar.vue";
+
 export default {
   name: "offlineBorrow",
   components: {
@@ -45,7 +57,7 @@ export default {
   data() {
     return {
       searchModeProp: "forOffline",
-
+      allUser: {},
       borrowInfo: {
         user_id: "",
         offlineCartISBN: [],
@@ -81,12 +93,12 @@ export default {
         // if currently borrow
         alert("already borrow");
         return;
-      }
-      if (this.borrowInfo.offlineCartISBN.includes(ISBN)) {
+      }else if (this.borrowInfo.offlineCartISBN.includes(ISBN)) {
         alert("already in offline cart");
         return;
       }
       this.borrowInfo.offlineCartISBN.push(ISBN);
+      alert("Successful selection of books");
       console.log("book in offlineCart", this.borrowInfo.offlineCartISBN);
     },
     async CheckoutBorrowOffline() {
@@ -164,27 +176,60 @@ export default {
     await fetch(`http://localhost:3000/user/${this.borrowInfo.user_id}`)
       .then((res) => res.json())
       .then((data) => {
-        if (data.length === 0) {
-          //dont have this user in database
-          console.log("not in user database");
-          this.borrowInfo.isValidID = false;
-          
-        } else {
+        // console.log('data: ', data === false)
+        if (Array.isArray(data)) {
           console.log("user already in database");
           this.borrowInfo.isValidID = true;
-          
+        } else {
+          console.log("not in user database");
+          this.borrowInfo.isValidID = false;
         }
       });
+    },
+    resetCart(){
+      this.borrowInfo = {
+        user_id: "",
+          offlineCartISBN: [],
+          isValidID: false,
+      }
+      this.dayLimit = 0
+    },
+    async getUser() {
+      await axios.get(`http://localhost:3000/user`)
+      .then(res=>res.data)
+      .then(data=>{
+        console.log("fetch User:",data)
+        if (data.length > 0){
+          this.allUser = data
+          let Username = document.getElementById('Username')
+          let options = '';
+          this.allUser.forEach(element => {
+              options += '<option value="' + element.id + '" />'
+          })
+          Username.innerHTML = options
+        }
+      })
+    },
   },
-  resetCart(){
-    this.borrowInfo = {
-      user_id: "",
-        offlineCartISBN: [],
-        isValidID: false,
+  mounted() {
+    let innit = () => {
+        this.getUser()
     }
-    this.dayLimit = 0
+
+    innit()
   },
-  },
+  watch: {
+    offlineCartBooks() {
+      setTimeout(() => {
+        let ob_book_img = document.querySelectorAll('.ob_book_img')
+        let ob_book_text = document.querySelectorAll('.ob_book_text')
+        for (let i=0;i<ob_book_img.length;i++) {
+          ob_book_img[i].style.height = `${ob_book_img[0].clientWidth * 1.2}px`
+          ob_book_text[i].style.height = `${ob_book_img[0].clientWidth * 1.2}px`
+        }
+      }, 100)
+    }
+  }
 
 };
 </script>
