@@ -38,8 +38,8 @@
           <div class="Category_label"> 
             <label >File</label>
             <input type="text" disabled v-model="ebookInfo.realFileName"/>
-            <label >Add new file</label>
-            <input type="file" name="file" id="file" ref="file" accept="application/pdf" @change="onChangeFileUpload()">
+            <!-- <label >Add new file</label>
+            <input type="file" name="file" id="file" ref="file" accept="application/pdf" @change="onChangeFileUpload()"> -->
           </div>
 
           <div>
@@ -98,25 +98,25 @@ export default {
           .catch(error => console.log(error))
           
       },
-    async onChangeFileUpload(){
-      this.file = this.$refs.file.files[0]
+    // async onChangeFileUpload(){
+    //   this.file = this.$refs.file.files[0]
 
-      this.newRealFileName = this.file.name
-      // let username = JSON.parse(localStorage.getItem('user_info'))?.username
+    //   this.newRealFileName = this.file.name
+    //   // let username = JSON.parse(localStorage.getItem('user_info'))?.username
 
-      await this.getAllRequest()
+    //   await this.getAllRequest()
 
-      if (this.allRequest != null){
+    //   if (this.allRequest != null){
 
-        console.log(this.newRealFileName)
-        if (this.allRequest.filter(r=>r.realFileName == this.newRealFileName).length != 0) {
-          alert(`This file is already existed in the database or may be denied before!`)
-          document.getElementById("file").value = "";
-        }
+    //     console.log(this.newRealFileName)
+    //     if (this.allRequest.filter(r=>r.realFileName == this.newRealFileName).length != 0) {
+    //       alert(`This file is already existed in the database or may be denied before!`)
+    //       document.getElementById("file").value = "";
+    //     }
 
-      }
+    //   }
 
-    },
+    // },
     async getAllRequest() {
         // let username = JSON.parse(localStorage.getItem('user_info'))?.username
         // await axios.get(`http://localhost:3000/donate/${username}`)
