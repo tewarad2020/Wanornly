@@ -73,7 +73,7 @@ export default {
         publisher:"",
         status: "",
         realFileName:"",
-        fileName:"",
+        filename:"",
         time_sent:"",
         time_resolved:""
       },
@@ -86,14 +86,14 @@ export default {
   },
   mounted(){
     this.oldRealFileName = this.eBookProp.realFileName
-    this.oldName = this.eBookProp.name
+    this.oldFileName = this.eBookProp.filename
     this.ebookInfo = this.eBookProp
   },
   methods: {
     async updateEBook() {
       // let [update_req] = this.allRequest.filter(r=>r.fileName==fileName && r.status=='pending')
-
-      await  axios.put(`http://localhost:3000/donate/${this.oldName}`, this.ebookInfo)
+      console.log(this.eBookProp)
+      await  axios.put(`http://localhost:3000/donate/${this.oldFileName}`, this.ebookInfo)
           .then(response => console.log(response))
           .catch(error => console.log(error))
           
