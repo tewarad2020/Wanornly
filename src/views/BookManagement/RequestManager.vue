@@ -1,7 +1,7 @@
 <template>
     <div class="rm_page_ctn">
         <div class="title_request">
-            <h1>Request Management</h1>
+            <h1>Request Management </h1>
             <Icon id="request_Icon_main" icon="pajamas:requirements" />
             <div v-show="currentPendingFiltered?.length > 0" class="count_pending_request"> Remaining : {{ currentPendingFiltered?.length }} books</div>
         </div>    
@@ -13,7 +13,7 @@
             <div class="ctn_content_request">
                 <p>ISBN | {{ item.ISBN }}</p>
                 <p>Book name | {{ item.name }}</p>
-                <p>Usernam | {{ item.user_id }}</p>
+                <p>Username | {{ item.user_id }}</p>
                 <p>Time | {{ item.time_resolved.split('T')[0] }} : {{ item.time_resolved.split('T')[1].split('.')[0] }}</p>
                 <p>Time | {{ gettime(item.time_resolved) }} : {{ new Date(item.time_resolved).toLocaleTimeString('en-US', {
                     hour: 'numeric', minute: 'numeric', hour12: true }).toString() }}</p>
