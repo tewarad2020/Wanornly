@@ -198,7 +198,7 @@ export default {
       await axios.get(`http://localhost:3000/user`)
       .then(res=>res.data)
       .then(data=>{
-        console.log("fetch User:",data)
+        // console.log("fetch User:",data)
         if (data.length > 0){
           this.allUser = data
           let Username = document.getElementById('Username')

@@ -23,7 +23,7 @@
     /* padding: 1.2% 2% 1.5% 1.8%; */
     left: 4%;
     /* background-color: rgba(219, 194, 235, 0.8); */
-    background-color: rgba(157, 82, 7, 0.4);
+    background-color: rgba(60, 211, 173, .8);
     font-size: 1.1vw;
     border-radius: 0.6vw;
     display: flex;
@@ -112,4 +112,288 @@
     width: 100%;
     height: 100%;
     /* background-color: aquamarine; */
+}
+
+.color_status {
+    position: relative;
+    width: 50%;
+    height: 3.5vh;
+    /* background-color: hotpink; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1%;
+    left: 5%;
+}
+
+.green_box {
+    position: relative;
+    width: 33%;
+    height: 100%;
+    display: inline-flex;
+    /* background-color: green; */
+}
+
+.green_box p {
+    position: relative;
+    width: 90%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    padding-left: 3%;
+    /* background-color: aqua; */
+    display: inline-flex;
+    align-items: center;
+    font-size: 1vw;
+}
+
+.green_circle {
+    position: relative;
+    width: 10%;
+    height: 100%;
+    /* top: 0; */
+    border-radius: 50%;
+    /* left: 0; */
+    background-color: rgba(60, 211, 173, .8);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.yellow_box {
+    position: relative;
+    width: 33%;
+    height: 100%;
+    display: inline-flex;
+    /* background-color: yellow; */
+}
+
+.yellow_box p {
+    position: relative;
+    width: 90%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    padding-left: 3%;
+    /* background-color: aqua; */
+    display: inline-flex;
+    align-items: center;
+    font-size: 1vw;
+}
+
+.yellow_circle {
+    position: relative;
+    width: 10%;
+    height: 100%;
+    /* top: 0; */
+    border-radius: 50%;
+    /* left: 0; */
+    background-color: rgba(240, 152, 25, .8);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.red_box {
+    position: relative;
+    width: 33%;
+    height: 100%;
+    display: inline-flex;
+    /* background-color: red; */
+}
+
+.red_box p {
+    position: relative;
+    width: 90%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    padding-left: 3%;
+    /* background-color: aqua; */
+    display: inline-flex;
+    align-items: center;
+    font-size: 1vw;
+}
+
+.red_circle {
+    position: relative;
+    width: 10%;
+    height: 100%;
+    /* top: 0; */
+    border-radius: 50%;
+    /* left: 0; */
+    background-color: rgba(247, 102, 102, .9);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#filter_Icon_return:hover  {
+    color: rgb(245, 118, 149);
+}
+
+.Filterbar_active {
+    animation: showFilterbarActive .25s forwards ease-in-out;
+}
+
+@keyframes showFilterbarActive {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+  
+.Filterbar_passive {
+    animation: showFilterbarPassive .15s forwards ease-in-out;
+}
+
+@keyframes showFilterbarPassive {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+.filter_return {
+    position: fixed;
+    width: 20%;
+    height: 10vh;
+    /* background-color: aquamarine; */
+    z-index: 1;
+    right: 2vw;
+    top: 10vh;
+}
+
+#filter_Icon_return {
+    position: absolute;
+    right: 0;
+    width: 20%;
+    /* height: 100%; */
+    color: rgb(255, 175, 195);
+    transition: 0.15s ease-in-out;
+    /* background-color: rebeccapurple; */
+    /* font-size: 0.2vw; */
+    z-index: 3;
+}
+
+.menu_filter {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(19, 100, 176, 0.8);
+    z-index: 2;
+    top: 0.6vw;
+    right: 1vw;
+    border-radius: 1vw;
+    color: #fff;
+}
+
+.option_filter_username {
+    position: relative;
+    width: 100%;
+    margin-bottom: 0.9vw;
+    margin-top: 0.8vw;
+    /* height: 33%; */
+    /* background-color: rgb(236, 127, 255); */
+}
+
+.option_filter_username p {
+    position: relative;
+    width: 35%;
+    font-size: 1vw;
+    /* background-color: aqua; */
+    display: inline-block;
+}
+
+.option_filter_username input {
+    position: absolute;
+    right: 0;
+    width: 65%;
+    font-size: 0.9vw;
+    height: 90%;
+    top: 5%;
+}
+
+.option_filter_username input[type=text] {
+    border: none;
+    border-radius: .2vw;
+    padding-left: 0.35vw;
+}
+
+.option_filter_username input[type=text]:focus {
+    outline: none;
+}
+
+.option_filter_bookname {
+    position: relative;
+    width: 100%;
+    margin-bottom: 0.9vw;
+    /* height: 100%; */
+}
+
+.option_filter_bookname p {
+    position: relative;
+    display: inline-block;
+    width: 35%;
+    font-size: 1vw;
+}
+
+.option_filter_bookname input {
+    position: absolute;
+    right: 0;
+    width: 65%;
+    font-size: 0.9vw;
+    height: 90%;
+    top: 5%;
+}
+
+.option_filter_bookname input[type=text] {
+    border: none;
+    border-radius: .2vw;
+    padding-left: 0.35vw;
+}
+
+.option_filter_bookname input[type=text]:focus {
+    outline: none;
+}
+
+.option_filter_ISBN {
+    position: relative;
+    width: 100%;
+    margin-bottom: 0.9vw;
+    /* background-color: aquamarine; */
+}
+
+.option_filter_ISBN p {
+    position: relative;
+    display: inline-block;
+    width: 35%;
+    font-size: 1vw;
+}
+
+.option_filter_ISBN input {
+    position: absolute;
+    right: 0;
+    width: 65%;
+    font-size: 0.9vw;
+    height: 90%;
+    top: 5%;
+}
+
+.option_filter_ISBN input[type=text] {
+    border: none;
+    border-radius: .2vw;
+    padding-left: 0.35vw;
+}
+
+.option_filter_ISBN input[type=text]:focus {
+    outline: none;
 }

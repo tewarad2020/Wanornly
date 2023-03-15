@@ -30,7 +30,7 @@
 }
 
 .filter_listbook {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100%;
@@ -39,7 +39,7 @@
   background-image: linear-gradient(rgba(250, 236, 242, 0.8), rgba(213, 180, 228, 0.8), rgba(137, 79, 162, 0.8));
   padding: 20px;
   border-radius: 0px;
-  z-index: 1;
+  z-index: 2;
 }
 
 #list_books {
@@ -277,3 +277,11 @@
 #ctn_list_books {
   z-index: 10;
 } */
+
+.nevbar_box_index_inner {
+  z-index: 3;
+}
+
+.ctn_list_books {
+  position: fixed;
+}

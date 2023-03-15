@@ -1,5 +1,5 @@
 <template>
-  <div class="ctn_cartPage">  
+  <div class="ctn_cartPage_cart">  
     <div class="cartPage">
       <!-- <div  class="itemCtn" v-for="(item,index) in currentInCartFiltered" :key="index"> -->
       <div v-if="isloaded">
@@ -160,16 +160,24 @@ export default {
           }, 250)
         }
       },
-      async checkDeny(item, index) {
-        let element = await this.combined_list.find(e => (e.status_request === 'deny' && item.ISBN === e.ISBN))
-        if (element) {
+      checkDeny(item, index) {
+        let element = []
+        for (let i=0;i<this.combined_list.length;i++) {
+          if (this.combined_list[i].status_request === 'deny' && item.ISBN === this.combined_list[i].ISBN){
+            element.push(this.combined_list[i])
+          }
+        }
+        
+        if (element.length > 0) {
           let cart_product_info = document.querySelectorAll('.cart_product_info')
           let base_cart = document.querySelectorAll('.base_cart')
           cart_product_info[index].classList.add('cart_product_info_deny')
           base_cart[index].classList.add('base_cart_deny')
           return true
         }
-        else  return false
+        else  {
+          return false
+        }
       }
     },
     mounted() {
@@ -180,7 +188,7 @@ export default {
       setTimeout(() => {
         this.combined_list = this.currentHistoryFiltered
         console.log('asdasd: ', this.combined_list)
-      }, 100)
+      }, 290)
 
       setTimeout(() => {
         initial()

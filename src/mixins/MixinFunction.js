@@ -160,7 +160,7 @@ const allCartHandler = {
   methods:{
     updateCurrentPageInfo(){
       let combined = []
-      if(this.currentApproveFiltered.length!=0 && this.currentReturnFiltered.length!=0)
+      if(this.currentApproveFiltered?.length!=0 && this.currentReturnFiltered?.length!=0)
         combined = [].concat(this.currentApproveFiltered,this.currentReturnFiltered)   //just for test, actually is pending and borrowing not inCart
 
       this.currentPageInfoFiltered =  combined

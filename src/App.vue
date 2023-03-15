@@ -2,9 +2,6 @@
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
   <div>
-    <span ref="nevbarRef" class="nevbar_box_index">
-      <Navbar :Vue3GoogleOauth='Vue3GoogleOauth' :functions='{ handleSignOut: handleSignOut }' />
-    </span>
 
     <div id="ctn_list_books" class="model" v-show="$store.getters.Searching">
       <div class="filter_listbook"></div>
@@ -12,14 +9,12 @@
       <div class="exit_search" @click="close_searchbar()">X</div>
     </div>
 
+    <span ref="nevbarRef" class="nevbar_box_index">
+      <Navbar class="nevbar_box_index_inner" :Vue3GoogleOauth='Vue3GoogleOauth' :functions='{ handleSignOut: handleSignOut }' />
+    </span>
+
     <router-view />
 
-    <!-- <router-link to='/'>Home</router-link> -->
-    <!-- <Book v-show="false" :data='state' />
-    <div @click="goto('/book');">Book</div>
-    <a href="./Book/1" target="_blank">Book (target_blank)</a>
-   
-    <div @click="goto('/addBook')">addBook</div> -->
   </div>
     
 </template>

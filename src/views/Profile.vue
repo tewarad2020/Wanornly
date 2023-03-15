@@ -35,31 +35,38 @@
     <div class="menu_profile_1">
       <div class="btn_addbook" v-if="variable.user_info?.role === 'admin'? true : false" @click="showAddBook">
         <Icon id="add_book_Icon" icon="material-symbols:add-box" />
-        <div class="addbook_text">Add book</div>
+        <span class="addbook_text">Add book</span>
+        <span class="addbook_explain">use for add book to database.</span>
       </div>
       <div class="btn_request" @click="() => $router.push('/requestManager')" v-if="variable.user_info?.role === 'admin'? true : false">
         <Icon id="request_Icon" icon="pajamas:requirements" />
-        <div class="request_text" >Request Management</div>
+        <span class="request_text" >Request Management</span>
+        <span class="request_explain">use for add book to database.</span>
       </div>
       <div class="btn_return" @click="() => $router.push('/BorrowManager')" v-if="variable.user_info?.role === 'admin'? true : false">
         <Icon id="return_Icon" icon="material-symbols:assignment-return-outline-rounded" />
-        <div class="return_text" >Return Management</div>
+        <span class="return_text" >Return Management</span>
+        <span class="return_explain">use for add book to database.</span>
       </div>
       <div class="btn_donation" @click="() => $router.push('/donate')" >
         <Icon id="donate_Icon" icon="mdi:donate" />         
-        <div class="donation_text">Donation</div>
+        <span class="donation_text">Donation</span>
+        <span class="donation_explain">use for add book to database.</span>
       </div>
-    </div>
-    <div class="menu_profile_2">
       <div class="btn_OfflineBorrow" @click="() => $router.push('/offlineBorrow')" v-if="variable.user_info?.role === 'admin'? true : false" >
-        <Icon id="donation_Icon" icon="ic:outline-menu-book" />          
-        <div class="OfflineBorrow_text">OfflineBorrow</div>
+        <Icon id="OfflineBorrow_Icon" icon="ic:outline-menu-book" />          
+        <span class="OfflineBorrow_text">OfflineBorrow</span>
+        <span class="OfflineBorrow_explain">use for add book to database.</span>
       </div>
       <div class="btn_Donate_Manager" @click="() => $router.push('/DonateManager')" v-if="variable.user_info?.role === 'admin'? true : false" >
-        <Icon id="request_Icon" icon="pajamas:requirements" />        
-        <div class="Donate_Manager_text">Donate Manager</div>
+        <Icon id="request_Icon2" icon="pajamas:requirements" />        
+        <span class="Donate_Manager_text">Donate Manager</span>
+        <span class="Donate_Manager_explain">use for add book to database.</span>
       </div>
     </div>
+    <!-- <div class="menu_profile_2">
+      
+    </div> -->
     <div v-if="isShowAdd" class="ctn_addbookpage add_comp_active">
       <AddBook></AddBook>
       <div class="btn_exit_addbook" @click="closeAddBook">X</div>
@@ -283,6 +290,23 @@ export default {
         edit_Icon_ctn.style.height = `${edit_Icon_ctn.clientWidth}px`
         let edit_Icon_ctn_name = document.getElementsByClassName('edit_Icon_ctn_name')[0]
         edit_Icon_ctn_name.style.height = `${edit_Icon_ctn_name.clientWidth}px`
+
+        setTimeout(() => {
+          let menu_profile_1 = document.getElementsByClassName('menu_profile_1')[0]
+          menu_profile_1.style.height = `${menu_profile_1.clientWidth * .3}px`
+          let add_book_Icon = document.getElementById('add_book_Icon')
+          add_book_Icon.style.width = `${add_book_Icon.clientHeight}px`
+          let request_Icon = document.getElementById('request_Icon')
+          request_Icon.style.width = `${request_Icon.clientHeight}px`
+          let return_Icon = document.getElementById('return_Icon')
+          return_Icon.style.width = `${return_Icon.clientHeight}px`
+          let donate_Icon = document.getElementById('donate_Icon')
+          donate_Icon.style.width = `${donate_Icon.clientHeight}px`
+          let OfflineBorrow_Icon = document.getElementById('OfflineBorrow_Icon')
+          OfflineBorrow_Icon.style.width = `${OfflineBorrow_Icon.clientHeight}px`
+          let request_Icon2 = document.getElementById('request_Icon2')
+          request_Icon2.style.width = `${request_Icon2.clientHeight}px`
+        }, 100);
       }
 
       initail()
