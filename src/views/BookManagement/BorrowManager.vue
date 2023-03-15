@@ -1,7 +1,7 @@
 <template>
    <div class="ctn_bm_page">
         <div class="title_borrow">
-            <h1>Borrow Management</h1>
+            <h1>Return Management</h1>
             <Icon id="return_Icon_main" icon="material-symbols:assignment-return-outline-rounded" />
             <div v-show="currentApproveFiltered?.length > 0" class="count_pending_return"> Remaining : {{ currentApproveFiltered?.length }} books</div>
         </div>  
@@ -13,7 +13,7 @@
             <div class="ctn_content_return">
                 <p>ISBN | {{ item.ISBN }}</p>
                 <p>Book name | {{ item.name }}</p>
-                <p>Userame | {{ item.user_id }}</p>
+                <p>Username | {{ item.user_id }}</p>
                 <!-- <p>{{ item.status_request }}</p> -->
                 <p>Time | {{ gettime(item) }} : {{ new Date(item.time_return_limit).toLocaleTimeString('en-US', {
                     hour: 'numeric', minute: 'numeric', hour12: true }).toString() }}</p>
