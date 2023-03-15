@@ -7,7 +7,7 @@
         </div> 
         
         <div v-show="!isAnyReqPending" class="no_item_text">
-        <strong>There is no any request to be resolved at this time :)</strong>
+            <strong>There is no any request to be resolved at this time :)</strong>
         </div>
 
         <div class="dm_ctn_content" v-show="isAnyReqPending" v-for="(item,ind) in allRequest" :key="ind"> 

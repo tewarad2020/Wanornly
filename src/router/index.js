@@ -79,13 +79,32 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    // let a = false
-    
-    if (localStorage.getItem('status_login')) {
+    if (localStorage.getItem('status_login') && JSON.parse(localStorage.getItem('user_info')).role === 'admin') {
+        console.log('adnim')
         next()
-        console.log('status_login : hi ')
-    }else {
-        next('/')
+    }else if (localStorage.getItem('status_login') && JSON.parse(localStorage.getItem('user_info')).role === 'customer'){
+        console.log('to: ', to)
+        console.log('customer')
+        if (to.fullPath === '/' 
+            || to.fullPath.includes('/book/') 
+            || to.fullPath.includes('/cart')
+            || to.fullPath.includes('/profile') 
+            || to.fullPath.includes('/donate') 
+            || to.fullPath.includes('/history')
+        ){
+            next()
+        }
+        else {
+            next('/')
+        }
+    }else if (localStorage.getItem('status_login') === null){
+        if (to.fullPath === '/' 
+            || to.fullPath.includes('/book/')
+        ){
+            next()
+        } else {
+            next('/')
+        }
     }
   })
 

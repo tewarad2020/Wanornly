@@ -35,7 +35,7 @@
           </div>
         </div>
       </div>
-      <div v-else>
+      <div v-else class="ctn_cart_empty">
         <strong>The cart is empty</strong>
       </div>  
 
@@ -58,9 +58,9 @@
     <div v-show="confirmDelete" class="confirm_delete Delete_comp_active">
       <div class="confirm_delete_img"><img :src="path.warning" alt=""></div>
       <div class="confirm_delete_text">Are you sure, you really want to remove order {{ index_book }}?</div>
-      <div @click="removeCart(selected_item.user_id,selected_item.ISBN); showConfirmDelete();" class="confirm_delete_ok">yes</div>
-      <div @click="showConfirmDelete" class="confirm_delete_no">cancel</div>
-      <div @click="showConfirmDelete" class="btn_exit_confirm_delete">X</div>
+      <div @click="removeCart(selected_item.user_id,selected_item.ISBN); showConfirmDelete(index_book, item);" class="confirm_delete_ok">yes</div>
+      <div @click="showConfirmDelete(index_book, item)" class="confirm_delete_no">cancel</div>
+      <div @click="showConfirmDelete(index_book, item)" class="btn_exit_confirm_delete">X</div>
     </div>
 
   </div>
@@ -105,23 +105,26 @@ export default {
     },
     methods:{
       async SendRequest(){
-      console.log("send req")
-
-      const newReq = this.cartData.filter(cd=>cd.status_request=='inCart')
-      .map(data=>{return{
-          ...data,
-          time_resolved:new Date(), //time check out
-          status_request:"pending"
-        }})
-        console.log(newReq)
-        
-        await newReq.map(req=>{
-          axios.put(`http://localhost:3000/carts/${req.user_id}-${req.ISBN}`,req)
-                      .then(()=>{console.log(`update status item :${req.ISBN} form cart `)})
-        })
-      
-      await this.fetchCart()
-      window.location.reload()
+       if (this.currentInCartFiltered.length > 0) {
+          console.log("send req")
+          const newReq = this.cartData.filter(cd=>cd.status_request=='inCart')
+          .map(data=>{return{
+              ...data,
+              time_resolved:new Date(), //time check out
+              status_request:"pending"
+            }})
+            console.log(newReq)
+            
+            await newReq.map(req=>{
+              axios.put(`http://localhost:3000/carts/${req.user_id}-${req.ISBN}`,req)
+                          .then(()=>{console.log(`update status item :${req.ISBN} form cart `)})
+            })
+          
+          await this.fetchCart()
+          window.location.reload()
+        }else {
+          alert('The cart is empty')
+        }
       },
       showConfirmDelete(index, item) {
         this.selected_item = item
@@ -157,8 +160,8 @@ export default {
           }, 250)
         }
       },
-      checkDeny(item, index) {
-        let element = this.combined_list.find(e => (e.status_request === 'deny' && item.ISBN === e.ISBN))
+      async checkDeny(item, index) {
+        let element = await this.combined_list.find(e => (e.status_request === 'deny' && item.ISBN === e.ISBN))
         if (element) {
           let cart_product_info = document.querySelectorAll('.cart_product_info')
           let base_cart = document.querySelectorAll('.base_cart')
@@ -200,7 +203,7 @@ export default {
           });
           // animation: slide 5s infinite linear;
         }
-      }, 100)
+      }, 300)
   }
 }
 </script>

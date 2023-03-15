@@ -266,3 +266,14 @@
     align-items: center;
 }
 
+.ctn_returned_empty {
+    position: relative;
+    width: 100%;
+    font-size: 1.6vw;
+}
+
+.ctn_inprogress_empty {
+    position: relative;
+    width: 100%;
+    font-size: 1.6vw;
+}

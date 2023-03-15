@@ -3,12 +3,14 @@
     <div id="cover_ctn">
       <!-- <img id="cover_img" :src="path.coverPath" alt=""> -->
     </div>
-
-    <div class="book_ctn">
+    <div v-show="!bookInfo.ISBN" class="ctn_notfound">
+      <p>error 404 | Not found.</p>
+    </div>
+    <div v-show="bookInfo.ISBN" class="book_ctn">
       <div class="ctn_book_img">
         <div class="circleBase"></div>
         <div class="book_img">
-          <img v-if="isFetched" :src="bookInfo.image" alt="">
+          <img v-if="isFetched" :src="bookInfo?.image" alt="">
         </div>
       </div>
       <div class="book_info_ctn">
@@ -136,7 +138,8 @@ export default {
       // find books with same author which to be reccommended
       let k = 0
       for (let i=0; i<n; i++) {
-        if (this.$store.getters.data[i].author === this.bookInfo.author && this.bookInfo !== this.$store.getters.data[i]) {
+        // if (this.$store.getters.data[i].author === this.bookInfo.author && this.bookInfo !== this.$store.getters.data[i]) {
+        if (this.convert_author_form(this.$store.getters.data[i].author) === this.convert_author_form(this.bookInfo.author) && this.bookInfo !== this.$store.getters.data[i]) {
           this.sameAuthor[k++] = this.$store.getters.data[i]
         }
       }
@@ -149,6 +152,11 @@ export default {
       let ctn_sameAuthor = document.getElementsByClassName('ctn_sameAuthor')[0]
       let ctn_sameAuthor_content = document.getElementsByClassName('ctn_sameAuthor_content')[0]
       setTimeout(() => {
+        circleBase[0].style.height = `${circleBase[0].clientWidth}px`
+        book_img[0].style.height = `${book_img[0].clientWidth * (1 + 1.5 / 3.5)}px`
+        let ctn_envet = document.getElementsByClassName('ctn_envet')
+        let btn_envet_addToCart = document.getElementsByClassName('btn_envet_addToCart')
+        ctn_envet[0].style.height = `${btn_envet_addToCart[0].clientWidth}px`
         let ctn_books_relate = document.querySelectorAll('.ctn_books_relate')
         this.count_bookRelate = ctn_books_relate.length
         if (this.count_bookRelate > 8) this.letMove('Right')
@@ -168,14 +176,6 @@ export default {
         })
       }, 100)
 
-      circleBase[0].style.height = `${circleBase[0].clientWidth}px`
-      book_img[0].style.height = `${book_img[0].clientWidth * (1 + 1.5 / 3.5)}px`
-
-      let ctn_envet = document.getElementsByClassName('ctn_envet')
-      let btn_envet_addToCart = document.getElementsByClassName('btn_envet_addToCart')
-
-      ctn_envet[0].style.height = `${btn_envet_addToCart[0].clientWidth}px`
-
       let heart_Icon = document.getElementById('heart_Icon')
       heart_Icon.addEventListener('mouseenter', () => {
         if (!this.islike) {
@@ -194,7 +194,7 @@ export default {
     setTimeout(() => {
       initial()
       console.log('info of book: ', this.bookInfo)
-    }, 200)
+    }, 100)
 
     if(localStorage.getItem("user_info")) {
       this.userID = JSON.parse(localStorage.getItem("user_info")).username
@@ -203,6 +203,10 @@ export default {
     }
   },
   methods:{
+    convert_author_form(authorName) {
+      if (authorName) return authorName.toLowerCase().replaceAll(" ", "");
+      return authorName
+    },
     EditHandle(){
       if (!this.isEdit) {
          setTimeout(() => {

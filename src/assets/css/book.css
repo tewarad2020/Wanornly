@@ -580,3 +580,11 @@
     color: rgb(242, 102, 137);
     /* color: rgb(67, 67, 67); */
 }
+
+.ctn_notfound {
+    position: absolute;
+    width: 100%;
+    font-size: 2vw;
+    top: 13vh;
+    left: 6%;
+}

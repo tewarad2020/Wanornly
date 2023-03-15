@@ -192,7 +192,7 @@ export default {
     let initial = () => {
       window.addEventListener("scroll", () => { this.setWindowScroll() })
       this.reference.navRef = this.$refs.nevbarRef.childNodes[0]
-      window.addEventListener('load', () => { this.checkLogin() })
+      // window.addEventListener('load', () => { this.checkLogin() })
       const searchbar = document.getElementById('list_books')
       this.variable.searchbar = searchbar
     }

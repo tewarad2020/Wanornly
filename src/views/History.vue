@@ -7,7 +7,10 @@
     <div class="Inprogress_title">
       <h2>In progress</h2>
     </div>
-    <div  class="itemCtn_progress" v-for="(item,index) in currentHistoryFiltered" :key="index">
+    <div v-show="currentHistoryFiltered?.length == 0" class="ctn_inprogress_empty">
+      <p>In progress is empty</p>
+    </div>
+    <div v-show="currentHistoryFiltered?.length > 0" class="itemCtn_progress" v-for="(item,index) in currentHistoryFiltered" :key="index">
       <div class="ctn_image_Inprogress">
           <img :src="item.image" alt="">
           <div class="ctn_timeOut_img" v-if="checkLimit(item) === 'timeOut'">
@@ -39,7 +42,10 @@
     <div class="Returned_title">
         <h2>Returned</h2>
     </div>
-    <div class="itemCtn_Returned" v-for="(item,index) in currentUserAllBookHistory" :key="index">
+    <div v-show="currentUserAllBookHistory?.length == 0" class="ctn_returned_empty">
+      <p>Returned is empty</p>
+    </div>
+    <div v-show="currentUserAllBookHistory?.length > 0" class="itemCtn_Returned" v-for="(item,index) in currentUserAllBookHistory" :key="index">
       <div class="ctn_image_Returned">
           <img :src="item.image" alt="">
       </div>
