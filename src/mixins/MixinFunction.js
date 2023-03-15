@@ -60,7 +60,10 @@ const personalHistoryHandler = {
         }
       },
       mounted(){
-        this.fetchHistory()
+        setTimeout(()=>{
+            this.fetchHistory()
+        },200)
+       
       },
       methods:{
         async AddToHistory(cartData){
@@ -115,13 +118,7 @@ const allCartHandler = {
   mixins:[bookHandler],
   data(){
       return{
-          allRequest:[{
-              user_id:"",
-              ISBN:0,
-              time_resolved:null,
-              status_request:"inCart",
-              time_return_limit:null
-      }],
+          allRequest:[],
           requestBody :{
               user_id:"",
               ISBN:0,
@@ -129,47 +126,45 @@ const allCartHandler = {
               status_request:"inCart",
               time_return_limit:null
       },
-      allRequestBook:null,
+      allRequestBook:[],
       dayLimit: 7,
+      currentPageInfoFiltered:[],
+      currentApproveFiltered:[],
+      currentPendingFiltered:[],
+
 
 
       }
   },
   mounted(){
-      this.fetchAllRequest()
+      //this.fetchAllRequest()
+      setTimeout(()=>{
+        this.fetchAllRequest()
+      },200)
   },
   computed:{
-    currentPageInfoFiltered:function(){
+    // currentPageInfoFiltered:function(){
+     
+    // } ,
+    //   currentPendingFiltered:function(){
+     
+    // } ,
+    // currentApproveFiltered:function(){
+
+    // } ,
+
+  },
+  methods:{
+    updateCurrentPageInfo(){
       let combined = []
-      if(this.currentApproveFiltered!=null && this.currentReturnFiltered!=null)
+      if(this.currentApproveFiltered.length!=0 && this.currentReturnFiltered.length!=0)
         combined = [].concat(this.currentApproveFiltered,this.currentReturnFiltered)   //just for test, actually is pending and borrowing not inCart
 
-      return combined
-    } ,
-      currentPendingFiltered:function(){
-      if(this.allRequestBook!=null && this.allRequest!=null)
+      this.currentPageInfoFiltered =  combined
+    },
+    updatePendingFiltered(){
+      if(this.allRequestBook.length!=0 )
       {
-          // const PendingPair = this.allRequest.filter(ele=>ele.status_request=="pending")
-          //                                 .map(b=>{return{user_id:b.user_id,ISBN:b.ISBN}})
-
-          // let pendingRequestBook =  this.allRequestBook.filter(b=>{
-          //    const findResult =  PendingPair.filter(pair=>pair.user_id==b.user_id && pair.ISBN==b.ISBN)
-          //     if(findResult.length!=0){ //found 
-          //         return true
-          //     }
-          //         return false
-          // })
-          
-          // pendingRequestBook = pendingRequestBook.sort((a,b)=>{
-          //     if(a.ISBN-b.ISBN!=0) return a.ISBN-b.ISBN
-          //     else{ //same isbn then compare date
-          //         if(new Date(a.time_resolved).getTime()<new Date(b.time_resolved).getTime()) return -1
-          //         else return 1
-          //     }
-          // })
-          // return pendingRequestBook
-         
-
           let pendingRequestBook =  this.allRequestBook.filter(ele=>ele.status_request=="pending")
           
           pendingRequestBook = pendingRequestBook.sort((a,b)=>{
@@ -179,13 +174,15 @@ const allCartHandler = {
                   else return 1
               }
           })
-          return pendingRequestBook
+          this.currentPendingFiltered =  pendingRequestBook
       }
-           
-      return null
-    } ,
-    currentApproveFiltered:function(){
-      if(this.allRequestBook!=null && this.allRequest!=null)
+        else{
+          this.currentPendingFiltered = []
+        }   
+       
+    },
+    updateApproveFiltered(){
+      if(this.allRequestBook.length!=0)
       {
        
 
@@ -198,14 +195,13 @@ const allCartHandler = {
                   else return 1
               }
           })
-          return ApproveRequestBook
+          this.currentApproveFiltered = ApproveRequestBook
       }
            
-      return null
-    } ,
-
-  },
-  methods:{
+     else{
+      this.currentApproveFiltered = []
+     } 
+    },
    addDaysAndRound(date, days) {
   var result = new Date(date);
  result.setDate(result.getDate() + days +1);
@@ -245,7 +241,9 @@ const allCartHandler = {
     await axios.put(`http://localhost:3000/carts/${user_id}-${ISBN}`,newReq)
                    .then(()=>{console.log(`update status item :${ISBN} form cart of ${user_id}`)})
   
-   this.fetchAllRequest()
+                   setTimeout(()=>{
+                    this.fetchAllRequest()
+                  },200)
   },
   
       async fetchAllRequest(){
@@ -268,14 +266,19 @@ const allCartHandler = {
                 ...c,
                 ...cBookData
             }})
-      
+            
+            this.updateApproveFiltered()
+            this.updatePendingFiltered()
+            this.updateCurrentPageInfo()
       })
       },
       async removeCart(user_id,ISBN){
         await axios.delete(`http://localhost:3000/carts/${user_id}-${ISBN}`)
                     .then(()=>{console.log(`remove item :${ISBN} form cart `)})
         
-                   this.fetchAllRequest()
+                    setTimeout(()=>{
+                      this.fetchAllRequest()
+                    },200)
      },
   }
 
@@ -301,7 +304,10 @@ const personalCartHandler ={
       }
     },
     mounted(){
-      this.fetchCart()
+      setTimeout(()=>{
+        this.fetchCart()
+      },200)
+      
 
     },
     computed:{
@@ -373,7 +379,10 @@ const personalCartHandler ={
         await axios.delete(`http://localhost:3000/carts/${user_id}-${ISBN}`)
                     .then(()=>{console.log(`remove item :${ISBN} form cart `)})
         
-                   this.fetchCart()
+                    setTimeout(()=>{
+                      this.fetchCart()
+                    },200)
+                    
      },
     }
 }

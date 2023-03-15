@@ -3,7 +3,8 @@
         <div class="title_request">
             <h1>Request Management </h1>
             <Icon id="request_Icon_main" icon="pajamas:requirements" />
-            <div v-show="currentPendingFiltered?.length > 0" class="count_pending_request"> Remaining : {{ currentPendingFiltered?.length }} books</div>
+            <div v-show="currentPendingFiltered?.length > 0" class="count_pending_request">
+                 Remaining : {{ currentPendingFiltered?.length }} books</div>
         </div>    
         
         <div class="rm_ctn_content" v-for="(item,ind) in currentPendingFiltered" :key="ind">

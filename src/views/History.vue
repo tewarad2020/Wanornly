@@ -169,7 +169,7 @@ export default {
       }
       setTimeout(() => {
         init()
-      }, 100)
+      }, 300)
     }
 }
 </script>
