@@ -7,7 +7,7 @@
         <form @submit.prevent="CheckValidBook" class="form_add">
           <div class="Name_label">
             <label>Name</label>
-            <input :maxlength="56" type="text" v-model="BookInfo.name" placeholder="no information"/>
+            <input :maxlength="64" type="text" v-model="BookInfo.name" placeholder="no information"/>
           </div>
           <div class="ISBN_label">
             <label >ISBN</label>
