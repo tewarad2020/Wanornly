@@ -136,8 +136,9 @@ exports.delete_profile = async (req, res) => {
 
 exports.update_name = async (req, res) => {
   try {
+    // console.log('id: ', req.params.userID)
     const result = await users.findOneAndUpdate(
-      { id: req.params.id },
+      { id: req.params.userID },
       { 
         change_name: req.body.change_name,
       },

@@ -15,7 +15,9 @@
           </div>
           <div class="Author_label">  
             <label >Author</label>
-            <input :maxlength="56" type="text" v-model="BookInfo.author" placeholder="no information"/>
+            <!-- <input :maxlength="56" type="text" v-model="BookInfo.author" placeholder="no information"/> -->
+            <input :maxlength="56" type="text" v-model="BookInfo.author" list="Authorname" placeholder="no information">
+              <datalist id="Authorname"></datalist>
           </div>
           <div class="Description_label">
             <label >Description</label>
@@ -27,7 +29,9 @@
           </div>
           <div class="Publisher_label">  
             <label >Publisher</label>
-            <input type="text" v-model="BookInfo.publisher" placeholder="no information"/>
+            <!-- <input type="text" v-model="BookInfo.publisher" placeholder="no information"/> -->
+            <input :maxlength="56" type="text" v-model="BookInfo.publisher" list="Publisher" placeholder="no information">
+              <datalist id="Publisher"></datalist>
           </div>
           <div class="Amount_label">    
             <label >Amount</label>
@@ -51,24 +55,39 @@
 <script>
 import axios from 'axios'
 import { bookHandler } from '../../mixins/MixinFunction';
+// import store from './store'
+
 export default {
   name: "addBook",
   mixins:[bookHandler],
   data() {
     return {
-      // BookInfo:{
-      //   ISBN:"",
-      //   name:"",
-      //   author:"",
-      //   category:"",
-      //   book_description:"",
-      //   image:"",
-      //   publisher:"",
-      //   amount:0
-      //   }
-      }
+      alldata: [],
+    }
   },
   methods: {
+    getPublisher() {
+      this.alldata = this.$store.getters.data
+        if (this.alldata.length > 0){
+          let Publisher = document.getElementById('Publisher')
+          let options = '';
+          this.alldata.forEach(element => {
+            if (element.publisher && !options.includes(element.publisher)) options += '<option value="' + element.publisher + '" />'
+          })
+          Publisher.innerHTML = options
+        }
+    },
+    getAuthorname() {
+        this.alldata = this.$store.getters.data
+        if (this.alldata.length > 0){
+          let Authorname = document.getElementById('Authorname')
+          let options = '';
+          this.alldata.forEach(element => {
+            if (element.author && !options.includes(element.author)) options += '<option value="' + element.author + '" />'
+          })
+          Authorname.innerHTML = options
+        }
+    },
     async createBook() {
       if (this.BookInfo.name === '') this.BookInfo.name = 'no information'
       if (this.BookInfo.author === '') this.BookInfo.author = 'no information'
@@ -95,6 +114,14 @@ export default {
         this.createBook() 
       }
     }
+  },
+  mounted() {
+    let init = () => {
+      this.getAuthorname()
+      this.getPublisher()
+    }
+
+    init()
   }
 
 };

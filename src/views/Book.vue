@@ -16,7 +16,8 @@
       <div class="book_info_ctn">
         <div class="book_info">
           <div class="book_info_name"> {{ bookInfo.name }}</div>
-          <div class="book_info_author">Author | {{ bookInfo.author }}</div>
+          <div v-if="bookInfo.publisher !== 'no information'" class="book_info_author">Author | {{ bookInfo.author }} || Publisher | {{ bookInfo.publisher }}</div>
+          <div v-if="bookInfo.publisher === 'no information'" class="book_info_author">Author | {{ bookInfo.author }}</div>
           <div class="book_info_description">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ bookInfo.book_description }}</div>
         </div>

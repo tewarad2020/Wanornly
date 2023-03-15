@@ -20,7 +20,10 @@ const bookHandler ={
     methods:{
       async updateBook() {
         await  axios.put(`http://localhost:3000/books/${this.BookInfo.ISBN}`, this.BookInfo)
-            .then(response => console.log(response))
+            .then(response => {
+              console.log(response)
+              alert('update book completed')
+            })
             .catch(error => console.log(error))
             // window.location.replace('/')
         },

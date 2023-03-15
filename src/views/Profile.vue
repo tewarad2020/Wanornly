@@ -181,7 +181,7 @@ export default {
         if (detail === 'Default') {
           this.nameChange = ''
         }
-        let username = JSON.parse(localStorage.getItem('user_info'))?.username
+        let username = await JSON.parse(localStorage.getItem('user_info'))?.username
         await axios.put(`http://localhost:3000/upload/${username}`, {change_name: this.nameChange})
         .then(response => {
           console.log('response: ', response)
@@ -191,7 +191,7 @@ export default {
           // this.getName()
           setTimeout(() => {
             window.location.replace('/profile')
-          }, 10)
+          }, 20)
         })
         .catch(error => console.log(error))
       },

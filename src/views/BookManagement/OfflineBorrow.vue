@@ -212,11 +212,11 @@ export default {
     },
   },
   mounted() {
-    let innit = () => {
+    let init = () => {
         this.getUser()
     }
 
-    innit()
+    init()
   },
   watch: {
     offlineCartBooks() {
