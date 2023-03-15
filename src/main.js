@@ -4,6 +4,8 @@ import gAuthPlugin from 'vue3-google-oauth2'
 import App from './App.vue'
 import store from './store'
 
+import VueRouter from 'vue-router'
+
 // const app = createApp(App)
 const app = createApp(App).use(store)
 
@@ -20,7 +22,7 @@ const gauthOption = {
 
 // })
 
-app.use(gAuthPlugin, gauthOption)
+app.use(gAuthPlugin, gauthOption, VueRouter)
 app.use(router).mount('#app')
 
 

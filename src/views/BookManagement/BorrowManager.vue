@@ -76,7 +76,7 @@ export default {
 
         setTimeout(() => {
             init()
-        }, 200)
+        }, 290)
         
     }
 

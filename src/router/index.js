@@ -9,6 +9,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 // const Vue3GoogleOauth = inject('Vue3GoogleOauth');
 
+
 const routes = [
     {
         path: '/',
@@ -76,5 +77,16 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 })
+
+router.beforeEach((to, from, next) => {
+    // let a = false
+    
+    if (localStorage.getItem('status_login')) {
+        next()
+        console.log('status_login : hi ')
+    }else {
+        next('/')
+    }
+  })
 
 export default router

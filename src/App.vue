@@ -156,22 +156,22 @@ export default {
         }
       }
     },
-    checkLogin() {
-      // if (!this.Vue3GoogleOauth.isAuthorized) {
-      //   if (this.$route.name !== 'bookPage' && this.$route.name !== 'homePage') {
-      //     console.log('must login')
-      //     this.$router.replace({ path: '/' })
-      //   } else {
-      //     if (!this.$router.name) {
-      //       console.log(`link from: ${this.$router.name} -> to: homePage`)
-      //     } else {
-      //       console.log(`link from: ${this.$router.name} -> to: bookPage`)
-      //     }
-      //   }
-      // } else {
-      //   console.log(`link from: ${this.$router.name} (add URL)`)
-      // }
-    },
+    // checkLogin() {
+    //   if (!this.Vue3GoogleOauth.isAuthorized) {
+    //     if (this.$route.name !== 'bookPage' && this.$route.name !== 'homePage') {
+    //       console.log('must login')
+    //       this.$router.replace({ path: '/' })
+    //     } else {
+    //       if (!this.$router.name) {
+    //         console.log(`link from: ${this.$router.name} -> to: homePage`)
+    //       } else {
+    //         console.log(`link from: ${this.$router.name} -> to: bookPage`)
+    //       }
+    //     }
+    //   } else {
+    //     console.log(`link from: ${this.$router.name} (add URL)`)
+    //   }
+    // },
     close_searchbar() {
       this.variable.searchbar.classList.remove('searchbar_active')
       this.variable.searchbar.classList.add('searchbar_passive')
@@ -183,6 +183,7 @@ export default {
   },
   watch:{
     $route (){
+        // console.log('test')
         this.close_searchbar()
     }
   },
@@ -206,6 +207,12 @@ export default {
         console.log('login user: ', JSON.parse(localStorage.getItem('user_info')).username)
       }
     }, 2000)
+//     router.beforeEach((to, from) => {
+//     console.log('to: ', to)
+//     console.log('from: ', from)
+//     return false
+// })
+
   },
 
 }
