@@ -36,32 +36,32 @@
       <div class="btn_addbook" v-if="variable.user_info?.role === 'admin'? true : false" @click="showAddBook">
         <Icon id="add_book_Icon" icon="material-symbols:add-box" />
         <span class="addbook_text">Add book</span>
-        <span class="addbook_explain">use for add book to database.</span>
+        <span class="addbook_explain">add new book to the library.</span>
       </div>
       <div class="btn_request" @click="() => $router.push('/requestManager')" v-if="variable.user_info?.role === 'admin'? true : false">
         <Icon id="request_Icon" icon="pajamas:requirements" />
         <span class="request_text" >Request Management</span>
-        <span class="request_explain">use for add book to database.</span>
+        <span class="request_explain">approve/deny borrowing request.</span>
       </div>
       <div class="btn_return" @click="() => $router.push('/BorrowManager')" v-if="variable.user_info?.role === 'admin'? true : false">
         <Icon id="return_Icon" icon="material-symbols:assignment-return-outline-rounded" />
         <span class="return_text" >Return Management</span>
-        <span class="return_explain">use for add book to database.</span>
+        <span class="return_explain">manage returning.</span>
       </div>
       <div class="btn_donation" @click="() => $router.push('/donate')" >
         <Icon id="donate_Icon" icon="mdi:donate" />         
         <span class="donation_text">Donation</span>
-        <span class="donation_explain">use for add book to database.</span>
+        <span class="donation_explain">send request for e-book donation.</span>
       </div>
       <div class="btn_OfflineBorrow" @click="() => $router.push('/offlineBorrow')" v-if="variable.user_info?.role === 'admin'? true : false" >
         <Icon id="OfflineBorrow_Icon" icon="ic:outline-menu-book" />          
         <span class="OfflineBorrow_text">OfflineBorrow</span>
-        <span class="OfflineBorrow_explain">use for add book to database.</span>
+        <span class="OfflineBorrow_explain">manage borrowing directly.</span>
       </div>
       <div class="btn_Donate_Manager" @click="() => $router.push('/DonateManager')" v-if="variable.user_info?.role === 'admin'? true : false" >
         <Icon id="request_Icon2" icon="pajamas:requirements" />        
         <span class="Donate_Manager_text">Donate Manager</span>
-        <span class="Donate_Manager_explain">use for add book to database.</span>
+        <span class="Donate_Manager_explain">approve/deny donation request.</span>
       </div>
     </div>
     <!-- <div class="menu_profile_2">
@@ -293,7 +293,7 @@ export default {
 
         setTimeout(() => {
           let menu_profile_1 = document.getElementsByClassName('menu_profile_1')[0]
-          menu_profile_1.style.height = `${menu_profile_1.clientWidth * .3}px`
+          menu_profile_1.style.height = `${menu_profile_1.clientWidth * .20}px`
           let add_book_Icon = document.getElementById('add_book_Icon')
           add_book_Icon.style.width = `${add_book_Icon.clientHeight}px`
           let request_Icon = document.getElementById('request_Icon')

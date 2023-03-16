@@ -195,7 +195,7 @@ export default {
     setTimeout(() => {
       initial()
       console.log('info of book: ', this.bookInfo)
-    }, 100)
+    }, 290)
 
     if(localStorage.getItem("user_info")) {
       this.userID = JSON.parse(localStorage.getItem("user_info")).username

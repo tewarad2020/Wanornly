@@ -308,6 +308,12 @@ export default {
     watch: {
       $route() {
         this.checkShow()
+        let navbar_ctn = document.getElementsByClassName('navbar_ctn')[0]
+        if (this.$route.path == '/') {
+          navbar_ctn.style.background = 'rgba(255, 255, 255, 1)'
+        }else {
+          navbar_ctn.style.background = 'rgba(255, 255, 255, 0)'
+        }
       }
     }
 
