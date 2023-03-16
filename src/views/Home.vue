@@ -97,7 +97,7 @@
             </div> -->
       </div>
       <div class="boardcase_box">
-        <h1>Coming soon :P</h1>
+        <h1>Announcement</h1>
       </div>
       <div class="footer">
         <div>ABOUT</div>
